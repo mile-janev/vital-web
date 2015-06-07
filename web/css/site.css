@@ -90,6 +90,7 @@ a.desc:after {
     margin: 0 0 15px 0;
 }
 
+/*Main menu start*/
 .main-menu-nav {
     background: #053449;
 }
@@ -114,9 +115,10 @@ a.desc:after {
 .main-menu-nav .main-menu .dropdown-menu li > a:focus {
     color: #ffffff;
 }
-.navbar-inverse .navbar-toggle {
+.main-menu-nav .navbar-toggle {
     border-color: #215065;
 }
-.navbar-inverse .navbar-toggle:hover, .navbar-inverse .navbar-toggle:focus {
+.main-menu-nav .navbar-toggle:hover, .main-menu-nav .navbar-toggle:focus {
     background: #215065;
 }
+/*Main menu end*/
