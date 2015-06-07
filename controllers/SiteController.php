@@ -3,11 +3,15 @@
 namespace app\controllers;
 
 use Yii;
-use yii\filters\AccessControl;
 use yii\web\Controller;
 use yii\filters\VerbFilter;
 use app\models\LoginForm;
 use app\models\ContactForm;
+use app\models\User;
+use app\components\Functions;
+use yii\filters\AccessControl;
+use app\components\AccessRule;
+use app\models\Role;
 
 class SiteController extends Controller
 {
@@ -16,12 +20,27 @@ class SiteController extends Controller
         return [
             'access' => [
                 'class' => AccessControl::className(),
-                'only' => ['logout'],
+                'ruleConfig' => [
+                    'class' => AccessRule::className(),
+                ],
+                'only' => ['login', 'logout', 'register', 'contact'],
                 'rules' => [
+                    [
+                        'actions' => ['login', 'register'],
+                        'allow' => true,
+                        'roles' => ['?'],
+                    ],
                     [
                         'actions' => ['logout'],
                         'allow' => true,
                         'roles' => ['@'],
+                    ],
+                    [
+                        'actions' => ['contact'],
+                        'allow' => true,
+                        'roles' => [
+                            Role::find()->where(['name' => Role::ADMINISTRATOR])->one()
+                        ],
                     ],
                 ],
             ],
@@ -63,9 +82,26 @@ class SiteController extends Controller
             return $this->goBack();
         } else {
             return $this->render('login', [
-                'model' => $model,
+                        'model' => $model,
             ]);
         }
+    }
+    
+    public function actionRegister()
+    {
+        $model = new User();
+
+        if ($model->load(Yii::$app->request->post())) {
+            if ($user = $model->signup()) {
+                if (Yii::$app->getUser()->login($user)) {
+                    return $this->goHome();
+                }
+            }
+        }
+
+        return $this->render('register', [
+            'model' => $model,
+        ]);
     }
 
     public function actionLogout()

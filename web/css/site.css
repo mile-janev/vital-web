@@ -89,3 +89,34 @@ a.desc:after {
     padding: 10px 20px;
     margin: 0 0 15px 0;
 }
+
+.main-menu-nav {
+    background: #053449;
+}
+.main-menu {
+    
+}
+.main-menu-nav .navbar-brand {
+    color: #ffffff;
+}
+.main-menu-nav .main-menu li a {
+    color: #ffffff;
+}
+.main-menu-nav .main-menu .dropdown-menu li a {
+    color: #053449;
+}
+.main-menu-nav .main-menu > .open > a,
+.main-menu-nav .main-menu li > a:hover, 
+.main-menu-nav .main-menu > .open > a:focus {
+    background: #215065;
+}
+.main-menu-nav .main-menu .dropdown-menu li > a:hover, 
+.main-menu-nav .main-menu .dropdown-menu li > a:focus {
+    color: #ffffff;
+}
+.navbar-inverse .navbar-toggle {
+    border-color: #215065;
+}
+.navbar-inverse .navbar-toggle:hover, .navbar-inverse .navbar-toggle:focus {
+    background: #215065;
+}

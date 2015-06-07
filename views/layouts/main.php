@@ -4,9 +4,17 @@ use yii\bootstrap\Nav;
 use yii\bootstrap\NavBar;
 use yii\widgets\Breadcrumbs;
 use app\assets\AppAsset;
+use yii\helpers\Url;
+use app\components\Functions;
+use app\models\Role;
 
 /* @var $this \yii\web\View */
 /* @var $content string */
+
+$user = false;
+if (Yii::$app->user->id) {
+    $user = app\models\User::find()->where(['id' => Yii::$app->user->id])->one();
+}
 
 AppAsset::register($this);
 ?>
@@ -24,29 +32,21 @@ AppAsset::register($this);
 
 <?php $this->beginBody() ?>
     <div class="wrap">
-        <?php
-            NavBar::begin([
-                'brandLabel' => 'My Company',
-                'brandUrl' => Yii::$app->homeUrl,
-                'options' => [
-                    'class' => 'navbar-inverse navbar-fixed-top',
-                ],
-            ]);
-            echo Nav::widget([
-                'options' => ['class' => 'navbar-nav navbar-right'],
-                'items' => [
-                    ['label' => 'Home', 'url' => ['/site/index']],
-                    ['label' => 'About', 'url' => ['/site/about']],
-                    ['label' => 'Contact', 'url' => ['/site/contact']],
-                    Yii::$app->user->isGuest ?
-                        ['label' => 'Login', 'url' => ['/site/login']] :
-                        ['label' => 'Logout (' . Yii::$app->user->identity->username . ')',
-                            'url' => ['/site/logout'],
-                            'linkOptions' => ['data-method' => 'post']],
-                ],
-            ]);
-            NavBar::end();
-        ?>
+        
+        <?php if (Functions::isRole(Role::ADMINISTRATOR)) : ?>
+            <?= $this->render('_admin-header', [
+                'user' => $user
+            ]) ?>
+        <?php elseif(Functions::isRole(Role::DOCTOR)) : ?>
+            <?= $this->render('_doctor-header', [
+                'user' => $user
+            ]) ?>
+        <?php else : ?>
+        <?= $this->render('_header', [
+                'user' => $user
+            ]) ?>
+        <?php endif; ?>
+        
 
         <div class="container">
             <?= Breadcrumbs::widget([

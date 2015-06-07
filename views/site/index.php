@@ -1,6 +1,6 @@
 <?php
 /* @var $this yii\web\View */
-$this->title = 'My Yii Application';
+$this->title = 'HRS | Healthcare Record System';
 ?>
 <div class="site-index">
 
