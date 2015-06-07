@@ -108,6 +108,7 @@ a.desc:after {
 }
 .main-menu-nav .main-menu > .open > a,
 .main-menu-nav .main-menu li > a:hover, 
+.main-menu-nav .main-menu > .active > a, 
 .main-menu-nav .main-menu > .open > a:focus {
     background: #215065;
 }
@@ -121,4 +122,5 @@ a.desc:after {
 .main-menu-nav .navbar-toggle:hover, .main-menu-nav .navbar-toggle:focus {
     background: #215065;
 }
+/*.navbar-inverse .navbar-nav > .active > a, .navbar-inverse .navbar-nav > .active > a:hover, .navbar-inverse .navbar-nav > .active > a:focus*/
 /*Main menu end*/
