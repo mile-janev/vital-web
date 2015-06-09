@@ -2,11 +2,12 @@
 
 use yii\helpers\Html;
 use yii\widgets\ActiveForm;
+use yii\helpers\Url;
 
 /* @var $this yii\web\View */
 /* @var $model app\models\User */
 
-$this->title = 'Create User';
+$this->title = 'Register';
 $this->params['breadcrumbs'][] = ['label' => 'Users', 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 ?>
@@ -28,6 +29,15 @@ $this->params['breadcrumbs'][] = $this->title;
 
         <div class="form-group">
             <?= Html::submitButton('Register', ['class' => 'btn btn-primary']) ?>
+        </div>
+        
+        <div class="form-group">
+            <div class="row">
+                <div class="col-lg-12 register-login-reset-links">
+                    <a href="<?= Url::toRoute("site/login") ?>">Login</a>
+                    <a href="<?= Url::toRoute("site/password-forget") ?>">Forget your password?</a>
+                </div>
+            </div>
         </div>
 
         <?php ActiveForm::end(); ?>

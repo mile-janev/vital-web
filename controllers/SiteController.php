@@ -23,10 +23,10 @@ class SiteController extends Controller
                 'ruleConfig' => [
                     'class' => AccessRule::className(),
                 ],
-                'only' => ['login', 'logout', 'register', 'contact'],
+                'only' => ['login', 'logout', 'register', 'contact', 'password-forget'],
                 'rules' => [
                     [
-                        'actions' => ['login', 'register'],
+                        'actions' => ['login', 'register', 'password-forget'],
                         'allow' => true,
                         'roles' => ['?'],
                     ],
@@ -73,10 +73,6 @@ class SiteController extends Controller
 
     public function actionLogin()
     {
-        if (!\Yii::$app->user->isGuest) {
-            return $this->goHome();
-        }
-
         $model = new LoginForm();
         if ($model->load(Yii::$app->request->post()) && $model->login()) {
             return $this->goBack();
@@ -128,5 +124,24 @@ class SiteController extends Controller
     public function actionAbout()
     {
         return $this->render('about');
+    }
+    
+    public function actionPolicy()
+    {
+        return $this->render('policy');
+    }
+    
+    public function actionPasswordForget()
+    {
+        //Ova da se promeni komplet, so realni vrednosti
+        $model = new LoginForm();
+        
+        if ($model->load(Yii::$app->request->post()) && $model->login()) {
+            return $this->goBack();
+        } else {
+            return $this->render('password-forget', [
+                'model' => $model,
+            ]);
+        }
     }
 }

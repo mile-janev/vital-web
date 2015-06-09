@@ -24,7 +24,6 @@ body {
 }
 
 .footer {
-    height: 60px;
     background-color: #022a3b;
     padding-top: 20px;
     padding-bottom: 20px;
@@ -44,6 +43,28 @@ body {
 .not-set {
     color: #c55;
     font-style: italic;
+}
+
+h1, h2, h3, h4, h5, h6 {
+    color: #023448;
+}
+h1 {
+    
+}
+h2 {
+    
+}
+h3 {
+    
+}
+h4 {
+    
+}
+h5 {
+    
+}
+h6 {
+    
 }
 
 /* add sorting icons to gridview sort links */
@@ -105,6 +126,27 @@ a {
 a:hover, a:focus {
     color: #a40004;
 }
+.breadcrumb {
+    background-color: #dfe4e7;
+}
+.btn {
+    background-color: #ea0649;
+    border-radius: 4px;
+    -moz-border-radius: 4px;
+    -webkit-border-radius: 4px;
+    font-weight: bold;
+    background-position: 90% center;
+    background-repeat: no-repeat;
+    background-size: 8px 11px;
+    border: 0 none;
+    padding: 7px 15px 7px 15px;
+    text-shadow: none;
+    transition: background-color 0.2s ease-in 0s;
+}
+.btn:hover, .btn:focus, .btn:active, .btn.focus, .btn.active {
+    background-color: #a40004;
+    outline: none;
+}
 
 /*Default styles start*/
 .bg-red {
@@ -155,6 +197,23 @@ a:hover, a:focus {
 }
 /*Main menu end*/
 
+/*Footer start*/
+.footer-links {
+    list-style-type: none;
+    float: right;
+    margin: 0;
+    padding: 0;
+}
+.footer-links li {
+    display: inline-block;
+    padding-right: 20px;
+}
+.footer-links li a {
+    display: block;
+    color: #ffffff;
+}
+/*Footer end*/
+
 /*Tiles start*/
 .tile {
     float: left;
@@ -204,3 +263,48 @@ a:hover, a:focus {
     text-align: center;
 }
 /*Tiles end*/
+
+/*Login page start*/
+#login-form {
+    
+}
+.control-label-link {
+    text-align: left;
+}
+.register {
+    
+}
+.register-login-reset-links a {
+    padding-left: 20px;
+}
+.register-login-reset-links a:first-child {
+    padding-left: 0;
+}
+/*Login page end*/
+
+/*Only For Extra-Small xs*/
+@media (max-width: 767px) {
+    .footer-links {
+        float: left;
+        padding-top: 10px;
+    }
+}
+/*Only For Small sm*/
+@media (min-width: 768px) and (max-width: 991px) {
+    
+}
+
+/*Only For Medium md*/
+@media (min-width: 992px) and (max-width: 1199px) {
+    
+}
+
+/*Only For Large lg*/
+@media (min-width: 1200px) {
+    
+}
+
+/*Only NOT For Extra-Small xs*/
+@media (min-width: 768px) {
+    
+}

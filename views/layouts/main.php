@@ -61,8 +61,17 @@ AppAsset::register($this);
 
     <footer class="footer">
         <div class="container">
-            <div class="col-sm-12">
+            <div class="col-xs-12 col-sm-6">
                 <div class="row">&copy; Copyright 2015 by SiMYan <?= date('Y') ?>. All rights reserved.</div>
+            </div>
+            <div class="col-xs-12 col-sm-6">
+                <div class="row">
+                    <ul class="footer-links">
+                        <li><a href="<?= Url::toRoute('site/about') ?>">About</a></li>
+                        <li><a href="<?= Url::toRoute('site/cotact') ?>">Contact Us</a></li>
+                        <li><a href="<?= Url::toRoute('site/policy') ?>">Privacy Policy</a></li>
+                    </ul>
+                </div>
             </div>
         </div>
     </footer>

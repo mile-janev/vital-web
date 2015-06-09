@@ -18,16 +18,9 @@ NavBar::begin([
 echo Nav::widget([
     'options' => ['class' => 'navbar-nav navbar-right main-menu'],
     'items' => [
-        ['label' => 'Home', 'url' => ['/site/index']],
         ['label' => 'About', 'url' => ['/site/about']],
-        ['label' => 'Contact', 'url' => ['/site/contact']],
-        [
-            'label' => 'Site',
-            'items' => [
-                ['label' => 'About', 'url' => Url::toRoute("site/about")],
-                ['label' => 'Home', 'url' => Url::toRoute("site/index")],
-            ],
-        ],
+        ['label' => 'Contact us', 'url' => ['/site/contact']],
+        ['label' => 'Privacy policy', 'url' => ['/site/policy']],
         Yii::$app->user->isGuest ? ['label' => 'Register', 'url' => ['/site/register']] : "",
         Yii::$app->user->isGuest ?
                 ['label' => 'Login', 'url' => ['/site/login']] :

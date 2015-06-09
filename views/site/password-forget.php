@@ -35,7 +35,7 @@ $this->params['breadcrumbs'][] = $this->title;
     <div class="form-group">
         <div class="col-lg-offset-1 col-lg-11 register-login-reset-links">
             <a href="<?= Url::toRoute("site/register") ?>">Register</a>
-            <a href="<?= Url::toRoute("site/password-forget") ?>">Forget your password?</a>
+            <a href="<?= Url::toRoute("site/login") ?>">Login</a>
         </div>
     </div>
 
