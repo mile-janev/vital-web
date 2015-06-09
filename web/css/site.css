@@ -2,6 +2,15 @@ html,
 body {
     height: 100%;
 }
+body {
+    -webkit-font-smoothing: antialiased;
+    background-color: #edf2f5;
+    color: #023448;
+    font-family: 'Roboto', 'Arial', sans-serif;
+    font-size: 14px;
+    margin: 0px;
+    padding: 0px
+}
 
 .wrap {
     min-height: 100%;
@@ -16,9 +25,10 @@ body {
 
 .footer {
     height: 60px;
-    background-color: #f5f5f5;
-    border-top: 1px solid #ddd;
+    background-color: #022a3b;
     padding-top: 20px;
+    padding-bottom: 20px;
+    color: #ffffff;
 }
 
 .jumbotron {
@@ -89,6 +99,27 @@ a.desc:after {
     padding: 10px 20px;
     margin: 0 0 15px 0;
 }
+a {
+    color: #ea0649;
+}
+a:hover, a:focus {
+    color: #a40004;
+}
+
+/*Default styles start*/
+.bg-red {
+    background-color: #d82126;
+}
+.bg-yellow {
+    background-color: #f8991d;
+}
+.bg-blue {
+    background-color: #1455a6;
+}
+.bg-green {
+    background-color: #76a841;
+}
+/*Default styles end*/
 
 /*Main menu start*/
 .main-menu-nav {
@@ -122,5 +153,54 @@ a.desc:after {
 .main-menu-nav .navbar-toggle:hover, .main-menu-nav .navbar-toggle:focus {
     background: #215065;
 }
-/*.navbar-inverse .navbar-nav > .active > a, .navbar-inverse .navbar-nav > .active > a:hover, .navbar-inverse .navbar-nav > .active > a:focus*/
 /*Main menu end*/
+
+/*Tiles start*/
+.tile {
+    float: left;
+    width: 100%;
+    margin-bottom: 30px;
+    background-color: #ffffff;
+    border-radius: 4px;
+    -moz-border-radius: 4px;
+    -webkit-border-radius: 4px;
+}
+.tile .head {
+    float: left;
+    width: 100%;
+    padding: 10px;
+    color: #ffffff;
+    border-top-left-radius: 4px;
+    border-top-right-radius: 4px;
+    -moz-border-top-left-radius: 4px;
+    -moz-border-top-right-radius: 4px;
+    -webkit-border-top-left-radius: 4px;
+    -webkit-border-top-right-radius: 4px;
+}
+.tile .head h2 {
+    margin: 0;
+    float: left;
+    width: 100%;
+}
+.tile .head h2 span {
+    float: left;
+}
+.tile .head h2 .glyphicon {
+    
+}
+.tile .head h2 .heading {
+    padding-left: 10px;
+}
+.tile .content {
+    padding: 10px;
+    float: left;
+    width: 100%;
+}
+.tile .link {
+    padding: 10px;
+    float: left;
+    width: 100%;
+    border-top: 1px dashed #053449;
+    text-align: center;
+}
+/*Tiles end*/
