@@ -8,7 +8,6 @@ use yii\helpers\Url;
 /* @var $model app\models\User */
 
 $this->title = 'Register';
-$this->params['breadcrumbs'][] = ['label' => 'Users', 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="user-create">

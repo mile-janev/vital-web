@@ -7,7 +7,7 @@ use yii\helpers\Url;
 /* @var $form yii\bootstrap\ActiveForm */
 /* @var $model app\models\LoginForm */
 
-$this->title = 'Login';
+$this->title = 'Password Forget';
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="site-login">
