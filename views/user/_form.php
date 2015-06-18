@@ -24,5 +24,11 @@
     </div>
 
     <?php ActiveForm::end(); ?>
+    
+     <?php if (Yii::$app->session->hasFlash('profile_updated')){ ?>
+        <div class="form-group flash-successfull">
+            <?= Yii::$app->session->getFlash('profile_updated'); ?>
+        </div>
+    <?php } ?>
 
 </div>

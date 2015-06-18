@@ -7,6 +7,7 @@ use yii\web\Controller;
 use yii\filters\VerbFilter;
 use app\models\LoginForm;
 use app\models\ContactForm;
+use app\models\PasswordResetForm;
 use app\models\User;
 use app\components\Functions;
 use yii\filters\AccessControl;
@@ -133,15 +134,14 @@ class SiteController extends Controller
     
     public function actionPasswordForget()
     {
-        //Ova da se promeni komplet, so realni vrednosti
-        $model = new LoginForm();
+        $model = new PasswordResetForm();
         
-        if ($model->load(Yii::$app->request->post()) && $model->login()) {
-            return $this->goBack();
-        } else {
-            return $this->render('password-forget', [
-                'model' => $model,
-            ]);
+        if ($model->load(Yii::$app->request->post())) {
+            $model->reset();
         }
+        
+        return $this->render('password-forget', [
+            'model' => $model,
+        ]);
     }
 }

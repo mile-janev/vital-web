@@ -10,11 +10,11 @@ use yii\helpers\Url;
 $this->title = 'Password Forget';
 $this->params['breadcrumbs'][] = $this->title;
 ?>
-<div class="site-login">
+<div class="site-password-forget">
     <h1><?= Html::encode($this->title) ?></h1>
-
+        
     <?php $form = ActiveForm::begin([
-        'id' => 'login-form',
+        'id' => 'password-forget-form',
         'options' => ['class' => 'form-horizontal'],
         'fieldConfig' => [
             'template' => "{label}\n<div class=\"col-lg-3\">{input}</div>\n<div class=\"col-lg-8\">{error}</div>",
@@ -24,14 +24,12 @@ $this->params['breadcrumbs'][] = $this->title;
 
     <?= $form->field($model, 'email') ?>
 
-    <?= $form->field($model, 'password')->passwordInput() ?>
-
     <div class="form-group">
         <div class="col-lg-offset-1 col-lg-11">
-            <?= Html::submitButton('Login', ['class' => 'btn btn-primary', 'name' => 'login-button']) ?>
+            <?= Html::submitButton('Reset', ['class' => 'btn btn-primary', 'name' => 'login-button']) ?>
         </div>
     </div>
-    
+
     <div class="form-group">
         <div class="col-lg-offset-1 col-lg-11 register-login-reset-links">
             <a href="<?= Url::toRoute("site/register") ?>">Register</a>
@@ -40,4 +38,11 @@ $this->params['breadcrumbs'][] = $this->title;
     </div>
 
     <?php ActiveForm::end(); ?>
+
+    <?php if (Yii::$app->session->hasFlash('token_sent')){ ?>
+        <div class="form-group flash-successfull">
+            <?= Yii::$app->session->getFlash('token_sent'); ?>
+        </div>
+    <?php } ?>
+
 </div>

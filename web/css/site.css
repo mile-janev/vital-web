@@ -161,6 +161,20 @@ a:hover, a:focus {
 .bg-green {
     background-color: #76a841;
 }
+.flash-successfull {
+    color: #3c763d;
+    padding-left: 15px;
+    padding-top: 10px;
+    float: left;
+    width: 100%;
+}
+.flash-unsuccessfull {
+    color: #a94442;
+    padding-left: 15px;
+    padding-top: 10px;
+    float: left;
+    width: 100%;
+}
 /*Default styles end*/
 
 /*Main menu start*/

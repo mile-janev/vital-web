@@ -12,7 +12,7 @@ $config = [
             'cookieValidationKey' => 'eN-AceJ9h40aGxfIabc1JbGLDIBcZPjq',
         ],
         'cache' => [
-            'class' => 'yii\caching\FileCache',
+            'class' => 'yii\caching\DummyCache',
         ],
         'user' => [
             'identityClass' => 'app\models\User',
@@ -26,7 +26,7 @@ $config = [
             // send all mails to a file by default. You have to set
             // 'useFileTransport' to false and configure a transport
             // for the mailer to send real emails.
-            'useFileTransport' => true,
+            'useFileTransport' => FALSE,
         ],
         'log' => [
             'traceLevel' => YII_DEBUG ? 3 : 0,

@@ -28,10 +28,10 @@ class UserController extends Controller
                 'ruleConfig' => [
                     'class' => AccessRule::className(),
                 ],
-                'only' => ['create', 'update', 'index', 'delete', 'view', 'edit'],
+                'only' => ['create', 'update', 'index', 'delete', 'view', 'edit', 'resetpassword'],
                 'rules' => [
                     [
-                        'actions' => [''],
+                        'actions' => ['resetpassword'],
                         'allow' => true,
                         'roles' => ['?'],
                     ],
@@ -155,9 +155,11 @@ class UserController extends Controller
         if ($editForm->load(Yii::$app->request->post())) {
             $editForm->role_id = $user->role_id;
             if ($user = $editForm->updateMe(TRUE)) {
+                Yii::$app->session->setFlash('profile_updated', 'Profile updated.');
                 return $this->redirect(Url::toRoute('user/edit'));
+            } else {
+                return $this->goHome();
             }
-            return $this->goHome();
         }
 
         $editForm->setAttributes($user->toArray(), false);
@@ -197,4 +199,46 @@ class UserController extends Controller
             throw new NotFoundHttpException('The requested page does not exist.');
         }
     }
+    
+    public function actionResetpassword()
+    {
+        $getValues = Yii::$app->request->get();
+        $postValues = Yii::$app->request->post();
+        
+        if (!empty($postValues)) {
+            $token = $getValues['token'];
+            $model = User::find()->where(["reset_token" => $token])->one();
+            $model->password = $postValues['User']['password'];
+            $model->password_confirm = $postValues['User']['password_confirm'];
+            $model->reset_token = "";
+            $passwordUpdated = $model->update();
+            
+            if ($passwordUpdated) {
+                Yii::$app->session->setFlash('password_changed', 'Password is changed. You can login now with your new password.');
+            } else {
+                Yii::$app->session->setFlash('password_changed', 'Error. Please contact the administrator.');
+            }
+            
+            return $this->redirect(['site/login']);
+            
+        } else if (empty($postValues) && !empty($getValues) && isset($getValues['token']) && trim($getValues['token']) != '') {
+            $token = $getValues['token'];
+            $model = User::find()
+                    ->where(["reset_token" => $token])
+                    ->andWhere('updated_at > DATE_SUB(NOW(), INTERVAL 24 HOUR)')
+                    ->one();
+            if ($model) {
+                $model->password = "";
+                return $this->render('resetpassword', [
+                    'model' => $model,
+                ]);
+            } else {
+                Yii::$app->session->setFlash('token_sent', 'Token is expired or invalid. Try again.');
+                return $this->redirect(['site/password-forget']);
+            }
+        } else {
+            return $this->redirect(['site/password-forget']);
+        }        
+    }
+    
 }
