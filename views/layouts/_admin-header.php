@@ -19,10 +19,10 @@ echo Nav::widget([
     'options' => ['class' => 'navbar-nav navbar-right main-menu'],
     'items' => [
         [
-            'label' => 'Site',
+            'label' => 'Users',
             'items' => [
-                ['label' => 'About', 'url' => Url::toRoute("site/about")],
-                ['label' => 'Home', 'url' => Url::toRoute("site/index")],
+                ['label' => 'Admin', 'url' => Url::toRoute("user/index")],
+                ['label' => 'Roles', 'url' => Url::toRoute("role/index")],
             ],
         ],
         [
@@ -31,7 +31,12 @@ echo Nav::widget([
                 ['label' => 'Contact', 'url' => Url::toRoute("site/contact")],
             ],
         ],
-        ['label' => 'Test About', 'url' => ['site/about']],
+        [
+            'label' => 'Profile',
+            'items' => [
+                ['label' => 'Edit', 'url' => Url::toRoute("user/edit")],
+            ],
+        ],
         ['label' => 'Logout (' . Yii::$app->user->identity->email . ')',
             'url' => ['/site/logout'],
             'linkOptions' => ['data-method' => 'post']],

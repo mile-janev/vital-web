@@ -11,6 +11,9 @@ use yii\filters\VerbFilter;
 use app\components\Functions;
 use yii\filters\AccessControl;
 use app\components\AccessRule;
+use app\models\Role;
+use app\models\UserEditForm;
+use yii\helpers\Url;
 
 /**
  * UserController implements the CRUD actions for User model.
@@ -20,10 +23,36 @@ class UserController extends Controller
     public function behaviors()
     {
         return [
+            'access' => [
+                'class' => AccessControl::className(),
+                'ruleConfig' => [
+                    'class' => AccessRule::className(),
+                ],
+                'only' => ['create', 'update', 'index', 'delete', 'view', 'edit'],
+                'rules' => [
+                    [
+                        'actions' => [''],
+                        'allow' => true,
+                        'roles' => ['?'],
+                    ],
+                    [
+                        'actions' => ['edit'],
+                        'allow' => true,
+                        'roles' => ['@'],
+                    ],
+                    [
+                        'actions' => ['create', 'update', 'index', 'delete', 'view'],
+                        'allow' => true,
+                        'roles' => [
+                            Role::find()->where(['name' => Role::ADMINISTRATOR])->one()
+                        ],
+                    ],
+                ],
+            ],
             'verbs' => [
                 'class' => VerbFilter::className(),
                 'actions' => [
-                    'delete' => ['post'],
+                    'logout' => ['post'],
                 ],
             ],
         ];
@@ -61,17 +90,25 @@ class UserController extends Controller
      * If creation is successful, the browser will be redirected to the 'view' page.
      * @return mixed
      */
-    public function actionCreate()
+     public function actionCreate()
     {
-        $model = new User();
+        $user = new User();
 
-        if ($model->load(Yii::$app->request->post()) && $model->save()) {
-            return $this->redirect(['view', 'id' => $model->id]);
-        } else {
-            return $this->render('create', [
-                'model' => $model,
-            ]);
+        $editForm = new UserEditForm();
+
+        if ($editForm->load(Yii::$app->request->post())) {
+            if ($user = $editForm->createUser()) {
+                return $this->redirect(Url::toRoute(['user/view', 'id' => $user->id]));
+            }
+            return $this->goHome();
         }
+
+        $editForm->setAttributes($user->toArray(), false);
+
+        return $this->render('create', [
+            'model' => $editForm,
+            'user' => $user
+        ]);
     }
 
     /**
@@ -82,15 +119,54 @@ class UserController extends Controller
      */
     public function actionUpdate($id)
     {
-        $model = $this->findModel($id);
+        $user = User::find()->where(['id' => $id])->one();
 
-        if ($model->load(Yii::$app->request->post()) && $model->save()) {
-            return $this->redirect(['view', 'id' => $model->id]);
-        } else {
-            return $this->render('update', [
-                'model' => $model,
-            ]);
+        $editForm = new UserEditForm();
+        
+        if ($editForm->load(Yii::$app->request->post())) {
+            if ($user = $editForm->updateMe()) {
+                return $this->redirect(Url::toRoute(['user/view', 'id' => $user->id]));
+            }
+            return $this->goHome();
         }
+
+        $editForm->setAttributes($user->toArray(), false);
+        $editForm->password = "";
+        
+        return $this->render('update', [
+            'model' => $editForm,
+            'user' => $user
+        ]);
+    }
+    
+    /**
+     * Edit current user profile
+     * If update is successful, the browser will be redirected to the 'view' page.
+     * @param integer $id
+     * @return mixed
+     */
+    public function actionEdit()
+    {
+        $id = Yii::$app->user->id;
+        $user = User::find()->where(['id' => $id])->one();
+
+        $editForm = new UserEditForm();
+
+        if ($editForm->load(Yii::$app->request->post())) {
+            $editForm->role_id = $user->role_id;
+            if ($user = $editForm->updateMe(TRUE)) {
+                return $this->redirect(Url::toRoute('user/edit'));
+            }
+            return $this->goHome();
+        }
+
+        $editForm->setAttributes($user->toArray(), false);
+        $editForm->password = "";
+
+        return $this->render('edit', [
+            'model' => $editForm,
+            'user' => $user
+        ]);
     }
 
     /**

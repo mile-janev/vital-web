@@ -48,6 +48,7 @@ class User extends \yii\db\ActiveRecord implements IdentityInterface
             [['password', 'password_confirm', 'name', 'email'], 'string', 'max' => 128],
             [['password'], 'string', 'min' => 6],
             [['auth_key', 'reset_token'], 'string', 'max' => 32],
+            [['email'], 'email'],
             [['email'], 'unique'],
             ['password_confirm', 'compare', 'compareAttribute' => 'password'],
         ];

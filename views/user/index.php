@@ -28,12 +28,15 @@ $this->params['breadcrumbs'][] = $this->title;
             'id',
             'name',
             'email:email',
-            'password',
-            'role_id',
-            // 'created_at',
-            // 'updated_at',
-            // 'auth_key',
-            // 'reset_token',
+            'role.description',
+            [
+                'label' => Yii::t( 'app', 'Role' ),
+                'filter' => \app\models\Role::getRoleOptions(),
+                'attribute' => 'role_id',
+                'value' => function ($model, $key, $index, $column){
+                    return $model->role->description;
+                }
+            ],
 
             ['class' => 'yii\grid\ActionColumn'],
         ],

@@ -45,8 +45,8 @@ class Role extends \yii\db\ActiveRecord
     {
         return [
             'id' => 'ID',
-            'name' => 'Name',
-            'description' => 'Description',
+            'name' => 'Role shortcode',
+            'description' => 'Role',
         ];
     }
 
@@ -71,6 +71,19 @@ class Role extends \yii\db\ActiveRecord
         }
         
         return $role_id;
+    }
+    
+    public static function getRoleOptions()
+    {
+        $roles = self::find()->orderBy('id DESC')->all();
+
+        $options = [];
+
+        foreach($roles as $role) {
+            $options[$role->id] = "{$role->description}";
+        }
+
+        return $options;
     }
     
 }

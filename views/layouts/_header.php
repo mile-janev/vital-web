@@ -21,6 +21,13 @@ echo Nav::widget([
         ['label' => 'About', 'url' => ['/site/about']],
         ['label' => 'Contact us', 'url' => ['/site/contact']],
         ['label' => 'Privacy policy', 'url' => ['/site/policy']],
+        !Yii::$app->user->isGuest ? 
+        [
+            'label' => 'Profile',
+            'items' => [
+                ['label' => 'Edit', 'url' => Url::toRoute("user/edit")],
+            ],
+        ] : "",
         Yii::$app->user->isGuest ? ['label' => 'Register', 'url' => ['/site/register']] : "",
         Yii::$app->user->isGuest ?
                 ['label' => 'Login', 'url' => ['/site/login']] :
