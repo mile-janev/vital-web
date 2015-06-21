@@ -62,7 +62,7 @@ AppAsset::register($this);
     <footer class="footer">
         <div class="container">
             <div class="col-xs-12 col-sm-6">
-                <div class="row">&copy; Copyright 2015 by SiMYan <?= date('Y') ?>. All rights reserved.</div>
+                <div class="row">&copy; Copyright <?= date('Y') ?> by SiMYan. All rights reserved.</div>
             </div>
             <div class="col-xs-12 col-sm-6">
                 <div class="row">
