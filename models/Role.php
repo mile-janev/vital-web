@@ -16,8 +16,11 @@ use Yii;
 class Role extends \yii\db\ActiveRecord
 {
     const ADMINISTRATOR = 'administrator';
-    const DOCTOR = 'doctor';
     const VISITOR = 'visitor';
+    const PATIENT = 'patient';
+    const FAMILY = 'family';
+    const DOCTOR = 'doctor';
+    const NURSE = 'nurse';
     
     /**
      * @inheritdoc

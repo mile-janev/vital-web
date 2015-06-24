@@ -233,4 +233,25 @@ class User extends \yii\db\ActiveRecord implements IdentityInterface
         
         return null;
     }
+    
+    /**
+     * Finds user by role or roles array
+     *
+     * @param string/array $role
+     * @return array of users from given role/s
+     */
+    public static function findByRole($role)
+    {
+        if (is_array($role)) {
+            $roles = Role::find()->where(['IN', 'name', $role])->all();
+            $rolesArray = \yii\helpers\ArrayHelper::map($roles, 'id', 'id');
+            $users = self::find()->where(['IN', 'role_id', $rolesArray])->all();
+        } else {
+            $role = Role::find()->where(['name' => $role])->one();
+            $users = self::find()->where(['role_id' => $role->id])->all();
+        }
+        
+        
+        return $users;
+    }
 }

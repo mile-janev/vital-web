@@ -28,7 +28,6 @@ $this->params['breadcrumbs'][] = $this->title;
             'id',
             'name',
             'email:email',
-            'role.description',
             [
                 'label' => Yii::t( 'app', 'Role' ),
                 'filter' => \app\models\Role::getRoleOptions(),

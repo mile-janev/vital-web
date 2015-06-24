@@ -147,6 +147,17 @@ a:hover, a:focus {
     background-color: #a40004;
     outline: none;
 }
+.required {
+    
+}
+.required label {
+    
+}
+.required label:after {
+    content: "*";
+    color: #ff0000;
+    padding-left: 3px;
+}
 
 /*Default styles start*/
 .bg-red {

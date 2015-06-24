@@ -22,9 +22,11 @@ echo Nav::widget([
             'label' => 'Users',
             'items' => [
                 ['label' => 'Admin', 'url' => Url::toRoute("user/index")],
+                ['label' => 'Connections', 'url' => Url::toRoute("connection/index")],
                 ['label' => 'Roles', 'url' => Url::toRoute("role/index")],
             ],
         ],
+        ['label' => 'Medications', 'url' => ['/medication/index']],
         [
             'label' => 'Other',
             'items' => [
