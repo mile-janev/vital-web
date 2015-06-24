@@ -6,7 +6,7 @@ use yii\widgets\DetailView;
 /* @var $this yii\web\View */
 /* @var $model app\models\Connection */
 
-$this->title = $model->user_id;
+$this->title = $model->user->name . " <-> " . $this->title = $model->patient->name;
 $this->params['breadcrumbs'][] = ['label' => 'Connections', 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 ?>
@@ -28,8 +28,16 @@ $this->params['breadcrumbs'][] = $this->title;
     <?= DetailView::widget([
         'model' => $model,
         'attributes' => [
-            'user_id',
-            'patient_id',
+            [
+                'label' => Yii::t( 'app', 'User' ),
+                'format'  => 'raw', 
+                'value' => $model->user->name,
+            ],
+            [
+                'label' => Yii::t( 'app', 'Patient' ),
+                'format'  => 'raw', 
+                'value' => $model->patient->name,
+            ],
         ],
     ]) ?>
 

@@ -30,7 +30,8 @@ class Connection extends \yii\db\ActiveRecord
     {
         return [
             [['user_id', 'patient_id'], 'required'],
-            [['user_id', 'patient_id'], 'integer']
+            [['user_id', 'patient_id'], 'integer'],
+            [['user_id', 'patient_id'], 'unique', 'targetAttribute' => ['user_id', 'patient_id'], 'message' => 'Already connected!']
         ];
     }
 
