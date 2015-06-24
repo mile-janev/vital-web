@@ -7,7 +7,7 @@ use yii\grid\GridView;
 /* @var $searchModel app\models\ConnectionSearch */
 /* @var $dataProvider yii\data\ActiveDataProvider */
 
-$this->title = 'Connection';
+$this->title = 'Connections';
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="connection-index">
@@ -25,23 +25,8 @@ $this->params['breadcrumbs'][] = $this->title;
         'columns' => [
             ['class' => 'yii\grid\SerialColumn'],
 
-            'id',
-            [
-                'label' => Yii::t( 'app', 'User' ),
-                'format' => 'raw',
-                'attribute' => 'user_id',
-                'value' => function ( $data ) {
-                    return "<a href='".yii\helpers\Url::toRoute(['user/view', 'id'=>$data->user_id])."'>"."(".$data->user_id.") ".$data->user->name."</a>";
-                },
-            ],
-            [
-                'label' => Yii::t( 'app', 'Patient' ),
-                'format' => 'raw',
-                'attribute' => 'patient_id',
-                'value' => function ( $data ) {
-                    return "<a href='".yii\helpers\Url::toRoute(['user/view', 'id'=>$data->patient_id])."'>"."(".$data->patient_id.") ".$data->patient->name."</a>";
-                },
-            ],
+            'user_id',
+            'patient_id',
 
             ['class' => 'yii\grid\ActionColumn'],
         ],

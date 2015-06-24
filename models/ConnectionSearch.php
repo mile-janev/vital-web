@@ -18,7 +18,7 @@ class ConnectionSearch extends Connection
     public function rules()
     {
         return [
-            [['id', 'user_id', 'patient_id'], 'integer'],
+            [['user_id', 'patient_id'], 'integer'],
         ];
     }
 
@@ -55,7 +55,6 @@ class ConnectionSearch extends Connection
         }
 
         $query->andFilterWhere([
-            'id' => $this->id,
             'user_id' => $this->user_id,
             'patient_id' => $this->patient_id,
         ]);

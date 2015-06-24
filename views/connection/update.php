@@ -5,9 +5,9 @@ use yii\helpers\Html;
 /* @var $this yii\web\View */
 /* @var $model app\models\Connection */
 
-$this->title = 'Update Connection: ' . ' ' . $model->id;
+$this->title = 'Update Connection: ' . ' ' . $model->user_id;
 $this->params['breadcrumbs'][] = ['label' => 'Connections', 'url' => ['index']];
-$this->params['breadcrumbs'][] = ['label' => $model->id, 'url' => ['view', 'id' => $model->id]];
+$this->params['breadcrumbs'][] = ['label' => $model->user_id, 'url' => ['view', 'user_id' => $model->user_id, 'patient_id' => $model->patient_id]];
 $this->params['breadcrumbs'][] = 'Update';
 ?>
 <div class="connection-update">
