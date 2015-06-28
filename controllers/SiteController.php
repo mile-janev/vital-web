@@ -127,9 +127,9 @@ class SiteController extends Controller
         return $this->render('about');
     }
     
-    public function actionPolicy()
+    public function actionPrivacy()
     {
-        return $this->render('policy');
+        return $this->render('privacy');
     }
     
     public function actionPasswordForget()

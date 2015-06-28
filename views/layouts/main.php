@@ -68,8 +68,8 @@ AppAsset::register($this);
                 <div class="row">
                     <ul class="footer-links">
                         <li><a href="<?= Url::toRoute('site/about') ?>">About</a></li>
-                        <li><a href="<?= Url::toRoute('site/cotact') ?>">Contact Us</a></li>
-                        <li><a href="<?= Url::toRoute('site/policy') ?>">Privacy Policy</a></li>
+                        <li><a href="<?= Url::toRoute('site/contact') ?>">Contact Us</a></li>
+                        <li><a href="<?= Url::toRoute('site/privacy') ?>">Privacy Policy</a></li>
                     </ul>
                 </div>
             </div>

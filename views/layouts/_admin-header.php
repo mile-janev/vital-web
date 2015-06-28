@@ -28,12 +28,6 @@ echo Nav::widget([
         ],
         ['label' => 'Medications', 'url' => ['/medication/index']],
         [
-            'label' => 'Other',
-            'items' => [
-                ['label' => 'Contact', 'url' => Url::toRoute("site/contact")],
-            ],
-        ],
-        [
             'label' => 'Profile',
             'items' => [
                 ['label' => 'Edit', 'url' => Url::toRoute("user/edit")],
