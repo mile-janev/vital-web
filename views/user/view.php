@@ -35,6 +35,11 @@ $this->params['breadcrumbs'][] = $this->title;
             'created_at',
             'updated_at',
             'reset_token',
+            [
+                'label' => Yii::t( 'app', 'Image' ),
+                'format'  => 'raw', 
+                'value' => ($model->image) ? "<img src='/pics".$model->image."' height='50' />" : NULL,
+            ],
         ],
     ]) ?>
 

@@ -5,6 +5,7 @@ namespace app\models;
 use Yii;
 use yii\base\Model;
 use app\models\User;
+use yii\imagine\Image;
 
 /**
  * This is the model class for table "user".
@@ -31,6 +32,7 @@ class UserEditForm extends Model
     public $password;
     public $password_confirm;
     public $role_id;
+    public $image = NULL;
 
     private $user;
 
@@ -43,6 +45,7 @@ class UserEditForm extends Model
             [['name', 'email', 'role_id'], 'required'],
             [['id', 'role_id'], 'integer'],
             [['auth_key', 'reset_token'], 'string', 'max' => 32],
+            [['image'], 'string', 'max' => 255],
             [['email'], 'email'],
             [['email'], 'unique'],
             [['password', 'password_confirm'], 'required', 'when' => function($model) {
@@ -58,7 +61,25 @@ class UserEditForm extends Model
     public function updateMe($ownProfile=FALSE)
     {
         $this->user = $this->getUser();
-
+        
+        $ds = DIRECTORY_SEPARATOR; // different when using windows 
+        $pics_directory = \Yii::$app->basePath . $ds . 'web' . $ds . 'pics';
+        $users_directory = $pics_directory . $ds . 'user';
+        $userFile = $users_directory . $ds . $this->id.".jpg";
+        
+        if (!file_exists($pics_directory)) {
+            mkdir($pics_directory, 0777);
+        }
+        if (!file_exists($users_directory)) {
+            mkdir($users_directory, 0777);
+        }
+        
+        if ($_FILES['UserEditForm']["tmp_name"]['image']) {
+            Image::thumbnail($_FILES['UserEditForm']["tmp_name"]['image'], 180, 180)
+                    ->save($userFile, ['quality' => 50]);
+            $this->image = "/user/".$this->id.".jpg";
+        }
+        
         $this->saveMe($ownProfile);
 
         return $this->user;
@@ -83,6 +104,7 @@ class UserEditForm extends Model
         $this->user->name = $this->name;
         $this->user->email = $this->email;
         $this->user->role_id = $this->role_id;
+        $this->user->image = $this->image;
 
         if ($this->password) {
             $this->user->password = $this->password;

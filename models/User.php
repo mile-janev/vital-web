@@ -44,8 +44,9 @@ class User extends \yii\db\ActiveRecord implements IdentityInterface
         return [
             [['name', 'email', 'password', 'password_confirm'], 'required'],
             [['role_id'], 'integer'],
-            [['created_at', 'updated_at', 'last_login'], 'safe'],
+            [['image', 'created_at', 'updated_at', 'last_login'], 'safe'],
             [['password', 'password_confirm', 'name', 'email'], 'string', 'max' => 128],
+            [['image'], 'string', 'max' => 255],
             [['password'], 'string', 'min' => 6],
             [['auth_key', 'reset_token'], 'string', 'max' => 32],
             [['email'], 'email'],
@@ -71,6 +72,7 @@ class User extends \yii\db\ActiveRecord implements IdentityInterface
             'last_login' => 'Last Login',
             'auth_key' => 'Auth Key',
             'reset_token' => 'Reset Token',
+            'image' => 'Image',
         ];
     }
     

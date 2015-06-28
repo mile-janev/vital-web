@@ -19,7 +19,9 @@
         "yiisoft/yii2-bootstrap": "*",
         "yiisoft/yii2-swiftmailer": "*",
         "zxbodya/yii2-tinymce": "*@dev",
-        "zxbodya/yii2-elfinder": "*@dev"
+        "zxbodya/yii2-elfinder": "*@dev",
+        "kartik-v/yii2-widget-fileinput": "@dev",
+        "yiisoft/yii2-imagine": "^2.0"
     },
     "require-dev": {
         "yiisoft/yii2-codeception": "*",
