@@ -18,19 +18,8 @@ NavBar::begin([
 echo Nav::widget([
     'options' => ['class' => 'navbar-nav navbar-right main-menu'],
     'items' => [
-        [
-            'label' => 'Site',
-            'items' => [
-                ['label' => 'About', 'url' => Url::toRoute("site/about")],
-                ['label' => 'Home', 'url' => Url::toRoute("site/index")],
-            ],
-        ],
-        [
-            'label' => 'Other',
-            'items' => [
-                ['label' => 'Contact', 'url' => Url::toRoute("site/contact")],
-            ],
-        ],
+        ['label' => 'Patients', 'url' => Url::toRoute("user/patients")],
+        ['label' => 'Medications', 'url' => ['/medication/index']],
         [
             'label' => 'Profile',
             'items' => [

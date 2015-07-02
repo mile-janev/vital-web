@@ -28,7 +28,7 @@ class UserController extends Controller
                 'ruleConfig' => [
                     'class' => AccessRule::className(),
                 ],
-                'only' => ['create', 'update', 'index', 'delete', 'view', 'edit', 'resetpassword'],
+                'only' => ['create', 'update', 'index', 'delete', 'view', 'edit', 'resetpassword', 'patients'],
                 'rules' => [
                     [
                         'actions' => ['resetpassword'],
@@ -39,6 +39,14 @@ class UserController extends Controller
                         'actions' => ['edit'],
                         'allow' => true,
                         'roles' => ['@'],
+                    ],
+                    [
+                        'actions' => ['patients'],
+                        'allow' => true,
+                        'roles' => [
+                            Role::find()->where(['name' => Role::DOCTOR])->one(),
+                            Role::find()->where(['name' => Role::NURSE])->one()
+                        ],
                     ],
                     [
                         'actions' => ['create', 'update', 'index', 'delete', 'view'],
@@ -72,6 +80,24 @@ class UserController extends Controller
             'dataProvider' => $dataProvider,
         ]);
     }
+    
+    /**
+     * Lists all Patients for given doctor/nurse.
+     * @return mixed
+     */
+    public function actionPatients()
+    {
+        $searchModel = new UserSearch();
+        $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
+        $user = User::find()->where(['id' => \Yii::$app->user->id])->one();
+//        var_dump($dataProvider->getModels());
+//        var_dump($user->connection);
+//        exit();
+        return $this->render('patients', [
+            'searchModel' => $searchModel,
+            'dataProvider' => $dataProvider,
+        ]);
+    }
 
     /**
      * Displays a single User model.
@@ -81,6 +107,18 @@ class UserController extends Controller
     public function actionView($id)
     {
         return $this->render('view', [
+            'model' => $this->findModel($id),
+        ]);
+    }
+    
+    /**
+     * Displays a single User model.
+     * @param integer $id
+     * @return mixed
+     */
+    public function actionPatient($id)
+    {
+        return $this->render('patient', [
             'model' => $this->findModel($id),
         ]);
     }

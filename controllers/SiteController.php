@@ -24,7 +24,7 @@ class SiteController extends Controller
                 'ruleConfig' => [
                     'class' => AccessRule::className(),
                 ],
-                'only' => ['login', 'logout', 'register', 'contact', 'password-forget'],
+                'only' => ['login', 'logout', 'register', 'password-forget'],
                 'rules' => [
                     [
                         'actions' => ['login', 'register', 'password-forget'],
@@ -37,7 +37,7 @@ class SiteController extends Controller
                         'roles' => ['@'],
                     ],
                     [
-                        'actions' => ['contact'],
+                        'actions' => [],
                         'allow' => true,
                         'roles' => [
                             Role::find()->where(['name' => Role::ADMINISTRATOR])->one()

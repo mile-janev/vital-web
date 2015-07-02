@@ -141,6 +141,14 @@ class User extends \yii\db\ActiveRecord implements IdentityInterface
     }
     
     /**
+     * @return \yii\db\ActiveQuery
+     */
+    public function getConnection()
+    {
+        return $this->hasMany(Connection::className(), ['user_id' => 'id']);
+    }
+    
+    /**
      * Finds user by email
      *
      * @param  string      $email

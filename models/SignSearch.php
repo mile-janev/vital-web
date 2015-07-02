@@ -5,12 +5,12 @@ namespace app\models;
 use Yii;
 use yii\base\Model;
 use yii\data\ActiveDataProvider;
-use app\models\User;
+use app\models\Sign;
 
 /**
- * UserSearch represents the model behind the search form about `app\models\User`.
+ * SignSearch represents the model behind the search form about `app\models\Sign`.
  */
-class UserSearch extends User
+class SignSearch extends Sign
 {
     /**
      * @inheritdoc
@@ -18,8 +18,8 @@ class UserSearch extends User
     public function rules()
     {
         return [
-            [['id', 'role_id'], 'integer'],
-            [['name', 'email', 'password', 'created_at', 'updated_at', 'auth_key', 'reset_token'], 'safe'],
+            [['id'], 'integer'],
+            [['name', 'alias'], 'safe'],
         ];
     }
 
@@ -41,7 +41,7 @@ class UserSearch extends User
      */
     public function search($params)
     {
-        $query = User::find();
+        $query = Sign::find();
 
         $dataProvider = new ActiveDataProvider([
             'query' => $query,
@@ -54,28 +54,13 @@ class UserSearch extends User
             // $query->where('0=1');
             return $dataProvider;
         }
-        
-        $user = User::find()->where(['id' => \Yii::$app->user->id])->one();
-        if ($user->role->name !== Role::ADMINISTRATOR) {
-            $con_ids = [];
-            foreach ($user->connection as $con) {
-                $con_ids[] = $con->patient_id;
-            }
-            $query->andFilterWhere(['IN', 'id', $con_ids]);
-        }
 
         $query->andFilterWhere([
             'id' => $this->id,
-            'role_id' => $this->role_id,
-            'created_at' => $this->created_at,
-            'updated_at' => $this->updated_at,
         ]);
 
         $query->andFilterWhere(['like', 'name', $this->name])
-            ->andFilterWhere(['like', 'email', $this->email])
-            ->andFilterWhere(['like', 'password', $this->password])
-            ->andFilterWhere(['like', 'auth_key', $this->auth_key])
-            ->andFilterWhere(['like', 'reset_token', $this->reset_token]);
+            ->andFilterWhere(['like', 'alias', $this->alias]);
 
         return $dataProvider;
     }

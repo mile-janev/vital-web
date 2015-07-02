@@ -20,7 +20,7 @@ echo Nav::widget([
     'items' => [
         ['label' => 'About', 'url' => ['/site/about']],
         ['label' => 'Contact us', 'url' => ['/site/contact']],
-        ['label' => 'Privacy policy', 'url' => ['/site/policy']],
+        ['label' => 'Privacy policy', 'url' => ['/site/privacy']],
         !Yii::$app->user->isGuest ? 
         [
             'label' => 'Profile',
