@@ -28,7 +28,7 @@ class UserController extends Controller
                 'ruleConfig' => [
                     'class' => AccessRule::className(),
                 ],
-                'only' => ['create', 'update', 'index', 'delete', 'view', 'edit', 'resetpassword', 'patients'],
+                'only' => ['create', 'update', 'index', 'delete', 'edit', 'resetpassword', 'patients'],
                 'rules' => [
                     [
                         'actions' => ['resetpassword'],
@@ -49,7 +49,7 @@ class UserController extends Controller
                         ],
                     ],
                     [
-                        'actions' => ['create', 'update', 'index', 'delete', 'view'],
+                        'actions' => ['create', 'update', 'index', 'delete'],
                         'allow' => true,
                         'roles' => [
                             Role::find()->where(['name' => Role::ADMINISTRATOR])->one()
@@ -118,8 +118,10 @@ class UserController extends Controller
      */
     public function actionPatient($id)
     {
+        $model = $this->findModel($id);
+        
         return $this->render('patient', [
-            'model' => $this->findModel($id),
+            'model' => $model,
         ]);
     }
 
@@ -277,6 +279,15 @@ class UserController extends Controller
         } else {
             return $this->redirect(['site/password-forget']);
         }        
+    }
+    
+    public function actionPatientUpdate($id)
+    {
+        $user = User::find()->where(['id' => $id])->one();
+
+        return $this->render('patient_update', [
+            'user' => $user
+        ]);
     }
     
 }

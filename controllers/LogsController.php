@@ -3,17 +3,16 @@
 namespace app\controllers;
 
 use Yii;
-use app\models\Medication;
-use app\models\MedicationSearch;
+use app\models\Logs;
+use app\models\LogsSearch;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
-use app\models\User;
 
 /**
- * MedicationController implements the CRUD actions for Medication model.
+ * LogsController implements the CRUD actions for Logs model.
  */
-class MedicationController extends Controller
+class LogsController extends Controller
 {
     public function behaviors()
     {
@@ -28,12 +27,12 @@ class MedicationController extends Controller
     }
 
     /**
-     * Lists all Medication models.
+     * Lists all Logs models.
      * @return mixed
      */
     public function actionIndex()
     {
-        $searchModel = new MedicationSearch();
+        $searchModel = new LogsSearch();
         $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
 
         return $this->render('index', [
@@ -43,8 +42,8 @@ class MedicationController extends Controller
     }
 
     /**
-     * Displays a single Medication model.
-     * @param string $id
+     * Displays a single Logs model.
+     * @param integer $id
      * @return mixed
      */
     public function actionView($id)
@@ -55,13 +54,13 @@ class MedicationController extends Controller
     }
 
     /**
-     * Creates a new Medication model.
+     * Creates a new Logs model.
      * If creation is successful, the browser will be redirected to the 'view' page.
      * @return mixed
      */
     public function actionCreate()
     {
-        $model = new Medication();
+        $model = new Logs();
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
             return $this->redirect(['view', 'id' => $model->id]);
@@ -73,9 +72,9 @@ class MedicationController extends Controller
     }
 
     /**
-     * Updates an existing Medication model.
+     * Updates an existing Logs model.
      * If update is successful, the browser will be redirected to the 'view' page.
-     * @param string $id
+     * @param integer $id
      * @return mixed
      */
     public function actionUpdate($id)
@@ -92,9 +91,9 @@ class MedicationController extends Controller
     }
 
     /**
-     * Deletes an existing Medication model.
+     * Deletes an existing Logs model.
      * If deletion is successful, the browser will be redirected to the 'index' page.
-     * @param string $id
+     * @param integer $id
      * @return mixed
      */
     public function actionDelete($id)
@@ -105,44 +104,18 @@ class MedicationController extends Controller
     }
 
     /**
-     * Finds the Medication model based on its primary key value.
+     * Finds the Logs model based on its primary key value.
      * If the model is not found, a 404 HTTP exception will be thrown.
-     * @param string $id
-     * @return Medication the loaded model
+     * @param integer $id
+     * @return Logs the loaded model
      * @throws NotFoundHttpException if the model cannot be found
      */
     protected function findModel($id)
     {
-        if (($model = Medication::findOne($id)) !== null) {
+        if (($model = Logs::findOne($id)) !== null) {
             return $model;
         } else {
             throw new NotFoundHttpException('The requested page does not exist.');
         }
     }
-    
-    /**
-     * Creates a new Medication model.
-     * If creation is successful, the browser will be redirected to the 'view' page.
-     * @return mixed
-     */
-    public function actionAddMedication()
-    {
-        $model = new Medication();
-        
-        $params = Yii::$app->request->get();
-        
-        $patient = User::find()->where(["id" => $params["patient_id"]])->one();
-        $doctorNurse = User::find()->where(["id" => $params["dn_id"]])->one();
-
-        if ($model->load(Yii::$app->request->post()) && $model->save()) {
-            return $this->redirect(['view', 'id' => $model->id]);
-        } else {
-            return $this->render('add_medication', [
-                'model' => $model,
-                'patient' => $patient,
-                'doctorNurse' => $doctorNurse
-            ]);
-        }
-    }
-    
 }

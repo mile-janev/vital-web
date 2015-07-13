@@ -19,7 +19,6 @@ echo Nav::widget([
     'options' => ['class' => 'navbar-nav navbar-right main-menu'],
     'items' => [
         ['label' => 'Patients', 'url' => Url::toRoute("user/patients")],
-        ['label' => 'Medications', 'url' => ['/medication/index']],
         [
             'label' => 'Profile',
             'items' => [

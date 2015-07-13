@@ -149,6 +149,14 @@ class User extends \yii\db\ActiveRecord implements IdentityInterface
     }
     
     /**
+     * @return \yii\db\ActiveQuery
+     */
+    public function getPatientConnection()
+    {
+        return $this->hasMany(Connection::className(), ['patient_id' => 'id']);
+    }
+    
+    /**
      * Finds user by email
      *
      * @param  string      $email
@@ -263,5 +271,18 @@ class User extends \yii\db\ActiveRecord implements IdentityInterface
         
         
         return $users;
+    }
+    
+    public static function patientDoctorNurse($patient_id, $dn_id)
+    {
+        $isDN = FALSE;
+        
+        $con = Connection::find()->where(["user_id" => $dn_id, "patient_id" => $patient_id])->one();
+
+        if ($con && ($con->user->role->name == Role::DOCTOR || $con->user->role->name == Role::NURSE)) {
+            $isDN = TRUE;
+        }
+        
+        return $isDN;
     }
 }

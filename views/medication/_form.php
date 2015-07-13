@@ -22,9 +22,14 @@ $patients = User::findByRole(Role::PATIENT);
 
     <?= $form->field($model, 'name')->textInput(['maxlength' => true]) ?>
 
-    <?= $form->field($model, 'strength')->textInput(['maxlength' => true]) ?>
-
-    <?= $form->field($model, 'strength_measure')->dropDownList(\app\models\Medication::measurements()) ?>
+    <div class="form-group field-medication-strength-measure row">
+        <div class="col-xs-8">
+            <?= $form->field($model, 'strength')->textInput(['maxlength' => true]) ?>
+        </div>
+        <div class="col-xs-4">
+            <?= $form->field($model, 'strength_measure')->dropDownList(\app\models\Medication::measurements()) ?>
+        </div>
+    </div>
 
     <?= $form->field($model, 'schedule')->textarea(['rows' => 6])->widget(TinyMce::className(),
     [

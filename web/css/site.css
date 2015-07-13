@@ -12,6 +12,10 @@ body {
     padding: 0px
 }
 
+.row {
+    margin-bottom: 20px;
+}
+
 .wrap {
     min-height: 100%;
     height: auto;
@@ -186,6 +190,51 @@ a:hover, a:focus {
     float: left;
     width: 100%;
 }
+
+a.alarm-link {
+    text-decoration: none;
+}
+.alarm {
+    display: block;
+    color: #ffffff;
+    padding: 20px 20px 20px 52px;
+    background: url("../images/info.png") no-repeat 20px 50%;
+    border-radius: 4px;
+    -moz-border-radius: 4px;
+    -webkit-border-radius: 4px;
+    -webkit-animation: alarm 1s infinite alternate;
+    -moz-animation: alarm 1s infinite alternate;  
+    -ms-animation: alarm 1s infinite alternate;  
+    -o-animation: alarm 1s infinite alternate;
+    animation: alarm 1s infinite alternate;   
+}
+
+@-webkit-keyframes alarm {
+    from { background-color: #053449; }
+    to { background-color: #d82126; }
+}
+@-moz-keyframes alarm {
+    from { background-color: #053449; }
+    to { background-color: #d82126; }
+}
+@-ms-keyframes alarm {
+    from { background-color: #053449; }
+    to { background-color: #d82126; }
+}
+@-o-keyframes alarm {
+    from { background-color: #053449; }
+    to { background-color: #d82126; }
+}
+@keyframes alarm {
+    from { background-color: #053449; }
+    to { background-color: #d82126; }
+}
+.hide {
+    display: none;
+}
+.show {
+    display: block;
+}
 /*Default styles end*/
 
 /*Main menu start*/
@@ -307,6 +356,46 @@ a:hover, a:focus {
     padding-left: 0;
 }
 /*Login page end*/
+
+/*Patient single page start*/
+.patient-view {
+    
+}
+.patient-view .row {
+    
+}
+.patient-header {
+    
+}
+.patient-header h1 {
+    margin-top: 5px;
+    margin-bottom: 0;
+}
+.patient-signs {
+    
+}
+.patient-medications {
+    
+}
+.patient-connections {
+    
+}
+.patient-connection {
+    
+}
+.patient-connection li {
+    
+}
+.patient-connection li a {
+    
+}
+.medication-create-dn .field-medication-patient_id {
+    display: none;
+}
+.medication-create-dn .field-medication-prescribed_by_id {
+    display: none;
+}
+/*Patient single page end*/
 
 /*Only For Extra-Small xs*/
 @media (max-width: 767px) {
