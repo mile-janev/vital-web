@@ -158,27 +158,33 @@ $register = Url::toRoute(['site/register']);
         </div>
     </div>
     
+<?php if (count($model->medications) > 0) { ?>
     <div class="row patient-medications">
-        <div class="col-xs-12">
-            All medications for this patient listed here.
-        </div>
-    </div>
-    
-    <div class="row patient-connections">
-        <div class="col-xs-12">
-            <h4>Patient connections</h4>
-        </div>
-        <?php foreach ($model->patientConnection as $con) { ?>
+        <?php foreach ($model->medications as $medication) { ?>
             <div class="col-xs-12">
-                <ul class="patient-connection">
-                    <li>
-                        <a href="<?php echo Url::toRoute(["user/view", "id" => $con->user->id]) ?>"><?php echo $con->user->name ?></a>,
-                        <a href="mailto: <?php echo $con->user->email ?>"><?php echo $con->user->email ?></a>,
-                        <span><?php echo $con->user->role->description ?></span>
-                    </li>
-                </ul>
+                All medications for this patient listed here.
             </div>
         <?php } ?>
     </div>
+<?php } ?>
+    
+<?php if (count($model->patientConnection) > 0) { ?>
+<div class="row patient-connections">
+    <div class="col-xs-12">
+        <h4>Patient connections</h4>
+    </div>
+    <?php foreach ($model->patientConnection as $con) { ?>
+        <div class="col-xs-12">
+            <ul class="patient-connection">
+                <li>
+                    <a href="<?php echo Url::toRoute(["user/view", "id" => $con->user->id]) ?>"><?php echo $con->user->name ?></a>,
+                    <a href="mailto: <?php echo $con->user->email ?>"><?php echo $con->user->email ?></a>,
+                    <span><?php echo $con->user->role->description ?></span>
+                </li>
+            </ul>
+        </div>
+    <?php } ?>
+</div>
+<?php } ?>
 
 </div>

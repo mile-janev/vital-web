@@ -143,6 +143,14 @@ class User extends \yii\db\ActiveRecord implements IdentityInterface
     /**
      * @return \yii\db\ActiveQuery
      */
+    public function getMedications()
+    {
+        return $this->hasMany(Medication::className(), ['patient_id' => 'id']);
+    }
+    
+    /**
+     * @return \yii\db\ActiveQuery
+     */
     public function getConnection()
     {
         return $this->hasMany(Connection::className(), ['user_id' => 'id']);
