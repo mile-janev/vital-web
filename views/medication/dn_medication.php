@@ -7,8 +7,12 @@ use zxbodya\yii2\tinymce\TinyMce;
 /* @var $this yii\web\View */
 /* @var $model app\models\Medication */
 
-$this->title = 'Add Medication';
-$this->params['breadcrumbs'][] = ['label' => 'Medications', 'url' => ['index']];
+if ($model->isNewRecord) {
+    $this->title = 'Add Medication';
+} else {
+    $this->title = 'Update Medication';
+}
+
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="medication-create-dn">
@@ -28,7 +32,7 @@ $this->params['breadcrumbs'][] = $this->title;
                 <?= $form->field($model, 'strength')->textInput(['maxlength' => true]) ?>
             </div>
             <div class="col-xs-4">
-                <?= $form->field($model, 'strength_measure')->dropDownList(\app\models\Medication::measurements()) ?>
+                <?= $form->field($model, 'strength_measure')->dropDownList(\app\models\Medication::measurements())->label("") ?>
             </div>
         </div>
 

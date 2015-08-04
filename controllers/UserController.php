@@ -14,6 +14,7 @@ use app\components\AccessRule;
 use app\models\Role;
 use app\models\UserEditForm;
 use yii\helpers\Url;
+use app\models\Logs;
 
 /**
  * UserController implements the CRUD actions for User model.
@@ -120,8 +121,33 @@ class UserController extends Controller
     {
         $model = $this->findModel($id);
         
+        $heartRate = Logs::find()
+                ->where(["sign" => "heart_rate", "user_id" => $id])
+                ->orderBy("created_at DESC")
+                ->limit(3)
+                ->all();
+        $blodPressure = Logs::find()
+                ->where(["sign" => "pressure", "user_id" => $id])
+                ->orderBy("created_at DESC")
+                ->limit(3)
+                ->all();
+        $temperature = Logs::find()
+                ->where(["sign" => "temperature", "user_id" => $id])
+                ->orderBy("created_at DESC")
+                ->limit(3)
+                ->all();
+        $weight = Logs::find()
+                ->where(["sign" => "weight", "user_id" => $id])
+                ->orderBy("created_at DESC")
+                ->limit(3)
+                ->all();
+        
         return $this->render('patient', [
             'model' => $model,
+            'heartRate' => $heartRate,
+            'blodPressure' => $blodPressure,
+            'temperature' => $temperature,
+            'weight' => $weight,
         ]);
     }
 

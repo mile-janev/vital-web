@@ -38,7 +38,7 @@ class Medication extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['rx_number', 'name', 'patient_id', 'prescribed_by_id'], 'required'],
+            [['rx_number', 'name', 'strength', 'schedule', 'patient_id', 'prescribed_by_id'], 'required'],
             [['strength', 'patient_id', 'prescribed_by_id'], 'integer'],
             [['schedule', 'note'], 'string'],
             [['created_at', 'updated_at'], 'safe'],

@@ -146,6 +146,7 @@ a:hover, a:focus {
     padding: 7px 15px 7px 15px;
     text-shadow: none;
     transition: background-color 0.2s ease-in 0s;
+    min-width: 150px;
 }
 .btn:hover, .btn:focus, .btn:active, .btn.focus, .btn.active {
     background-color: #a40004;
@@ -286,6 +287,9 @@ a.alarm-link {
     display: block;
     color: #ffffff;
 }
+.footer .row {
+    margin-bottom: 0;
+}
 /*Footer end*/
 
 /*Tiles start*/
@@ -337,6 +341,29 @@ a.alarm-link {
     border-top: 1px dashed #053449;
     text-align: center;
 }
+.tile .last-signs {
+    padding-left: 10px;
+}
+.tile .last-signs li {
+    padding-bottom: 5px;
+}
+.tile .last-signs li:last-child {
+    padding-bottom: 0;
+}
+.tile .last-signs .log {
+    display: block;
+}
+.tile .last-signs .log-description {
+    display: block;
+    color: #cccccc;
+    font-size: 12px;
+}
+.tile .last-signs .log-value {
+    
+}
+.tile .last-signs .log-time {
+    
+}
 /*Tiles end*/
 
 /*Login page start*/
@@ -377,6 +404,58 @@ a.alarm-link {
 .patient-medications {
     
 }
+.patient-medication {
+    border: 2px solid #1455a6;
+    background-color: #ffffff;
+    border-radius: 4px;
+    -moz-border-radius: 4px;
+    -webkit-border-radius: 4px;
+    margin: 10px 0;
+    float: left;
+    width: 100%;
+}
+.patient-medication .pm-header{
+    float: left;
+    width: 100%;
+}
+.patient-medication .pm-header .rx-number{
+    float: left;
+    background-color: #1455a6;
+    padding: 3px 10px;
+    color: #ffffff;
+    font-size: 16px;
+    border-bottom-right-radius: 4px;
+    -moz-border-radius-bottomright: 4px;
+    -webkit-border-bottom-right-radius: 4px;
+}
+.patient-medication .pm-header .name{
+    float: right;
+    background-color: #1455a6;
+    padding: 3px 10px;
+    color: #ffffff;
+    font-size: 16px;
+    border-bottom-left-radius: 4px;
+    -moz-border-radius-bottomleft: 4px;
+    -webkit-border-bottom-left-radius: 4px;
+    width: 200px;
+    text-align: right;
+}
+.patient-medication .pm-content{
+    float: left;
+    width: 100%;
+    padding: 10px;
+}
+.patient-medication .pm-content .doze{
+    color: #d82126;
+    padding: 5px 0;
+}
+.patient-medication .pm-content .schedule{
+    padding: 5px 0;
+}
+.patient-medication .pm-content .note{
+    padding: 5px 0;
+    font-size: 12px;
+}
 .patient-connections {
     
 }
@@ -396,6 +475,12 @@ a.alarm-link {
     display: none;
 }
 /*Patient single page end*/
+
+/*Other start*/
+.field-medication-strength_measure {
+    padding-top: 5px;
+}
+/*Other end*/
 
 /*Only For Extra-Small xs*/
 @media (max-width: 767px) {

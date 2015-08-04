@@ -8,7 +8,7 @@ use app\models\User;
 /* @var $this yii\web\View */
 /* @var $model app\models\User */
 
-$this->title = "Patient: " . $model->name;
+$this->title = $model->name;
 $this->params['breadcrumbs'][] = ['label' => 'Patients', 'url' => ['patients']];
 $this->params['breadcrumbs'][] = $this->title;
 
@@ -37,6 +37,7 @@ $register = Url::toRoute(['site/register']);
     <div class="row patient-add-medication">
         <div class="col-xs-12">
             <?= Html::a("Add Medication", Url::toRoute(["medication/add-medication", "dn_id" => Yii::$app->user->id, "patient_id" => $model->id]), ['class' => 'btn btn-success']) ?>
+            <?= Html::a("Add Alarm", Url::toRoute(["alarm/add-alarm", "dn_id" => Yii::$app->user->id, "patient_id" => $model->id]), ['class' => 'btn btn-success']) ?>
         </div>
     </div>
 <?php } ?>
@@ -57,25 +58,27 @@ $register = Url::toRoute(['site/register']);
                 <div class="head bg-red">
                     <h2><span class="glyphicon glyphicon-heart"></span><span class="heading">Heart rate</span></h2>
                 </div>
-                <?php if (Yii::$app->user->isGuest) { ?>
-                    <div class="content">
-                        <p>Log your heart rate measurements.</p>
-                        <p>Please login to use our services.</p><br />
-                        <p>
-                            <span class="pull-left"><a href="<?= $login ?>">Log In</a></span>
-                            <span class="pull-right"><a href="<?= $register ?>">Register</a></span>
-                        </p>
-                    </div>
-                    <div class="link"><a href="<?= $login ?>">View Measurements</a></div>
-                <?php } else { ?>
-                    <div class="content">
-                        <p>Your heart rate measurements.</p>
-                        <p>Last log: 15 beats/min</p><br />
-                        <p>Note 1: Drink your pill at 6pm.</p>
-                        <p>Note 2: Drink your pill at 6pm.</p>
-                    </div>
-                    <div class="link"><a href="<?= Url::toRoute(['sign/detail', 'alias' => 'heart']) ?>">View Measurements</a></div>
-                <?php } ?>
+                <div class="content">
+                    <p>Last heart rate measurements:</p>
+                    
+                    <?php if ($heartRate) { ?>
+                        <ul class="last-signs">
+                            <?php foreach ($heartRate as $rate) { ?>
+                                <li>
+                                    <span class="log">
+                                        <span class="log-value"><strong><?= $rate->value ?></strong> beats/min</span>, 
+                                        <span class="log-time"><?= $rate->created_at ?></span>
+                                    </span>
+                                    
+                                    <?php if ($rate->description) { ?><span class="log-description">(<?= $rate->description ?>)</span><?php } ?>
+                                </li>
+                            <?php } ?>
+                        </ul>
+                    <?php } else { ?>
+                        No logs
+                    <?php } ?>
+                </div>
+                <div class="link"><a href="<?= Url::toRoute(['sign/detail', 'alias' => 'heart']) ?>">View Measurements</a></div>
             </div>
         </div>
         <div class="col-xs-12 col-sm-6 col-md-3">
@@ -83,25 +86,26 @@ $register = Url::toRoute(['site/register']);
                 <div class="head bg-yellow">
                     <h2><span class="glyphicon glyphicon-tint"></span><span class="heading">Blod Pressure</span></h2>
                 </div>
-                <?php if (Yii::$app->user->isGuest) { ?>
-                    <div class="content">
-                        <p>Log your blod pressure measurements.</p>
-                        <p>Please login to use our services.</p><br />
-                        <p>
-                            <span class="pull-left"><a href="<?= $login ?>">Log In</a></span>
-                            <span class="pull-right"><a href="<?= $register ?>">Register</a></span>
-                        </p>
-                    </div>
-                    <div class="link"><a href="<?= $login ?>">View Measurements</a></div>
-                <?php } else { ?>
-                    <div class="content">
-                        <p>Your blod pressure measurements.</p>
-                        <p>Last log: 120/80</p><br />
-                        <p>Note 1: Drink your pill at 6pm.</p>
-                        <p>Note 2: Drink your pill at 6pm.</p>
-                    </div>
-                    <div class="link"><a href="<?= Url::toRoute(['sign/detail', 'alias' => 'pressure']) ?>">View Measurements</a></div>
-                <?php } ?>
+                <div class="content">
+                    <p>Last blod pressure measurements.</p>
+                    
+                    <?php if ($blodPressure) { ?>
+                        <ul class="last-signs">
+                            <?php foreach ($blodPressure as $pressure) { ?>
+                                <li>
+                                    <span class="log">
+                                        <span class="log-value"><strong><?= $pressure->value ?></strong></span>, 
+                                        <span class="log-time"><?= $pressure->created_at ?></span>
+                                    </span>
+                                    <?php if ($pressure->description) { ?><span class="log-description">(<?= $pressure->description ?>)</span><?php } ?>
+                                </li>
+                            <?php } ?>
+                        </ul>
+                    <?php } else { ?>
+                        No logs
+                    <?php } ?>
+                </div>
+                <div class="link"><a href="<?= Url::toRoute(['sign/detail', 'alias' => 'pressure']) ?>">View Measurements</a></div>
             </div>
         </div>
         <div class="col-xs-12 col-sm-6 col-md-3">
@@ -109,25 +113,26 @@ $register = Url::toRoute(['site/register']);
                 <div class="head bg-green">
                     <h2><span class="glyphicon glyphicon-fire"></span><span class="heading">Temperature</span></h2>
                 </div>
-                <?php if (Yii::$app->user->isGuest) { ?>
-                    <div class="content">
-                        <p>Log your temperature measurements.</p>
-                        <p>Please login to use our services.</p><br />
-                        <p>
-                            <span class="pull-left"><a href="<?= $login ?>">Log In</a></span>
-                            <span class="pull-right"><a href="<?= $register ?>">Register</a></span>
-                        </p>
-                    </div>
-                    <div class="link"><a href="<?= $login ?>">View Measurements</a></div>
-                <?php } else { ?>
-                    <div class="content">
-                        <p>Your temperature measurements.</p>
-                        <p>Last log: 36.6<sup>o</sup>C</p><br />
-                        <p>Note 1: Drink your pill at 6pm.</p>
-                        <p>Note 2: Drink your pill at 6pm.</p>
-                    </div>
-                    <div class="link"><a href="<?= Url::toRoute(['sign/detail', 'alias' => 'temperature']) ?>">View Measurements</a></div>
-                <?php } ?>
+                <div class="content">
+                    <p>Last temperature measurements.</p>
+                    
+                    <?php if ($temperature) { ?>
+                        <ul class="last-signs">
+                            <?php foreach ($temperature as $temp) { ?>
+                                <li>
+                                    <span class="log">
+                                        <span class="log-value"><strong><?= $temp->value ?></strong><sup>o</sup>C</span>, 
+                                        <span class="log-time"><?= $temp->created_at ?></span>
+                                    </span>
+                                    <?php if ($temp->description) { ?><span class="log-description">(<?= $temp->description ?>)</span><?php } ?>
+                                </li>
+                            <?php } ?>
+                        </ul>
+                    <?php } else { ?>
+                        No logs
+                    <?php } ?>
+                </div>
+                <div class="link"><a href="<?= Url::toRoute(['sign/detail', 'alias' => 'temperature']) ?>">View Measurements</a></div>
             </div>
         </div>
         <div class="col-xs-12 col-sm-6 col-md-3">
@@ -135,41 +140,57 @@ $register = Url::toRoute(['site/register']);
                 <div class="head bg-blue">
                     <h2><span class="glyphicon glyphicon-dashboard"></span><span class="heading">Weight</span></h2>
                 </div>
-                <?php if (Yii::$app->user->isGuest) { ?>
-                    <div class="content">
-                        <p>Log your weight measurements.</p>
-                        <p>Please login to use our services.</p><br />
-                        <p>
-                            <span class="pull-left"><a href="<?= $login ?>">Log In</a></span>
-                            <span class="pull-right"><a href="<?= $register ?>">Register</a></span>
-                        </p>
-                    </div>
-                    <div class="link"><a href="<?= $login ?>">View Measurements</a></div>
-                <?php } else { ?>
-                    <div class="content">
-                        <p>Your weight measurements.</p>
-                        <p>Last log: 62kg</p><br />
-                        <p>Note 1: Drink your pill at 6pm.</p>
-                        <p>Note 2: Drink your pill at 6pm.</p>
-                    </div>
-                    <div class="link"><a href="<?= Url::toRoute(['sign/detail', 'alias' => 'weight']) ?>">View Measurements</a></div>
-                <?php } ?>
-            </div>
+                <div class="content">
+                    <p>Last weight measurements.</p>
+                    
+                    <?php if ($weight) { ?>
+                        <ul class="last-signs">
+                            <?php foreach ($weight as $w) { ?>
+                                <li>
+                                    <span class="log">
+                                        <span class="log-value"><strong><?= $w->value ?></strong>kg</span>, 
+                                        <span class="log-time"><?= $w->created_at ?></span>
+                                    </span>
+                                    <?php if ($w->description) { ?><span class="log-description">(<?= $w->description ?>)</span><?php } ?>
+                                </li>
+                            <?php } ?>
+                        </ul>
+                    <?php } else { ?>
+                        No logs
+                    <?php } ?>
+                </div>
+                <div class="link"><a href="<?= Url::toRoute(['sign/detail', 'alias' => 'weight']) ?>">View Measurements</a></div>
         </div>
     </div>
     
 <?php if (count($model->medications) > 0) { ?>
-    <div class="row patient-medications">
+    <div class="patient-medications">
+        <div class="col-xs-12">
+            <h4>Patient medications</h4>
+        </div>
         <?php foreach ($model->medications as $medication) { ?>
             <div class="col-xs-12">
-                All medications for this patient listed here.
+                <div class="patient-medication">
+                    <div class="pm-header">
+                        <span class="rx-number"><strong>RX:</strong> <?= $medication->rx_number ?></span>
+                        <span class="name"><strong><?= $medication->name ?></strong></span>
+                    </div>
+                    <div class="pm-content">
+                        <div class="doze"><strong>Doze:</strong> <strong><?= $medication->strength . " " . $medication->strength_measure ?></strong></div>
+                        <div class="schedule"><strong><?= $medication->schedule ?></strong></div>
+                        <div class="note"><?= $medication->note ?></div>
+                        <?php if (User::patientDoctorNurse($model->id, Yii::$app->user->id)) { ?>
+                            <?= Html::a("Update", Url::toRoute(["medication/update-medication", "id" => $medication->id])) ?>
+                        <?php } ?>
+                    </div>
+                </div>
             </div>
         <?php } ?>
     </div>
 <?php } ?>
     
 <?php if (count($model->patientConnection) > 0) { ?>
-<div class="row patient-connections">
+<div class="patient-connections">
     <div class="col-xs-12">
         <h4>Patient connections</h4>
     </div>

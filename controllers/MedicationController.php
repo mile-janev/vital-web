@@ -122,7 +122,6 @@ class MedicationController extends Controller
     
     /**
      * Creates a new Medication model.
-     * If creation is successful, the browser will be redirected to the 'view' page.
      * @return mixed
      */
     public function actionAddMedication()
@@ -135,9 +134,31 @@ class MedicationController extends Controller
         $doctorNurse = User::find()->where(["id" => $params["dn_id"]])->one();
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
-            return $this->redirect(['view', 'id' => $model->id]);
+            return $this->redirect(['user/patient', 'id' => $params["patient_id"]]);
         } else {
-            return $this->render('add_medication', [
+            return $this->render('dn_medication', [
+                'model' => $model,
+                'patient' => $patient,
+                'doctorNurse' => $doctorNurse
+            ]);
+        }
+    }
+    
+    /**
+     * Updates a new Medication model.
+     * @return mixed
+     */
+    public function actionUpdateMedication($id)
+    {
+        $model = $this->findModel($id);
+        
+        $patient = User::find()->where(["id" => $model->patient_id])->one();
+        $doctorNurse = User::find()->where(["id" => $model->prescribed_by_id])->one();
+
+        if ($model->load(Yii::$app->request->post()) && $model->save()) {
+            return $this->redirect(['user/patient', 'id' => $model->patient_id]);
+        } else {
+            return $this->render('dn_medication', [
                 'model' => $model,
                 'patient' => $patient,
                 'doctorNurse' => $doctorNurse
