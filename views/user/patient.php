@@ -43,16 +43,27 @@ $register = Url::toRoute(['site/register']);
 <?php } ?>
     
 <?php if (!empty($alarms)) { ?>
-    <?php foreach ($alarms as $alarm) { ?>
-        <div class="row patient-alarm">
-            <div class="col-xs-12">
-                <span class="alarm">
-                    (<?= date("H:m:s Y-m-d", strtotime($alarm->time)) ?>)
-                    <?= $alarm->title ?>
-                </span>
+    <div class="patient-alarms">
+        <?php foreach ($alarms as $alarm) { ?>
+            <div class="row patient-alarm">
+                <div class="col-xs-12">
+                    <?php if (User::patientDoctorNurse($model->id, Yii::$app->user->id)) { ?>
+                        <a title="Update" class="alarm-link" href="<?= Url::toRoute(["alarm/change", "id" => $alarm->id]) ?>">
+                           <span class="alarm">
+                               (<?= date("H:i:s Y-m-d", strtotime($alarm->time)) ?>)
+                               <?= $alarm->title ?>
+                           </span>
+                        </a>
+                    <?php } else { ?>
+                        <span class="alarm">
+                            (<?= date("H:m:s Y-m-d", strtotime($alarm->time)) ?>)
+                            <?= $alarm->title ?>
+                        </span>
+                    <?php } ?>
+                </div>
             </div>
-        </div>
-    <?php } ?>
+        <?php } ?>
+    </div>
 <?php } ?>
     
     <div class="row patient-signs">

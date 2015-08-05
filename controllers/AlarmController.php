@@ -142,4 +142,26 @@ class AlarmController extends Controller
             ]);
         }
     }
+    
+    /**
+     * Updates an existing Alarm model.
+     * If update is successful, the browser will be redirected to the 'view' page.
+     * @param string $id
+     * @return mixed
+     */
+    public function actionChange($id)
+    {
+        $model = $this->findModel($id);
+        
+        $patient = User::find()->where(["id" => $model->patient_id])->one();
+
+        if ($model->load(Yii::$app->request->post()) && $model->save()) {
+            return $this->redirect(['user/patient', 'id' => $model->patient_id]);
+        } else {
+            return $this->render('form', [
+                'model' => $model,
+                'patient' => $patient,
+            ]);
+        }
+    }
 }

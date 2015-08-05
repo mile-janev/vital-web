@@ -398,6 +398,12 @@ a.alarm-link {
     margin-top: 5px;
     margin-bottom: 0;
 }
+.patient-add-medication {
+    margin-bottom: 30px;
+}
+.patient-alarms {
+    margin-bottom: 30px;
+}
 .patient-signs {
     
 }

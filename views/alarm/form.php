@@ -2,6 +2,7 @@
 
 use yii\helpers\Html;
 use yii\widgets\ActiveForm;
+use kartik\datetime\DateTimePicker;
 
 $this->title = 'Create Alarm';
 $this->params['breadcrumbs'][] = ['label' => 'Alarms', 'url' => ['index']];
@@ -17,7 +18,12 @@ $this->params['breadcrumbs'][] = $this->title;
 
         <?= $form->field($model, 'title')->textInput(['maxlength' => true]) ?>
         
-        <?= $form->field($model, 'time')->textInput(['maxlength' => true]) ?>
+        <?= $form->field($model, 'time')->widget(DateTimePicker::classname(), [
+                'options' => ['placeholder' => 'Enter event time ...'],
+                'pluginOptions' => [
+                    'autoclose' => true
+                ]
+        ]); ?>
 
         <?= $form->field($model, 'patient_id')->hiddenInput(['value' => $patient->id]); ?>
 
