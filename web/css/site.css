@@ -328,6 +328,7 @@ a.alarm-link {
 }
 .tile .head h2 .heading {
     padding-left: 10px;
+    font-size: 28px;
 }
 .tile .content {
     padding: 10px;
@@ -482,11 +483,63 @@ a.alarm-link {
 }
 /*Patient single page end*/
 
+/*Logs single page start*/
+.logs {
+    
+}
+.logs-list {
+    
+}
+.log-row {
+    
+}
+.log-row .row-inside {
+    border-radius: 4px;
+    -moz-border-radius: 4px;
+    -webkit-border-radius: 4px;
+    padding: 10px;
+    color: #ffffff;
+    float: left;
+    width: 100%;
+}
+.log-row .odd {
+    /* Permalink - use to edit and share this gradient: http://colorzilla.com/gradient-editor/#fb4449+0,d82126+100 */
+    background: #fb4449; /* Old browsers */
+    background: -moz-linear-gradient(top, #fb4449 0%, #d82126 100%); /* FF3.6+ */
+    background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#fb4449), color-stop(100%,#d82126)); /* Chrome,Safari4+ */
+    background: -webkit-linear-gradient(top, #fb4449 0%,#d82126 100%); /* Chrome10+,Safari5.1+ */
+    background: -o-linear-gradient(top, #fb4449 0%,#d82126 100%); /* Opera 11.10+ */
+    background: -ms-linear-gradient(top, #fb4449 0%,#d82126 100%); /* IE10+ */
+    background: linear-gradient(to bottom, #fb4449 0%,#d82126 100%); /* W3C */
+    filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#fb4449', endColorstr='#d82126',GradientType=0 ); /* IE6-9 */
+}
+.log-row .even {
+    /* Permalink - use to edit and share this gradient: http://colorzilla.com/gradient-editor/#ff767b+0,fb4449+100 */
+    background: #ff767b; /* Old browsers */
+    background: -moz-linear-gradient(top, #ff767b 0%, #fb4449 100%); /* FF3.6+ */
+    background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#ff767b), color-stop(100%,#fb4449)); /* Chrome,Safari4+ */
+    background: -webkit-linear-gradient(top, #ff767b 0%,#fb4449 100%); /* Chrome10+,Safari5.1+ */
+    background: -o-linear-gradient(top, #ff767b 0%,#fb4449 100%); /* Opera 11.10+ */
+    background: -ms-linear-gradient(top, #ff767b 0%,#fb4449 100%); /* IE10+ */
+    background: linear-gradient(to bottom, #ff767b 0%,#fb4449 100%); /* W3C */
+    filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#ff767b', endColorstr='#fb4449',GradientType=0 ); /* IE6-9 */
+}
+.log-row .row-inside .log-value {
+    font-weight: bold;
+}
+/*Logs single page end*/
+
 /*Other start*/
 .field-medication-strength_measure {
     padding-top: 5px;
 }
 .field-alarm-patient_id {
+    display: none;
+}
+.field-logs-user_id {
+    display: none;
+}
+.field-logs-sign {
     display: none;
 }
 /*Other end*/

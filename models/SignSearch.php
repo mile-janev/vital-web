@@ -19,7 +19,7 @@ class SignSearch extends Sign
     {
         return [
             [['id'], 'integer'],
-            [['name', 'alias'], 'safe'],
+            [['name', 'measure', 'alias'], 'safe'],
         ];
     }
 
@@ -60,6 +60,7 @@ class SignSearch extends Sign
         ]);
 
         $query->andFilterWhere(['like', 'name', $this->name])
+            ->andFilterWhere(['like', 'measure', $this->measure])
             ->andFilterWhere(['like', 'alias', $this->alias]);
 
         return $dataProvider;

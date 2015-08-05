@@ -13,6 +13,7 @@ use app\components\Functions;
 use yii\filters\AccessControl;
 use app\components\AccessRule;
 use app\models\Role;
+use app\models\Logs;
 
 class SiteController extends Controller
 {
@@ -69,7 +70,52 @@ class SiteController extends Controller
 
     public function actionIndex()
     {
-        return $this->render('index');
+        if (!\Yii::$app->user->isGuest) {
+            $id = \Yii::$app->user->id;
+            $user = User::find()->where(["id" => $id])->one();
+            
+            $heartRate = Logs::find()
+                    ->where(["sign" => "heart_rate", "user_id" => $id])
+                    ->orderBy("created_at DESC")
+                    ->limit(3)
+                    ->all();
+            $blodPressure = Logs::find()
+                    ->where(["sign" => "blod_pressure", "user_id" => $id])
+                    ->orderBy("created_at DESC")
+                    ->limit(3)
+                    ->all();
+            $temperature = Logs::find()
+                    ->where(["sign" => "temperature", "user_id" => $id])
+                    ->orderBy("created_at DESC")
+                    ->limit(3)
+                    ->all();
+            $weight = Logs::find()
+                    ->where(["sign" => "weight", "user_id" => $id])
+                    ->orderBy("created_at DESC")
+                    ->limit(3)
+                    ->all();
+
+            $alarms = \app\models\Alarm::find()
+                    ->where(["patient_id" => $id])
+                    ->orderBy("time ASC")
+                    ->all();
+        } else {
+            $heartRate = [];
+            $blodPressure = [];
+            $temperature = [];
+            $weight = [];
+            $alarms = [];
+            $user = false;
+        }
+        
+        return $this->render('index', [
+            'heartRate' => $heartRate,
+            'blodPressure' => $blodPressure,
+            'temperature' => $temperature,
+            'weight' => $weight,
+            'alarms' => $alarms,
+            'user' => $user
+        ]);
     }
 
     public function actionLogin()
@@ -79,7 +125,7 @@ class SiteController extends Controller
             return $this->goBack();
         } else {
             return $this->render('login', [
-                        'model' => $model,
+                'model' => $model,
             ]);
         }
     }

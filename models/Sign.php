@@ -9,10 +9,16 @@ use Yii;
  *
  * @property string $id
  * @property string $name
+ * @property string $measure
  * @property string $alias
  */
 class Sign extends \yii\db\ActiveRecord
 {
+    const HEART_RATE = "heart_rate";
+    const BLOOD_PRESSURE = "blod_pressure";
+    const TEMPERATURE = "temperature";
+    const WEIGHT = "weight";
+    
     /**
      * @inheritdoc
      */
@@ -27,9 +33,9 @@ class Sign extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['id', 'name', 'alias'], 'required'],
-            [['id'], 'integer'],
-            [['name', 'alias'], 'string', 'max' => 128]
+            [['name', 'measure', 'alias'], 'required'],
+            [['name', 'alias'], 'string', 'max' => 128],
+            [['measure'], 'string', 'max' => 32]
         ];
     }
 
@@ -41,6 +47,7 @@ class Sign extends \yii\db\ActiveRecord
         return [
             'id' => 'ID',
             'name' => 'Name',
+            'measure' => 'Measure',
             'alias' => 'Alias',
         ];
     }

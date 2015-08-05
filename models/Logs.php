@@ -3,6 +3,8 @@
 namespace app\models;
 
 use Yii;
+use yii\behaviors\TimestampBehavior;
+use yii\db\Expression;
 
 /**
  * This is the model class for table "logs".
@@ -52,8 +54,8 @@ class Logs extends \yii\db\ActiveRecord
             'sign' => 'Sign',
             'value' => 'Value',
             'description' => 'Description',
-            'created_at' => 'Created At',
-            'updated_at' => 'Updated At',
+            'created_at' => 'Time',
+            'updated_at' => 'Last Updated Time',
             'user_id' => 'User ID',
         ];
     }
@@ -64,5 +66,22 @@ class Logs extends \yii\db\ActiveRecord
     public function getUser()
     {
         return $this->hasOne(User::className(), ['id' => 'user_id']);
+    }
+    
+    /*
+     * Override beforeSave() method
+     * Method called before listing is saved, on create or update
+     */
+    public function beforeSave($insert) {
+        if ($this->isNewRecord) {
+            if (!$this->created_at) {
+                $this->created_at = new Expression('NOW()');
+            }
+            $this->updated_at = new Expression('NOW()');
+        } else {
+            $this->updated_at = new Expression('NOW()');
+        }
+        
+        return parent::beforeSave($insert);
     }
 }

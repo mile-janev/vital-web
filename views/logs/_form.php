@@ -2,6 +2,7 @@
 
 use yii\helpers\Html;
 use yii\widgets\ActiveForm;
+use kartik\datetime\DateTimePicker;
 
 /* @var $this yii\web\View */
 /* @var $model app\models\Logs */
@@ -11,18 +12,21 @@ use yii\widgets\ActiveForm;
 <div class="logs-form">
 
     <?php $form = ActiveForm::begin(); ?>
-
-    <?= $form->field($model, 'sign')->textInput(['maxlength' => true]) ?>
-
-    <?= $form->field($model, 'value')->textInput() ?>
+    
+    <?= $form->field($model, 'value')->textInput()->hint("X ".$signModel->measure) ?>
 
     <?= $form->field($model, 'description')->textarea(['rows' => 6]) ?>
+    
+    <?= $form->field($model, 'created_at')->widget(DateTimePicker::classname(), [
+                'options' => ['placeholder' => 'Enter log time ...'],
+                'pluginOptions' => [
+                    'autoclose' => true
+                ]
+        ])
+        ->hint("*Current time will be logged if you not insert value"); ?>
 
-    <?= $form->field($model, 'created_at')->textInput() ?>
-
-    <?= $form->field($model, 'updated_at')->textInput() ?>
-
-    <?= $form->field($model, 'user_id')->textInput(['maxlength' => true]) ?>
+    <?= $form->field($model, 'sign')->hiddenInput(['value' => $sign]) ?>
+    <?= $form->field($model, 'user_id')->hiddenInput(['value' => $user_id]) ?>
 
     <div class="form-group">
         <?= Html::submitButton($model->isNewRecord ? 'Create' : 'Update', ['class' => $model->isNewRecord ? 'btn btn-success' : 'btn btn-primary']) ?>

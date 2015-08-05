@@ -52,19 +52,6 @@ class SignController extends Controller
             'model' => $this->findModel($id),
         ]);
     }
-    
-    /**
-     * Displays a single Sign model.
-     * @param string $id
-     * @return mixed
-     */
-    public function actionDetail($alias)
-    {
-        //Only for detail view for vital sign
-        return $this->render('detail', [
-            'model' => $this->findModel($id),
-        ]);
-    }
 
     /**
      * Creates a new Sign model.

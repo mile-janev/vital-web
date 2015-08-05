@@ -1,19 +1,15 @@
 <?php
+    use yii\helpers\Html;
+    use yii\widgets\DetailView;
+    use yii\helpers\Url;
+    use app\models\User;
 
-use yii\helpers\Html;
-use yii\widgets\DetailView;
-use yii\helpers\Url;
-use app\models\User;
+    $this->title = $model->name;
+    $this->params['breadcrumbs'][] = ['label' => 'Patients', 'url' => ['patients']];
+    $this->params['breadcrumbs'][] = $this->title;
 
-/* @var $this yii\web\View */
-/* @var $model app\models\User */
-
-$this->title = $model->name;
-$this->params['breadcrumbs'][] = ['label' => 'Patients', 'url' => ['patients']];
-$this->params['breadcrumbs'][] = $this->title;
-
-$login = Url::toRoute(['site/login']);
-$register = Url::toRoute(['site/register']);
+    $login = Url::toRoute(['site/login']);
+    $register = Url::toRoute(['site/register']);
 ?>
 
 <?php
@@ -36,7 +32,7 @@ $register = Url::toRoute(['site/register']);
 <?php if (User::patientDoctorNurse($model->id, Yii::$app->user->id)) { ?>
     <div class="row patient-add-medication">
         <div class="col-xs-12">
-            <?= Html::a("Add Medication", Url::toRoute(["medication/add-medication", "dn_id" => Yii::$app->user->id, "patient_id" => $model->id]), ['class' => 'btn btn-success']) ?>
+            <?= Html::a("Add Medication", Url::toRoute(["medication/add", "dn_id" => Yii::$app->user->id, "patient_id" => $model->id]), ['class' => 'btn btn-success']) ?>
             <?= Html::a("Add Alarm", Url::toRoute(["alarm/add", "patient_id" => $model->id]), ['class' => 'btn btn-success']) ?>
         </div>
     </div>
@@ -92,23 +88,23 @@ $register = Url::toRoute(['site/register']);
                         No logs
                     <?php } ?>
                 </div>
-                <div class="link"><a href="<?= Url::toRoute(['sign/detail', 'alias' => 'heart']) ?>">View Measurements</a></div>
+                <div class="link"><a href="<?= Url::toRoute(['logs/detail', 'sign' => 'heart_rate', 'user_id' => $model->id]) ?>">View Measurements</a></div>
             </div>
         </div>
         <div class="col-xs-12 col-sm-6 col-md-3">
             <div class="tile">
                 <div class="head bg-yellow">
-                    <h2><span class="glyphicon glyphicon-tint"></span><span class="heading">Blod Pressure</span></h2>
+                    <h2><span class="glyphicon glyphicon-tint"></span><span class="heading">Blood Pressure</span></h2>
                 </div>
                 <div class="content">
-                    <p>Last blod pressure measurements.</p>
+                    <p>Last blood pressure measurements.</p>
                     
                     <?php if ($blodPressure) { ?>
                         <ul class="last-signs">
                             <?php foreach ($blodPressure as $pressure) { ?>
                                 <li>
                                     <span class="log">
-                                        <span class="log-value"><strong><?= $pressure->value ?></strong></span>, 
+                                        <span class="log-value"><strong><?= $pressure->value ?></strong> mmHg</span>, 
                                         <span class="log-time"><?= $pressure->created_at ?></span>
                                     </span>
                                     <?php if ($pressure->description) { ?><span class="log-description">(<?= $pressure->description ?>)</span><?php } ?>
@@ -119,7 +115,7 @@ $register = Url::toRoute(['site/register']);
                         No logs
                     <?php } ?>
                 </div>
-                <div class="link"><a href="<?= Url::toRoute(['sign/detail', 'alias' => 'pressure']) ?>">View Measurements</a></div>
+                <div class="link"><a href="<?= Url::toRoute(['logs/detail', 'sign' => 'blod_pressure', 'user_id' => $model->id]) ?>">View Measurements</a></div>
             </div>
         </div>
         <div class="col-xs-12 col-sm-6 col-md-3">
@@ -135,7 +131,7 @@ $register = Url::toRoute(['site/register']);
                             <?php foreach ($temperature as $temp) { ?>
                                 <li>
                                     <span class="log">
-                                        <span class="log-value"><strong><?= $temp->value ?></strong><sup>o</sup>C</span>, 
+                                        <span class="log-value"><strong><?= $temp->value ?></strong> <sup>o</sup>C</span>, 
                                         <span class="log-time"><?= $temp->created_at ?></span>
                                     </span>
                                     <?php if ($temp->description) { ?><span class="log-description">(<?= $temp->description ?>)</span><?php } ?>
@@ -146,7 +142,7 @@ $register = Url::toRoute(['site/register']);
                         No logs
                     <?php } ?>
                 </div>
-                <div class="link"><a href="<?= Url::toRoute(['sign/detail', 'alias' => 'temperature']) ?>">View Measurements</a></div>
+                <div class="link"><a href="<?= Url::toRoute(['logs/detail', 'sign' => 'temperature', 'user_id' => $model->id]) ?>">View Measurements</a></div>
             </div>
         </div>
         <div class="col-xs-12 col-sm-6 col-md-3">
@@ -162,7 +158,7 @@ $register = Url::toRoute(['site/register']);
                             <?php foreach ($weight as $w) { ?>
                                 <li>
                                     <span class="log">
-                                        <span class="log-value"><strong><?= $w->value ?></strong>kg</span>, 
+                                        <span class="log-value"><strong><?= $w->value ?></strong> kg</span>, 
                                         <span class="log-time"><?= $w->created_at ?></span>
                                     </span>
                                     <?php if ($w->description) { ?><span class="log-description">(<?= $w->description ?>)</span><?php } ?>
@@ -173,9 +169,9 @@ $register = Url::toRoute(['site/register']);
                         No logs
                     <?php } ?>
                 </div>
-                <div class="link"><a href="<?= Url::toRoute(['sign/detail', 'alias' => 'weight']) ?>">View Measurements</a></div>
+                <div class="link"><a href="<?= Url::toRoute(['logs/detail', 'sign' => 'weight', 'user_id' => $model->id]) ?>">View Measurements</a></div>
+            </div>
         </div>
-    </div>
     
 <?php if (count($model->medications) > 0) { ?>
     <div class="patient-medications">
@@ -222,4 +218,6 @@ $register = Url::toRoute(['site/register']);
 </div>
 <?php } ?>
 
+</div>
+    
 </div>

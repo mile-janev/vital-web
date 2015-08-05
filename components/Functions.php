@@ -17,4 +17,12 @@ class Functions {
         }
     }
     
+    public static function formatSign($sign) 
+    {
+        $sign = preg_replace("/_/", " ", $sign);
+        $sign = ucfirst($sign);
+        
+        return $sign;
+    }
+    
 }

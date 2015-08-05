@@ -8,6 +8,7 @@ use app\models\LogsSearch;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
+use app\models\Sign;
 
 /**
  * LogsController implements the CRUD actions for Logs model.
@@ -116,6 +117,44 @@ class LogsController extends Controller
             return $model;
         } else {
             throw new NotFoundHttpException('The requested page does not exist.');
+        }
+    }
+    
+    /**
+     * Displays a single Sign model.
+     * @param string $id
+     * @return mixed
+     */
+    public function actionDetail($sign, $user_id)
+    {
+        $logs = Logs::find()->where(['sign' => $sign, 'user_id' => $user_id])->all();
+        
+        $signModel = Sign::find()->where(["alias" => $sign])->one();
+        
+        //Only for detail view for vital sign
+        return $this->render('detail', [
+            'sign' => $sign,
+            'user_id' => $user_id,
+            'logs' => $logs,
+            'signModel' => $signModel,
+        ]);
+    }
+    
+    public function actionAdd($sign, $user_id)
+    {
+        $model = new Logs();
+        
+        $signModel = Sign::find()->where(["alias" => $sign])->one();
+
+        if ($model->load(Yii::$app->request->post()) && $model->save()) {
+            return $this->redirect(['detail', 'sign' => $sign, 'user_id' => $user_id]);
+        } else {
+            return $this->render('create', [
+                'model' => $model,
+                'sign' => $sign,
+                'user_id' => $user_id,
+                'signModel' => $signModel,
+            ]);
         }
     }
 }

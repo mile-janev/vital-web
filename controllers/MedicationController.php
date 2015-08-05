@@ -124,7 +124,7 @@ class MedicationController extends Controller
      * Creates a new Medication model.
      * @return mixed
      */
-    public function actionAddMedication()
+    public function actionAdd()
     {
         $model = new Medication();
         
