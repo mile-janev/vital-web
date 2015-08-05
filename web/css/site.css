@@ -19,8 +19,8 @@ body {
 .wrap {
     min-height: 100%;
     height: auto;
-    margin: 0 auto -60px;
-    padding: 0 0 60px;
+    /*margin: 0 auto -60px;*/
+    /*padding: 0 0 60px;*/
 }
 
 .wrap > .container {
@@ -405,7 +405,7 @@ a.alarm-link {
     
 }
 .patient-medication {
-    border: 2px solid #1455a6;
+    border: 2px solid #022a3b;
     background-color: #ffffff;
     border-radius: 4px;
     -moz-border-radius: 4px;
@@ -420,7 +420,7 @@ a.alarm-link {
 }
 .patient-medication .pm-header .rx-number{
     float: left;
-    background-color: #1455a6;
+    background-color: #022a3b;
     padding: 3px 10px;
     color: #ffffff;
     font-size: 16px;
@@ -430,7 +430,7 @@ a.alarm-link {
 }
 .patient-medication .pm-header .name{
     float: right;
-    background-color: #1455a6;
+    background-color: #022a3b;
     padding: 3px 10px;
     color: #ffffff;
     font-size: 16px;
