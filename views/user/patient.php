@@ -37,20 +37,23 @@ $register = Url::toRoute(['site/register']);
     <div class="row patient-add-medication">
         <div class="col-xs-12">
             <?= Html::a("Add Medication", Url::toRoute(["medication/add-medication", "dn_id" => Yii::$app->user->id, "patient_id" => $model->id]), ['class' => 'btn btn-success']) ?>
-            <?= Html::a("Add Alarm", Url::toRoute(["alarm/add-alarm", "dn_id" => Yii::$app->user->id, "patient_id" => $model->id]), ['class' => 'btn btn-success']) ?>
+            <?= Html::a("Add Alarm", Url::toRoute(["alarm/add", "patient_id" => $model->id]), ['class' => 'btn btn-success']) ?>
         </div>
     </div>
 <?php } ?>
     
-    <div class="row patient-alarm">
-        <div class="col-xs-12">
-            <a class="alarm-link" href="#">
+<?php if (!empty($alarms)) { ?>
+    <?php foreach ($alarms as $alarm) { ?>
+        <div class="row patient-alarm">
+            <div class="col-xs-12">
                 <span class="alarm">
-                    Patient next alarm here. Something like, "Next pill in 6pm". This is also link to all alarms.
+                    (<?= date("H:m:s Y-m-d", strtotime($alarm->time)) ?>)
+                    <?= $alarm->title ?>
                 </span>
-            </a>
+            </div>
         </div>
-    </div>
+    <?php } ?>
+<?php } ?>
     
     <div class="row patient-signs">
         <div class="col-xs-12 col-sm-6 col-md-3">

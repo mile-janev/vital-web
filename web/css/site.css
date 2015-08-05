@@ -480,6 +480,9 @@ a.alarm-link {
 .field-medication-strength_measure {
     padding-top: 5px;
 }
+.field-alarm-patient_id {
+    display: none;
+}
 /*Other end*/
 
 /*Only For Extra-Small xs*/

@@ -142,12 +142,18 @@ class UserController extends Controller
                 ->limit(3)
                 ->all();
         
+        $alarms = \app\models\Alarm::find()
+                ->where(["patient_id" => $id])
+                ->orderBy("time ASC")
+                ->all();
+        
         return $this->render('patient', [
             'model' => $model,
             'heartRate' => $heartRate,
             'blodPressure' => $blodPressure,
             'temperature' => $temperature,
             'weight' => $weight,
+            'alarms' => $alarms
         ]);
     }
 
