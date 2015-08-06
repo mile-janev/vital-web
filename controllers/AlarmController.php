@@ -136,7 +136,7 @@ class AlarmController extends Controller
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
             return $this->redirect(['user/patient', 'id' => $params["patient_id"]]);
         } else {
-            return $this->render('form', [
+            return $this->render('add', [
                 'model' => $model,
                 'patient' => $patient,
             ]);

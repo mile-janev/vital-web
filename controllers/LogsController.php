@@ -127,9 +127,14 @@ class LogsController extends Controller
      */
     public function actionDetail($sign, $user_id)
     {
-        $logs = Logs::find()->where(['sign' => $sign, 'user_id' => $user_id])->all();
+        $logs = Logs::find()
+                ->where(['sign' => $sign, 'user_id' => $user_id])
+                ->orderBy("created_at DESC")
+                ->all();
         
         $signModel = Sign::find()->where(["alias" => $sign])->one();
+        
+        $user = \app\models\User::find()->where(["id" => $user_id])->one();
         
         //Only for detail view for vital sign
         return $this->render('detail', [
@@ -137,6 +142,7 @@ class LogsController extends Controller
             'user_id' => $user_id,
             'logs' => $logs,
             'signModel' => $signModel,
+            'user' => $user
         ]);
     }
     
@@ -145,15 +151,18 @@ class LogsController extends Controller
         $model = new Logs();
         
         $signModel = Sign::find()->where(["alias" => $sign])->one();
+        
+        $user = \app\models\User::find()->where(["id" => $user_id])->one();
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
             return $this->redirect(['detail', 'sign' => $sign, 'user_id' => $user_id]);
         } else {
-            return $this->render('create', [
+            return $this->render('add', [
                 'model' => $model,
                 'sign' => $sign,
                 'user_id' => $user_id,
                 'signModel' => $signModel,
+                'user' => $user
             ]);
         }
     }

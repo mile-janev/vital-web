@@ -536,10 +536,10 @@ a.alarm-link {
 .field-alarm-patient_id {
     display: none;
 }
-.field-logs-user_id {
+.logs-form .field-logs-user_id {
     display: none;
 }
-.field-logs-sign {
+.logs-form .field-logs-sign {
     display: none;
 }
 /*Other end*/

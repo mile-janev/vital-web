@@ -1,19 +1,19 @@
 <?php
+
 use yii\helpers\Html;
 use yii\widgets\ActiveForm;
 use kartik\datetime\DateTimePicker;
-use app\models\User;
-use yii\helpers\ArrayHelper;
 
-$users = User::find()->all();
-$signs = \app\models\Sign::find()->all();
+/* @var $this yii\web\View */
+/* @var $model app\models\Logs */
+/* @var $form yii\widgets\ActiveForm */
 ?>
 
-<div class="logs-form-admin">
+<div class="logs-form">
 
     <?php $form = ActiveForm::begin(); ?>
     
-    <?= $form->field($model, 'value')->textInput() ?>
+    <?= $form->field($model, 'value')->textInput()->hint("X ".$signModel->measure) ?>
 
     <?= $form->field($model, 'description')->textarea(['rows' => 6]) ?>
     
@@ -25,9 +25,8 @@ $signs = \app\models\Sign::find()->all();
         ])
         ->hint("*Current time will be logged if you not insert value"); ?>
 
-    <?= $form->field($model, 'sign')->dropDownList(ArrayHelper::map($signs, 'alias', 'name')) ?>
-    
-    <?= $form->field($model, 'user_id')->dropDownList(ArrayHelper::map($users, 'id', 'name')) ?>
+    <?= $form->field($model, 'sign')->hiddenInput(['value' => $sign]) ?>
+    <?= $form->field($model, 'user_id')->hiddenInput(['value' => $user_id]) ?>
 
     <div class="form-group">
         <?= Html::submitButton($model->isNewRecord ? 'Create' : 'Update', ['class' => $model->isNewRecord ? 'btn btn-success' : 'btn btn-primary']) ?>

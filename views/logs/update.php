@@ -1,11 +1,9 @@
 <?php
-
 use yii\helpers\Html;
+use app\models\User;
+use app\components\Functions;
 
-/* @var $this yii\web\View */
-/* @var $model app\models\Logs */
-
-$this->title = 'Update Measurement: ' . ' ' . $model->id;
+$this->title = 'Update ' . $model->id;
 $this->params['breadcrumbs'][] = ['label' => 'Logs', 'url' => ['index']];
 $this->params['breadcrumbs'][] = ['label' => $model->id, 'url' => ['view', 'id' => $model->id]];
 $this->params['breadcrumbs'][] = 'Update';
@@ -16,9 +14,6 @@ $this->params['breadcrumbs'][] = 'Update';
 
     <?= $this->render('_form', [
         'model' => $model,
-        'user_id' => $user_id,
-        'sign' => $sign,
-        'signModel' => $signModel,
     ]) ?>
 
 </div>

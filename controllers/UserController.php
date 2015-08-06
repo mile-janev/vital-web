@@ -144,6 +144,7 @@ class UserController extends Controller
         
         $alarms = \app\models\Alarm::find()
                 ->where(["patient_id" => $id])
+                ->andWhere("time > NOW()")
                 ->orderBy("time ASC")
                 ->all();
         

@@ -8,12 +8,17 @@ use app\components\Functions;
 
 $signName = Functions::formatSign($sign);
 
-$this->title = $signName;
-$this->params['breadcrumbs'][] = ['label' => 'Patients', 'url' => ['patients']];
+$this->title = $user->name . " " . $signName;
+if (User::patientDoctorNurse($user->id, Yii::$app->user->id)) {
+    $this->params['breadcrumbs'][] = ['label' => 'Patients', 'url' => ['user/patients']];
+    $this->params['breadcrumbs'][] = ['label' => $user->name, 'url' => ['user/patient', 'id' => $user_id]];
+}
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 
 <div class="logs">
+    
+    <h1><?= $this->title ?></h1>
     
     <div class="row patient-add-medication">
         <div class="col-xs-12">

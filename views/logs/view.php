@@ -34,7 +34,11 @@ $this->params['breadcrumbs'][] = $this->title;
             'description:ntext',
             'created_at',
             'updated_at',
-            'user_id',
+            [
+                'label' => Yii::t( 'app', 'User' ),
+                'format'  => 'raw', 
+                'value' => $model->user->name,
+            ],
         ],
     ]) ?>
 

@@ -56,7 +56,7 @@ class Logs extends \yii\db\ActiveRecord
             'description' => 'Description',
             'created_at' => 'Time',
             'updated_at' => 'Last Updated Time',
-            'user_id' => 'User ID',
+            'user_id' => 'User',
         ];
     }
 

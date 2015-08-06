@@ -30,8 +30,14 @@ $this->params['breadcrumbs'][] = $this->title;
             'value',
             'description:ntext',
             'created_at',
-            // 'updated_at',
-            // 'user_id',
+            [
+                'label' => Yii::t( 'app', 'User' ),
+                'format' => 'raw',
+                'attribute' => 'user_id',
+                'value' => function ( $data ) {
+                    return "<a href='".yii\helpers\Url::toRoute(['user/view', 'id'=>$data->user_id])."'>"."(".$data->user_id.") ".$data->user->name."</a>";
+                },
+            ],
 
             ['class' => 'yii\grid\ActionColumn'],
         ],

@@ -28,12 +28,30 @@ $this->params['breadcrumbs'][] = $this->title;
             'id',
             'rx_number',
             'name',
-            'strength',
-            'strength_measure',
-            // 'schedule:ntext',
-            // 'note:ntext',
-            // 'patient_id',
-            // 'prescribed_by_id',
+            [
+                'label' => Yii::t( 'app', 'Dose' ),
+                'format' => 'raw',
+                'attribute' => 'strength',
+                'value' => function ( $data ) {
+                    return $data->strength . " " . $data->strength_measure;
+                },
+            ],
+            [
+                'label' => Yii::t( 'app', 'Patient' ),
+                'format' => 'raw',
+                'attribute' => 'patient_id',
+                'value' => function ( $data ) {
+                    return "<a href='".yii\helpers\Url::toRoute(['user/view', 'id'=>$data->patient_id])."'>"."(".$data->patient_id.") ".$data->patient->name."</a>";
+                },
+            ],
+            [
+                'label' => Yii::t( 'app', 'Prescribed By' ),
+                'format' => 'raw',
+                'attribute' => 'patient_id',
+                'value' => function ( $data ) {
+                    return "<a href='".yii\helpers\Url::toRoute(['user/view', 'id'=>$data->prescribed_by_id])."'>"."(".$data->prescribed_by_id.") ".$data->prescribedBy->name."</a>";
+                },
+            ],
 
             ['class' => 'yii\grid\ActionColumn'],
         ],

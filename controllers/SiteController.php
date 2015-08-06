@@ -72,7 +72,6 @@ class SiteController extends Controller
     {
         if (!\Yii::$app->user->isGuest) {
             $id = \Yii::$app->user->id;
-            $user = User::find()->where(["id" => $id])->one();
             
             $heartRate = Logs::find()
                     ->where(["sign" => "heart_rate", "user_id" => $id])
@@ -97,6 +96,7 @@ class SiteController extends Controller
 
             $alarms = \app\models\Alarm::find()
                     ->where(["patient_id" => $id])
+                    ->andWhere("time > NOW()")
                     ->orderBy("time ASC")
                     ->all();
         } else {
@@ -114,7 +114,6 @@ class SiteController extends Controller
             'temperature' => $temperature,
             'weight' => $weight,
             'alarms' => $alarms,
-            'user' => $user
         ]);
     }
 

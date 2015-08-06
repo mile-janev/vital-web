@@ -85,8 +85,10 @@
                             <?php } ?>
                         </ul>
                     <?php } else { ?>
-                        No logs
+                        <p>No logs</p>
                     <?php } ?>
+                        
+                    <p><a href="<?= Url::toRoute(["logs/add", "sign" => "heart_rate", "user_id" => $model->id]) ?>">Log Measurement</a></p>
                 </div>
                 <div class="link"><a href="<?= Url::toRoute(['logs/detail', 'sign' => 'heart_rate', 'user_id' => $model->id]) ?>">View Measurements</a></div>
             </div>
@@ -97,7 +99,7 @@
                     <h2><span class="glyphicon glyphicon-tint"></span><span class="heading">Blood Pressure</span></h2>
                 </div>
                 <div class="content">
-                    <p>Last blood pressure measurements.</p>
+                    <p>Last blood pressure measurements:</p>
                     
                     <?php if ($blodPressure) { ?>
                         <ul class="last-signs">
@@ -112,8 +114,11 @@
                             <?php } ?>
                         </ul>
                     <?php } else { ?>
-                        No logs
+                        <p>No logs</p>
                     <?php } ?>
+                    
+                    <p><a href="<?= Url::toRoute(["logs/add", "sign" => "blod_pressure", "user_id" => $model->id]) ?>">Log Measurement</a></p>
+                    
                 </div>
                 <div class="link"><a href="<?= Url::toRoute(['logs/detail', 'sign' => 'blod_pressure', 'user_id' => $model->id]) ?>">View Measurements</a></div>
             </div>
@@ -124,7 +129,7 @@
                     <h2><span class="glyphicon glyphicon-fire"></span><span class="heading">Temperature</span></h2>
                 </div>
                 <div class="content">
-                    <p>Last temperature measurements.</p>
+                    <p>Last temperature measurements:</p>
                     
                     <?php if ($temperature) { ?>
                         <ul class="last-signs">
@@ -139,8 +144,10 @@
                             <?php } ?>
                         </ul>
                     <?php } else { ?>
-                        No logs
+                        <p>No logs</p>
                     <?php } ?>
+                        
+                    <p><a href="<?= Url::toRoute(["logs/add", "sign" => "temperature", "user_id" => $model->id]) ?>">Log Measurement</a></p>
                 </div>
                 <div class="link"><a href="<?= Url::toRoute(['logs/detail', 'sign' => 'temperature', 'user_id' => $model->id]) ?>">View Measurements</a></div>
             </div>
@@ -151,7 +158,7 @@
                     <h2><span class="glyphicon glyphicon-dashboard"></span><span class="heading">Weight</span></h2>
                 </div>
                 <div class="content">
-                    <p>Last weight measurements.</p>
+                    <p>Last weight measurements:</p>
                     
                     <?php if ($weight) { ?>
                         <ul class="last-signs">
@@ -166,8 +173,10 @@
                             <?php } ?>
                         </ul>
                     <?php } else { ?>
-                        No logs
+                        <p>No logs</p>
                     <?php } ?>
+                        
+                <p><a href="<?= Url::toRoute(["logs/add", "sign" => "weight", "user_id" => $model->id]) ?>">Log Measurement</a></p>
                 </div>
                 <div class="link"><a href="<?= Url::toRoute(['logs/detail', 'sign' => 'weight', 'user_id' => $model->id]) ?>">View Measurements</a></div>
             </div>

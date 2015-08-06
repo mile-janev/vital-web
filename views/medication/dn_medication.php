@@ -2,6 +2,7 @@
 
 use yii\helpers\Html;
 use yii\widgets\ActiveForm;
+use app\models\User;
 use zxbodya\yii2\tinymce\TinyMce;
 
 /* @var $this yii\web\View */
@@ -10,9 +11,13 @@ use zxbodya\yii2\tinymce\TinyMce;
 if ($model->isNewRecord) {
     $this->title = 'Add Medication';
 } else {
-    $this->title = 'Update Medication';
+    $this->title = 'Update Medication ' . $model->rx_number;
 }
 
+if (User::patientDoctorNurse($patient->id, Yii::$app->user->id)) {
+    $this->params['breadcrumbs'][] = ['label' => 'Patients', 'url' => ['user/patients']];
+    $this->params['breadcrumbs'][] = ['label' => $patient->name, 'url' => ['user/patient', 'id' => $patient->id]];
+}
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="medication-create-dn">

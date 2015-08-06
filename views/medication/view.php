@@ -35,8 +35,16 @@ $this->params['breadcrumbs'][] = $this->title;
             'strength_measure',
             'schedule:ntext',
             'note:ntext',
-            'patient_id',
-            'prescribed_by_id',
+            [
+                'label' => Yii::t( 'app', 'Patient' ),
+                'format'  => 'raw', 
+                'value' => $model->patient->name,
+            ],
+            [
+                'label' => Yii::t( 'app', 'Prescribed By' ),
+                'format'  => 'raw', 
+                'value' => $model->prescribedBy->name,
+            ],
         ],
     ]) ?>
 

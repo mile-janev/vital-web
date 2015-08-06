@@ -17,7 +17,7 @@ $register = Url::toRoute(['site/register']);
                 <?php foreach ($alarms as $alarm) { ?>
                     <div class="row patient-alarm">
                         <div class="col-xs-12">
-                            <?php if (User::patientDoctorNurse($user->id, Yii::$app->user->id)) { ?>
+                            <?php if (User::patientDoctorNurse(Yii::$app->user->id, Yii::$app->user->id)) { ?>
                                 <a title="Update" class="alarm-link" href="<?= Url::toRoute(["alarm/change", "id" => $alarm->id]) ?>">
                                    <span class="alarm">
                                        (<?= date("H:i:s Y-m-d", strtotime($alarm->time)) ?>)
@@ -70,10 +70,12 @@ $register = Url::toRoute(['site/register']);
                                     <?php } ?>
                                 </ul>
                             <?php } else { ?>
-                                No logs
+                                <p>No logs</p>
                             <?php } ?>
+                                
+                            <p><a href="<?= Url::toRoute(["logs/add", "sign" => "heart_rate", "user_id" => Yii::$app->user->id]) ?>">Log Measurement</a></p>
                         </div>
-                        <div class="link"><a href="<?= Url::toRoute(['logs/detail', 'sign' => 'heart_rate', 'user_id' => $user->id]) ?>">View Measurements</a></div>
+                        <div class="link"><a href="<?= Url::toRoute(['logs/detail', 'sign' => 'heart_rate', 'user_id' => Yii::$app->user->id]) ?>">View Measurements</a></div>
                     <?php } ?>
                 </div>
             </div>
@@ -94,7 +96,7 @@ $register = Url::toRoute(['site/register']);
                         <div class="link"><a href="<?= $login ?>">View Measurements</a></div>
                     <?php } else { ?>
                         <div class="content">
-                            <p>Last blood pressure measurements.</p>
+                            <p>Last blood pressure measurements:</p>
 
                             <?php if ($blodPressure) { ?>
                                 <ul class="last-signs">
@@ -109,10 +111,12 @@ $register = Url::toRoute(['site/register']);
                                     <?php } ?>
                                 </ul>
                             <?php } else { ?>
-                                No logs
+                                <p>No logs</p>
                             <?php } ?>
+                                
+                            <p><a href="<?= Url::toRoute(["logs/add", "sign" => "blod_pressure", "user_id" => Yii::$app->user->id]) ?>">Log Measurement</a></p>
                         </div>
-                        <div class="link"><a href="<?= Url::toRoute(['logs/detail', 'sign' => 'blod_pressure', 'user_id' => $user->id]) ?>">View Measurements</a></div>
+                        <div class="link"><a href="<?= Url::toRoute(['logs/detail', 'sign' => 'blod_pressure', 'user_id' => Yii::$app->user->id]) ?>">View Measurements</a></div>
                     <?php } ?>
                 </div>
             </div>
@@ -133,7 +137,7 @@ $register = Url::toRoute(['site/register']);
                         <div class="link"><a href="<?= $login ?>">View Measurements</a></div>
                     <?php } else { ?>
                         <div class="content">
-                            <p>Last temperature measurements.</p>
+                            <p>Last temperature measurements:</p>
 
                             <?php if ($temperature) { ?>
                                 <ul class="last-signs">
@@ -148,10 +152,12 @@ $register = Url::toRoute(['site/register']);
                                     <?php } ?>
                                 </ul>
                             <?php } else { ?>
-                                No logs
+                                <p>No logs</p>
                             <?php } ?>
+                                
+                            <p><a href="<?= Url::toRoute(["logs/add", "sign" => "temperature", "user_id" => Yii::$app->user->id]) ?>">Log Measurement</a></p>
                         </div>
-                        <div class="link"><a href="<?= Url::toRoute(['logs/detail', 'sign' => 'temperature', 'user_id' => $user->id]) ?>">View Measurements</a></div>
+                        <div class="link"><a href="<?= Url::toRoute(['logs/detail', 'sign' => 'temperature', 'user_id' => Yii::$app->user->id]) ?>">View Measurements</a></div>
                     <?php } ?>
                 </div>
             </div>
@@ -172,7 +178,7 @@ $register = Url::toRoute(['site/register']);
                         <div class="link"><a href="<?= $login ?>">View Measurements</a></div>
                     <?php } else { ?>
                         <div class="content">
-                            <p>Last weight measurements.</p>
+                            <p>Last weight measurements:</p>
 
                             <?php if ($weight) { ?>
                                 <ul class="last-signs">
@@ -187,10 +193,12 @@ $register = Url::toRoute(['site/register']);
                                     <?php } ?>
                                 </ul>
                             <?php } else { ?>
-                                No logs
+                                <p>No logs</p>
                             <?php } ?>
+                                
+                            <p><a href="<?= Url::toRoute(["logs/add", "sign" => "weight", "user_id" => Yii::$app->user->id]) ?>">Log Measurement</a></p>
                         </div>
-                        <div class="link"><a href="<?= Url::toRoute(['logs/detail', 'sign' => 'weight', 'user_id' => $user->id]) ?>">View Measurements</a></div>
+                        <div class="link"><a href="<?= Url::toRoute(['logs/detail', 'sign' => 'weight', 'user_id' => Yii::$app->user->id]) ?>">View Measurements</a></div>
                     <?php } ?>
                 </div>
             </div>

@@ -34,7 +34,6 @@ $this->params['breadcrumbs'][] = $this->title;
             'role.description',
             'created_at',
             'updated_at',
-            'reset_token',
             [
                 'label' => Yii::t( 'app', 'Image' ),
                 'format'  => 'raw', 

@@ -1,11 +1,14 @@
 <?php
-
 use yii\helpers\Html;
 use yii\widgets\ActiveForm;
+use app\models\User;
 use kartik\datetime\DateTimePicker;
 
-$this->title = 'Create Alarm';
-$this->params['breadcrumbs'][] = ['label' => 'Alarms', 'url' => ['index']];
+$this->title = 'Add Alarm';
+if (User::patientDoctorNurse($patient->id, Yii::$app->user->id)) {
+    $this->params['breadcrumbs'][] = ['label' => 'Patients', 'url' => ['user/patients']];
+    $this->params['breadcrumbs'][] = ['label' => $patient->name, 'url' => ['user/patient', 'id' => $patient->id]];
+}
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="alarm-create">
