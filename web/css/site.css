@@ -533,7 +533,7 @@ a.alarm-link {
 .field-medication-strength_measure {
     padding-top: 5px;
 }
-.field-alarm-patient_id {
+.alarm-form .field-alarm-patient_id {
     display: none;
 }
 .logs-form .field-logs-user_id {

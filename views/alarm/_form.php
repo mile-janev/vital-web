@@ -1,26 +1,27 @@
 <?php
-
 use yii\helpers\Html;
 use yii\widgets\ActiveForm;
+use app\models\User;
+use kartik\datetime\DateTimePicker;
+use yii\helpers\ArrayHelper;
 
-/* @var $this yii\web\View */
-/* @var $model app\models\Alarm */
-/* @var $form yii\widgets\ActiveForm */
+$users = User::find()->all();
 ?>
 
-<div class="alarm-form">
+<div class="alarm-form-admin">
 
     <?php $form = ActiveForm::begin(); ?>
 
     <?= $form->field($model, 'title')->textInput(['maxlength' => true]) ?>
     
-    <?= $form->field($model, 'time')->textInput() ?>
-
-    <?= $form->field($model, 'created_at')->textInput() ?>
-
-    <?= $form->field($model, 'updated_at')->textInput() ?>
-
-    <?= $form->field($model, 'patient_id')->textInput(['maxlength' => true]) ?>
+    <?= $form->field($model, 'patient_id')->dropDownList(ArrayHelper::map($users, 'id', 'name')) ?>
+    
+    <?= $form->field($model, 'time')->widget(DateTimePicker::classname(), [
+                'options' => ['placeholder' => 'Enter event time ...'],
+                'pluginOptions' => [
+                    'autoclose' => true
+                ]
+        ]); ?>
 
     <div class="form-group">
         <?= Html::submitButton($model->isNewRecord ? 'Create' : 'Update', ['class' => $model->isNewRecord ? 'btn btn-success' : 'btn btn-primary']) ?>

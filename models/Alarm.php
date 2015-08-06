@@ -51,7 +51,7 @@ class Alarm extends \yii\db\ActiveRecord
             'title' => 'Alarm Content',
             'created_at' => 'Created At',
             'updated_at' => 'Updated At',
-            'patient_id' => 'Patient ID',
+            'patient_id' => 'Patient',
             'time' => 'Time'
         ];
     }

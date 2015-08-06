@@ -47,7 +47,7 @@ $this->params['breadcrumbs'][] = $this->title;
             [
                 'label' => Yii::t( 'app', 'Prescribed By' ),
                 'format' => 'raw',
-                'attribute' => 'patient_id',
+                'attribute' => 'prescribed_by_id',
                 'value' => function ( $data ) {
                     return "<a href='".yii\helpers\Url::toRoute(['user/view', 'id'=>$data->prescribed_by_id])."'>"."(".$data->prescribed_by_id.") ".$data->prescribedBy->name."</a>";
                 },
