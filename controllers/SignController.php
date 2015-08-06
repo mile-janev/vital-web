@@ -8,9 +8,9 @@ use app\models\SignSearch;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
-use app\components\Functions;
 use yii\filters\AccessControl;
 use app\components\AccessRule;
+use app\models\Role;
 
 /**
  * SignController implements the CRUD actions for Sign model.

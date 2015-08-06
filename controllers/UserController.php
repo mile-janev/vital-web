@@ -8,7 +8,6 @@ use app\models\UserSearch;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
-use app\components\Functions;
 use yii\filters\AccessControl;
 use app\components\AccessRule;
 use app\models\Role;

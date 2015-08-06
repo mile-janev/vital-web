@@ -9,7 +9,6 @@ use app\models\LoginForm;
 use app\models\ContactForm;
 use app\models\PasswordResetForm;
 use app\models\User;
-use app\components\Functions;
 use yii\filters\AccessControl;
 use app\components\AccessRule;
 use app\models\Role;
