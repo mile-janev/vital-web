@@ -1,5 +1,4 @@
 <?php
-
 namespace app\controllers;
 
 use Yii;
@@ -9,15 +8,53 @@ use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
 use app\models\User;
+use yii\filters\AccessControl;
+use app\components\AccessRule;
+use app\models\Role;
 
 /**
  * MedicationController implements the CRUD actions for Medication model.
  */
 class MedicationController extends Controller
 {
+    
     public function behaviors()
     {
         return [
+            'access' => [
+                'class' => AccessControl::className(),
+                'ruleConfig' => [
+                    'class' => AccessRule::className(),
+                ],
+                'only' => ['create', 'update', 'index', 'delete', 'add', 'change', 'view'],
+                'rules' => [
+                    [
+                        'actions' => [''],
+                        'allow' => true,
+                        'roles' => ['?'],
+                    ],
+                    [
+                        'actions' => ['add'],
+                        'allow' => true,
+                        'roles' => ['@'],
+                    ],
+                    [
+                        'actions' => ['add', 'change'],
+                        'allow' => true,
+                        'roles' => [
+                            Role::find()->where(['name' => Role::DOCTOR])->one(),
+                            Role::find()->where(['name' => Role::NURSE])->one()
+                        ],
+                    ],
+                    [
+                        'actions' => ['create', 'update', 'index', 'delete', 'add', 'change', 'view'],
+                        'allow' => true,
+                        'roles' => [
+                            Role::find()->where(['name' => Role::ADMINISTRATOR])->one()
+                        ],
+                    ],
+                ],
+            ],
             'verbs' => [
                 'class' => VerbFilter::className(),
                 'actions' => [
@@ -148,7 +185,7 @@ class MedicationController extends Controller
      * Updates a new Medication model.
      * @return mixed
      */
-    public function actionUpdateMedication($id)
+    public function actionChange($id)
     {
         $model = $this->findModel($id);
         

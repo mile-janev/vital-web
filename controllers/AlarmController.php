@@ -9,15 +9,53 @@ use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
 use app\models\User;
+use yii\filters\AccessControl;
+use app\components\AccessRule;
+use app\models\Role;
 
 /**
  * AlarmController implements the CRUD actions for Alarm model.
  */
 class AlarmController extends Controller
 {
+    
     public function behaviors()
     {
         return [
+            'access' => [
+                'class' => AccessControl::className(),
+                'ruleConfig' => [
+                    'class' => AccessRule::className(),
+                ],
+                'only' => ['create', 'update', 'index', 'delete', 'add', 'change', 'view'],
+                'rules' => [
+                    [
+                        'actions' => [''],
+                        'allow' => true,
+                        'roles' => ['?'],
+                    ],
+                    [
+                        'actions' => ['add'],
+                        'allow' => true,
+                        'roles' => ['@'],
+                    ],
+                    [
+                        'actions' => ['add', 'change'],
+                        'allow' => true,
+                        'roles' => [
+                            Role::find()->where(['name' => Role::DOCTOR])->one(),
+                            Role::find()->where(['name' => Role::NURSE])->one()
+                        ],
+                    ],
+                    [
+                        'actions' => ['create', 'update', 'index', 'delete', 'add', 'change', 'view'],
+                        'allow' => true,
+                        'roles' => [
+                            Role::find()->where(['name' => Role::ADMINISTRATOR])->one()
+                        ],
+                    ],
+                ],
+            ],
             'verbs' => [
                 'class' => VerbFilter::className(),
                 'actions' => [
@@ -136,7 +174,7 @@ class AlarmController extends Controller
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
             return $this->redirect(['user/patient', 'id' => $params["patient_id"]]);
         } else {
-            return $this->render('add', [
+            return $this->render('add_change', [
                 'model' => $model,
                 'patient' => $patient,
             ]);
@@ -158,7 +196,7 @@ class AlarmController extends Controller
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
             return $this->redirect(['user/patient', 'id' => $model->patient_id]);
         } else {
-            return $this->render('form', [
+            return $this->render('add_change', [
                 'model' => $model,
                 'patient' => $patient,
             ]);

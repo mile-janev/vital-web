@@ -40,18 +40,12 @@ $this->params['breadcrumbs'][] = $this->title;
 
             [
                 'class' => 'yii\grid\ActionColumn',
-                'template' => '{view} {update}',
+                'template' => '{view}',
                 'buttons' => [
                         'view' => function ($url, $model, $key) {
                             return Html::a(
                                 '<span class="glyphicon glyphicon-eye-open"></span>',
                                 \yii\helpers\Url::toRoute(['/user/patient', 'id' => $model->id])
-                            );
-                        },
-                        'update' => function ($url, $model, $key) {
-                            return Html::a(
-                                '<span class="glyphicon glyphicon-pencil"></span>',
-                                \yii\helpers\Url::toRoute(['/user/patient-update', 'id' => $model->id])
                             );
                         },
                     ]

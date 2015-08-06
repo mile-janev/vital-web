@@ -9,6 +9,9 @@ use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
 use app\models\Sign;
+use yii\filters\AccessControl;
+use app\components\AccessRule;
+use app\models\Role;
 
 /**
  * LogsController implements the CRUD actions for Logs model.
@@ -18,6 +21,40 @@ class LogsController extends Controller
     public function behaviors()
     {
         return [
+            'access' => [
+                'class' => AccessControl::className(),
+                'ruleConfig' => [
+                    'class' => AccessRule::className(),
+                ],
+                'only' => ['create', 'update', 'index', 'delete', 'add', 'detail', 'view'],
+                'rules' => [
+                    [
+                        'actions' => [''],
+                        'allow' => true,
+                        'roles' => ['?'],
+                    ],
+                    [
+                        'actions' => ['add'],
+                        'allow' => true,
+                        'roles' => ['@'],
+                    ],
+                    [
+                        'actions' => ['add'],
+                        'allow' => true,
+                        'roles' => [
+                            Role::find()->where(['name' => Role::DOCTOR])->one(),
+                            Role::find()->where(['name' => Role::NURSE])->one()
+                        ],
+                    ],
+                    [
+                        'actions' => ['create', 'update', 'index', 'delete', 'add', 'detail', 'view'],
+                        'allow' => true,
+                        'roles' => [
+                            Role::find()->where(['name' => Role::ADMINISTRATOR])->one()
+                        ],
+                    ],
+                ],
+            ],
             'verbs' => [
                 'class' => VerbFilter::className(),
                 'actions' => [

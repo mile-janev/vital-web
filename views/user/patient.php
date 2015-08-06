@@ -199,7 +199,7 @@
                         <div class="schedule"><strong><?= $medication->schedule ?></strong></div>
                         <div class="note"><?= $medication->note ?></div>
                         <?php if (User::patientDoctorNurse($model->id, Yii::$app->user->id)) { ?>
-                            <?= Html::a("Update", Url::toRoute(["medication/update-medication", "id" => $medication->id])) ?>
+                            <?= Html::a("Update", Url::toRoute(["medication/change", "id" => $medication->id])) ?>
                         <?php } ?>
                     </div>
                 </div>

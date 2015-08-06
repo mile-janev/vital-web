@@ -8,6 +8,9 @@ use app\models\SignSearch;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
+use app\components\Functions;
+use yii\filters\AccessControl;
+use app\components\AccessRule;
 
 /**
  * SignController implements the CRUD actions for Sign model.
@@ -17,6 +20,22 @@ class SignController extends Controller
     public function behaviors()
     {
         return [
+            'access' => [
+                'class' => AccessControl::className(),
+                'ruleConfig' => [
+                    'class' => AccessRule::className(),
+                ],
+                'only' => ['create', 'update', 'index', 'delete', 'view'],
+                'rules' => [
+                    [
+                        'actions' => ['create', 'update', 'index', 'delete', 'view'],
+                        'allow' => true,
+                        'roles' => [
+                            Role::find()->where(['name' => Role::ADMINISTRATOR])->one()
+                        ],
+                    ],
+                ],
+            ],
             'verbs' => [
                 'class' => VerbFilter::className(),
                 'actions' => [
