@@ -34,6 +34,7 @@ echo Nav::widget([
                 ['label' => 'Logs', 'url' => Url::toRoute("logs/index")],
             ],
         ],
+        ['label' => 'Alarms', 'url' => ['/alarm/index']],
         [
             'label' => 'Profile',
             'items' => [
