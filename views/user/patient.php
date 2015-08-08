@@ -14,9 +14,9 @@
 
 <?php
     if ($model->image) {
-        $avatar = "/pics/".$model->image;
+        $avatar = Url::base(TRUE) . "/pics/".$model->image;
     } else {
-        $avatar = "/images/user.png";
+        $avatar = Url::base(TRUE) . "/images/user.png";
     }
 ?>
 

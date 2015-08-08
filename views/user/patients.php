@@ -1,14 +1,10 @@
 <?php
+    use yii\helpers\Html;
+    use yii\grid\GridView;
+    use yii\helpers\Url;
 
-use yii\helpers\Html;
-use yii\grid\GridView;
-
-/* @var $this yii\web\View */
-/* @var $searchModel app\models\UserSearch */
-/* @var $dataProvider yii\data\ActiveDataProvider */
-
-$this->title = 'Patients';
-$this->params['breadcrumbs'][] = $this->title;
+    $this->title = 'Patients';
+    $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="user-index">
 
@@ -30,9 +26,9 @@ $this->params['breadcrumbs'][] = $this->title;
                 'attribute' => 'image',
                 'value' => function ( $data ) {
                     if ($data['image']) {
-                        $avatar = "/pics/".$data['image'];
+                        $avatar = Url::base(TRUE) . "/pics/".$data['image'];
                     } else {
-                        $avatar = "/images/user.png";
+                        $avatar = Url::base(TRUE) . "/images/user.png";
                     }
                     return "<img src='".$avatar."' width='50' />";
                 },
@@ -45,7 +41,7 @@ $this->params['breadcrumbs'][] = $this->title;
                         'view' => function ($url, $model, $key) {
                             return Html::a(
                                 '<span class="glyphicon glyphicon-eye-open"></span>',
-                                \yii\helpers\Url::toRoute(['/user/patient', 'id' => $model->id])
+                                Url::toRoute(['/user/patient', 'id' => $model->id])
                             );
                         },
                     ]
