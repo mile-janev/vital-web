@@ -87,8 +87,11 @@
                     <?php } else { ?>
                         <p>No logs</p>
                     <?php } ?>
+                    
+                    <?php if (User::patientDoctorNurse($model->id, Yii::$app->user->id)) { ?>
+                        <p><a href="<?= Url::toRoute(["logs/add", "sign" => "heart_rate", "user_id" => $model->id]) ?>">Log Measurement</a></p>
+                    <?php } ?>
                         
-                    <p><a href="<?= Url::toRoute(["logs/add", "sign" => "heart_rate", "user_id" => $model->id]) ?>">Log Measurement</a></p>
                 </div>
                 <div class="link"><a href="<?= Url::toRoute(['logs/detail', 'sign' => 'heart_rate', 'user_id' => $model->id]) ?>">View Measurements</a></div>
             </div>
@@ -117,8 +120,10 @@
                         <p>No logs</p>
                     <?php } ?>
                     
-                    <p><a href="<?= Url::toRoute(["logs/add", "sign" => "blod_pressure", "user_id" => $model->id]) ?>">Log Measurement</a></p>
-                    
+                    <?php if (User::patientDoctorNurse($model->id, Yii::$app->user->id)) { ?>
+                        <p><a href="<?= Url::toRoute(["logs/add", "sign" => "blod_pressure", "user_id" => $model->id]) ?>">Log Measurement</a></p>
+                    <?php } ?>
+                        
                 </div>
                 <div class="link"><a href="<?= Url::toRoute(['logs/detail', 'sign' => 'blod_pressure', 'user_id' => $model->id]) ?>">View Measurements</a></div>
             </div>
@@ -147,7 +152,10 @@
                         <p>No logs</p>
                     <?php } ?>
                         
-                    <p><a href="<?= Url::toRoute(["logs/add", "sign" => "temperature", "user_id" => $model->id]) ?>">Log Measurement</a></p>
+                    <?php if (User::patientDoctorNurse($model->id, Yii::$app->user->id)) { ?>
+                        <p><a href="<?= Url::toRoute(["logs/add", "sign" => "temperature", "user_id" => $model->id]) ?>">Log Measurement</a></p>
+                    <?php } ?>
+                    
                 </div>
                 <div class="link"><a href="<?= Url::toRoute(['logs/detail', 'sign' => 'temperature', 'user_id' => $model->id]) ?>">View Measurements</a></div>
             </div>
@@ -175,8 +183,11 @@
                     <?php } else { ?>
                         <p>No logs</p>
                     <?php } ?>
-                        
-                <p><a href="<?= Url::toRoute(["logs/add", "sign" => "weight", "user_id" => $model->id]) ?>">Log Measurement</a></p>
+                      
+                    <?php if (User::patientDoctorNurse($model->id, Yii::$app->user->id)) { ?>
+                        <p><a href="<?= Url::toRoute(["logs/add", "sign" => "weight", "user_id" => $model->id]) ?>">Log Measurement</a></p>
+                    <?php } ?>
+                            
                 </div>
                 <div class="link"><a href="<?= Url::toRoute(['logs/detail', 'sign' => 'weight', 'user_id' => $model->id]) ?>">View Measurements</a></div>
             </div>
@@ -217,7 +228,7 @@
         <div class="col-xs-12">
             <ul class="patient-connection">
                 <li>
-                    <a href="<?php echo Url::toRoute(["user/view", "id" => $con->user->id]) ?>"><?php echo $con->user->name ?></a>,
+                    <?php echo $con->user->name ?>,
                     <a href="mailto: <?php echo $con->user->email ?>"><?php echo $con->user->email ?></a>,
                     <span><?php echo $con->user->role->description ?></span>
                 </li>

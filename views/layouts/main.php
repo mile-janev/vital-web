@@ -40,8 +40,12 @@ AppAsset::register($this);
             <?= $this->render('_admin-header', [
                 'user' => $user
             ]) ?>
-        <?php elseif(Functions::isRole(Role::DOCTOR)) : ?>
+        <?php elseif(Functions::isRole(Role::DOCTOR) || Functions::isRole(Role::NURSE)) : ?>
             <?= $this->render('_doctor-header', [
+                'user' => $user
+            ]) ?>
+        <?php elseif(Functions::isRole(Role::VISITOR) || Functions::isRole(Role::FAMILY) || Functions::isRole(Role::PATIENT)) : ?>
+            <?= $this->render('_other-header', [
                 'user' => $user
             ]) ?>
         <?php else : ?>

@@ -9,10 +9,8 @@ use app\components\Functions;
 $signName = Functions::formatSign($sign);
 
 $this->title = $user->name . " " . $signName;
-if (User::patientDoctorNurse($user->id, Yii::$app->user->id)) {
-    $this->params['breadcrumbs'][] = ['label' => 'Patients', 'url' => ['user/patients']];
-    $this->params['breadcrumbs'][] = ['label' => $user->name, 'url' => ['user/patient', 'id' => $user_id]];
-}
+$this->params['breadcrumbs'][] = ['label' => 'Patients', 'url' => ['user/patients']];
+$this->params['breadcrumbs'][] = ['label' => $user->name, 'url' => ['user/patient', 'id' => $user_id]];
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 
@@ -20,11 +18,13 @@ $this->params['breadcrumbs'][] = $this->title;
     
     <h1><?= $this->title ?></h1>
     
+    <?php if (User::patientDoctorNurse($user->id, Yii::$app->user->id)) { ?>
     <div class="row patient-add-medication">
         <div class="col-xs-12">
             <?= Html::a("Add Measurement", Url::toRoute(["logs/add", "sign" => $sign, "user_id" => $user_id]), ['class' => 'btn btn-success']) ?>
         </div>
     </div>
+    <?php } ?>
     
     <?php if ($logs) { ?>
         <div class="logs-list">

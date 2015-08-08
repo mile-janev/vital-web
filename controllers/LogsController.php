@@ -34,7 +34,7 @@ class LogsController extends Controller
                         'roles' => ['?'],
                     ],
                     [
-                        'actions' => ['add'],
+                        'actions' => ['add', 'detail'],
                         'allow' => true,
                         'roles' => ['@'],
                     ],

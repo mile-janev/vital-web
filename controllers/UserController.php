@@ -36,12 +36,12 @@ class UserController extends Controller
                         'roles' => ['?'],
                     ],
                     [
-                        'actions' => ['edit'],
+                        'actions' => ['edit', 'patients', 'patient'],
                         'allow' => true,
                         'roles' => ['@'],
                     ],
                     [
-                        'actions' => ['patients', 'patient'],
+                        'actions' => [''],
                         'allow' => true,
                         'roles' => [
                             Role::find()->where(['name' => Role::DOCTOR])->one(),
@@ -49,7 +49,7 @@ class UserController extends Controller
                         ],
                     ],
                     [
-                        'actions' => ['create', 'update', 'index', 'delete', 'edit', 'resetpassword', 'patients', 'patient', 'view'],
+                        'actions' => ['create', 'update', 'index', 'delete', 'edit', 'resetpassword', 'view'],
                         'allow' => true,
                         'roles' => [
                             Role::find()->where(['name' => Role::ADMINISTRATOR])->one()
