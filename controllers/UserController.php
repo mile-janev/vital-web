@@ -49,7 +49,7 @@ class UserController extends Controller
                         ],
                     ],
                     [
-                        'actions' => ['create', 'update', 'index', 'delete', 'edit', 'resetpassword', 'view'],
+                        'actions' => ['create', 'update', 'index', 'delete', 'edit', 'view'],
                         'allow' => true,
                         'roles' => [
                             Role::find()->where(['name' => Role::ADMINISTRATOR])->one()
