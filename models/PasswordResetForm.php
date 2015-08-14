@@ -50,8 +50,8 @@ class PasswordResetForm extends Model
         if ($this->_user) {
             
             $token = Yii::$app->security->generateRandomString(32);
-            $link = '<a href="' . Url::base(TRUE) . Url::toRoute(["user/resetpassword", "token" => $token]) . '">' . Url::base(TRUE) . Url::toRoute(["user/resetpassword", "token" => $token]) . '</a>';
-            
+            $link = '<a href="' . Url::toRoute(["user/resetpassword", "token" => $token], TRUE) . '">' . Url::toRoute(["user/resetpassword", "token" => $token], TRUE) . '</a>';
+
             $this->_user->reset_token = $token;
             
             $this->_user->password_confirm = $this->_user->password;
