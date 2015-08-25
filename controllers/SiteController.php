@@ -37,7 +37,7 @@ class SiteController extends Controller
                         'roles' => ['@'],
                     ],
                     [
-                        'actions' => [],
+                        'actions' => [''],
                         'allow' => true,
                         'roles' => [
                             Role::find()->where(['name' => Role::ADMINISTRATOR])->one()
