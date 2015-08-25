@@ -63,10 +63,12 @@ class LoginForm extends Model
                 return $loggedIn;
             }
 
-            $loginDate = date("Y-m-d H:i:s", time());
+            $loginDate = new \yii\db\Expression('NOW()');
 
-            $user->last_login = $loginDate;
-            $user->save();
+            $connection = Yii::$app->getDb();
+            $connection->createCommand()
+			->update('user', ['last_login' => $loginDate], 'id = '.$user->id)
+			->execute();
             
             return $loggedIn;
         } else {
