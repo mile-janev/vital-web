@@ -4,7 +4,7 @@ use app\models\User;
 use app\components\Functions;
 
 $this->title = 'Update ' . $model->id;
-$this->params['breadcrumbs'][] = ['label' => 'Logs', 'url' => ['index']];
+$this->params['breadcrumbs'][] = ['label' => 'Measurements', 'url' => ['index']];
 $this->params['breadcrumbs'][] = ['label' => $model->id, 'url' => ['view', 'id' => $model->id]];
 $this->params['breadcrumbs'][] = 'Update';
 ?>

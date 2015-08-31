@@ -52,7 +52,7 @@ $patients = User::findByRole(Role::PATIENT);
     <?= $form->field($model, 'prescribed_by_id')->dropDownList(ArrayHelper::map($doctors, 'id', 'name')) ?>
 
     <div class="form-group">
-        <?= Html::submitButton($model->isNewRecord ? 'Create' : 'Update', ['class' => $model->isNewRecord ? 'btn btn-success' : 'btn btn-primary']) ?>
+        <?= Html::submitButton($model->isNewRecord ? 'Add' : 'Update', ['class' => $model->isNewRecord ? 'btn btn-success' : 'btn btn-primary']) ?>
     </div>
 
     <?php ActiveForm::end(); ?>

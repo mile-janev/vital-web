@@ -9,7 +9,7 @@ use yii\bootstrap\Modal;
 /* @var $searchModel app\models\LogsSearch */
 /* @var $dataProvider yii\data\ActiveDataProvider */
 
-$this->title = 'Logs';
+$this->title = 'Measurements';
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="logs-index">
@@ -18,12 +18,12 @@ $this->params['breadcrumbs'][] = $this->title;
     <?php // echo $this->render('_search', ['model' => $searchModel]); ?>
 
     <p>
-        <?= Html::button('Create Log', ['value'=>Url::to(['logs/create']), 'class' => 'btn btn-success','id'=>'modalButton']) ?>
+        <?= Html::button('Log Measurement', ['value'=>Url::to(['logs/create']), 'class' => 'btn btn-success','id'=>'modalButton']) ?>
     </p>
     
     <?php 
         Modal::begin([
-            'header'=>'<h4>Log Sign</h4>',
+            'header'=>'<h4>Log Measurement</h4>',
             'id'=>'modal',
             'size'=>'modal_lg',
         ]);

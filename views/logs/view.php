@@ -7,7 +7,7 @@ use yii\widgets\DetailView;
 /* @var $model app\models\Logs */
 
 $this->title = "View: " . $model->id;
-$this->params['breadcrumbs'][] = ['label' => 'Logs', 'url' => ['index']];
+$this->params['breadcrumbs'][] = ['label' => 'Measurements', 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="logs-view">
