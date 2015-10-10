@@ -1,10 +1,13 @@
-html,
-body {
+html {
+    position: relative;
+    min-height: 100%;
+}
+html, body {
     height: 100%;
 }
 body {
     -webkit-font-smoothing: antialiased;
-    background-color: #edf2f5;
+    background-color: #ffffff;
     color: #023448;
     font-family: 'Roboto', 'Arial', sans-serif;
     font-size: 14px;
@@ -13,25 +16,28 @@ body {
 }
 
 .row {
-    margin-bottom: 20px;
+    /*margin-bottom: 20px;*/
 }
 
 .wrap {
     min-height: 100%;
-    height: auto;
+    position: relative;
     /*margin: 0 auto -60px;*/
     /*padding: 0 0 60px;*/
 }
 
 .wrap > .container {
-    padding: 70px 15px 20px;
+    /*padding: 70px 15px 20px;*/
 }
-
+#content {
+    padding: 103px 0;
+    text-align: justify;
+}
 .footer {
-    background-color: #022a3b;
-    padding-top: 20px;
-    padding-bottom: 20px;
-    color: #ffffff;
+    bottom: 0;
+    position: absolute;
+    width: 100%;
+    height: 83px;
 }
 
 .jumbotron {
@@ -129,6 +135,7 @@ a {
 }
 a:hover, a:focus {
     color: #a40004;
+    text-decoration: none;
 }
 .breadcrumb {
     background-color: #dfe4e7;
@@ -165,6 +172,9 @@ a:hover, a:focus {
 }
 
 /*Default styles start*/
+.bg-dark-red {
+    background-color: #c0504e;
+}
 .bg-red {
     background-color: #d82126;
 }
@@ -544,11 +554,84 @@ a.alarm-link {
 }
 /*Other end*/
 
+/*------------------------ Re-design -----------------------------------------*/
+
+/*Bars start*/
+.bar {
+    font-size: 24px;
+    background-color: #ffffff;
+}
+.bar .bar-cell {
+    border-right: 1px solid #000000;
+    text-align: center;
+}
+.bar .bar-cell:last-child {
+    border-right: none;
+}
+.bar a {
+    color: #000000;
+}
+
+#bar-top {
+    border-bottom: 1px solid #000000;
+    z-index: 100;
+    position: fixed;
+    width: 100%
+}
+#home, #profile, #time, #sos, #inbox, #message-box, #done {
+    padding: 17px 0;
+    float: left;
+    width: 100%;
+}
+#sos {
+    background-color: #c0504e;
+    color: #ffffff !important;
+    margin: 7px 0;
+}
+#time {
+    margin: 7px 0;
+}
+#message-box {
+    margin: 7px 0;
+}
+#bar-bottom {
+    border-top: 1px solid #000000;
+}
+.bar img {
+    height: 48px;
+}
+/*Bars end*/
+
 /*Only For Extra-Small xs*/
 @media (max-width: 767px) {
     .footer-links {
         float: left;
         padding-top: 10px;
+    }
+    
+    #bar-top {
+        border-bottom: none;
+    }
+    #bar-top .bar-cell {
+        border-bottom: 1px solid #000000;
+        border-right: none;
+    }
+    #bar-top .bar-cell-half:first-child {
+        border-right: 1px solid #000000;
+    }
+    
+    #bar-bottom {
+        border-top: none;
+    }
+    #bar-bottom .bar-cell {
+        border-top: 1px solid #000000;
+        border-right: none;
+    }
+    #bar-top {
+        position: relative;
+    }
+    #content {
+        padding-top: 20px;
     }
 }
 /*Only For Small sm*/

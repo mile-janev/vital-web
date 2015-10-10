@@ -78,4 +78,18 @@ class Alarm extends \yii\db\ActiveRecord
            ],
        ];
     }
+    
+    /**
+     * Find all alarms for current user
+     */
+    public static function findUserAlarms() 
+    {
+        $alarms = \app\models\Alarm::find()
+            ->where(["patient_id" => Yii::$app->user->id])
+            ->andWhere("time > NOW()")
+            ->orderBy("time ASC")
+            ->all();
+        
+        return $alarms;
+    }
 }
