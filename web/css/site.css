@@ -586,12 +586,8 @@ a.alarm-link {
 #sos {
     background-color: #c0504e;
     color: #ffffff !important;
-    margin: 7px 0;
 }
-#time {
-    margin: 7px 0;
-}
-#message-box {
+#sos, #time, #message-box {
     margin: 7px 0;
 }
 #bar-bottom {
@@ -636,7 +632,15 @@ a.alarm-link {
 }
 /*Only For Small sm*/
 @media (min-width: 768px) and (max-width: 991px) {
-    
+    .bar .image-wrapper {
+        display: block;
+    }
+    #sos, #time, #message-box {
+        margin: 24px 0;
+    }
+    #content {
+        padding: 137px 0;
+    }
 }
 
 /*Only For Medium md*/
