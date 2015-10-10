@@ -3,14 +3,14 @@
 use yii\helpers\Url;
 use app\models\User;
 
-$this->title = 'Add Data | Healthcare Record System';
+$this->title = 'View Data | Healthcare Record System';
 ?>
 
 <div class="site-add-data container-fluid">
     
     <div class="row">
         <div class="col-xs-6 col-sm-3 block-sign brb bbb">
-            <a href="<?= Url::toRoute(["logs/log", "sign" => "heart_rate"]) ?>">
+            <a href="<?= Url::toRoute(["logs/view", "sign" => "heart_rate", "user_id" => Yii::$app->user->id]) ?>">
                 <span class="image-wrapper">
                     <img src="<?= Url::base() ?>/images/heart.png" />
                 </span>
@@ -18,7 +18,7 @@ $this->title = 'Add Data | Healthcare Record System';
             </a>
         </div>
         <div class="col-xs-6 col-sm-3 block-sign brb bbb">
-            <a href="<?= Url::toRoute(["logs/log", "sign" => "blod_pressure"]) ?>">
+            <a href="<?= Url::toRoute(["logs/view", "sign" => "blod_pressure", "user_id" => Yii::$app->user->id]) ?>">
                 <span class="image-wrapper">
                     <img src="<?= Url::base() ?>/images/blood.png" />
                 </span>
@@ -26,7 +26,7 @@ $this->title = 'Add Data | Healthcare Record System';
             </a>
         </div>
         <div class="col-xs-6 col-sm-3 block-sign brb bbb">
-            <a href="<?= Url::toRoute(["logs/log", "sign" => "temperature"]) ?>">
+            <a href="<?= Url::toRoute(["logs/view", "sign" => "temperature", "user_id" => Yii::$app->user->id]) ?>">
                 <span class="image-wrapper">
                     <img src="<?= Url::base() ?>/images/temperature.png" />
                 </span>
@@ -34,7 +34,7 @@ $this->title = 'Add Data | Healthcare Record System';
             </a>
         </div>
         <div class="col-xs-6 col-sm-3 block-sign bbb">
-            <a href="<?= Url::toRoute(["logs/log", "sign" => "weight"]) ?>">
+            <a href="<?= Url::toRoute(["logs/view", "sign" => "weight", "user_id" => Yii::$app->user->id]) ?>">
                 <span class="image-wrapper">
                     <img src="<?= Url::base() ?>/images/weight.png" />
                 </span>

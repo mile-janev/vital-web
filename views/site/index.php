@@ -29,7 +29,7 @@ $this->title = 'HRS | Healthcare Record System';
 
     <div class="row">
         <div class="col-xs-6 block brw bbw">
-            <a href="#">
+            <a href="<?= Url::toRoute(["logs/overview"]) ?>">
                 <span class="text">Biosignals</span>
                 <span class="image-wrapper">
                     <img src="<?= Url::base() ?>/images/biosignal.png" />

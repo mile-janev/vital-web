@@ -26,7 +26,7 @@ class LogsController extends Controller
                 'ruleConfig' => [
                     'class' => AccessRule::className(),
                 ],
-                'only' => ['create', 'update', 'index', 'delete', 'add', 'detail', 'view', 'add-data'],
+                'only' => ['create', 'update', 'index', 'delete', 'add', 'detail', 'view', 'add-data', 'overview', 'log', 'view-data'],
                 'rules' => [
                     [
                         'actions' => [''],
@@ -34,7 +34,7 @@ class LogsController extends Controller
                         'roles' => ['?'],
                     ],
                     [
-                        'actions' => ['add', 'detail', 'add-data'],
+                        'actions' => ['add', 'detail', 'add-data', 'overview', 'log', 'view-data'],
                         'allow' => true,
                         'roles' => ['@'],
                     ],
@@ -206,13 +206,72 @@ class LogsController extends Controller
     
     /*
      * New action
-     * Add Data link
+     * Add own Data links
      */
     public function actionAddData()
     {
+        return $this->render('add_data');
+    }
+    
+    /**
+     * New action
+     * Log own data.
+     */
+    public function actionLog($sign)
+    {
+        $model = new Logs();
+        $user_id = Yii::$app->user->id;
         
-        return $this->render('add_data', [
+        $signModel = Sign::find()->where(["alias" => $sign])->one();
+        
+        $user = \app\models\User::find()->where(["id" => $user_id])->one();
+        $model->user_id = $user_id;
 
+        if ($model->load(Yii::$app->request->post()) && $model->save()) {
+            return $this->redirect(['view-data-text', 'sign' => $sign]);
+        } else {
+            return $this->render('log', [
+                'model' => $model,
+                'sign' => $sign,
+                'signModel' => $signModel,
+                'user' => $user
+            ]);
+        }
+    }
+    
+    /*
+     * New action
+     * Overview own signs links
+     */
+    public function actionOverview()
+    {
+        return $this->render('overview');
+    }
+    
+    /**
+     * New action
+     * View own log for some sign
+     */
+    public function actionViewDataText($sign)
+    {
+        $user_id = Yii::$app->user->id;
+        
+        $logs = Logs::find()
+                ->where(['sign' => $sign, 'user_id' => $user_id])
+                ->orderBy("created_at DESC")
+                ->all();
+        
+        $signModel = Sign::find()->where(["alias" => $sign])->one();
+        
+        $user = \app\models\User::find()->where(["id" => $user_id])->one();
+        
+        //Only for detail view for vital sign
+        return $this->render('view_data_text', [
+            'sign' => $sign,
+            'user_id' => $user_id,
+            'logs' => $logs,
+            'signModel' => $signModel,
+            'user' => $user
         ]);
     }
 }
