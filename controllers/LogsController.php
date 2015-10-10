@@ -26,7 +26,7 @@ class LogsController extends Controller
                 'ruleConfig' => [
                     'class' => AccessRule::className(),
                 ],
-                'only' => ['create', 'update', 'index', 'delete', 'add', 'detail', 'view'],
+                'only' => ['create', 'update', 'index', 'delete', 'add', 'detail', 'view', 'add-data'],
                 'rules' => [
                     [
                         'actions' => [''],
@@ -34,7 +34,7 @@ class LogsController extends Controller
                         'roles' => ['?'],
                     ],
                     [
-                        'actions' => ['add', 'detail'],
+                        'actions' => ['add', 'detail', 'add-data'],
                         'allow' => true,
                         'roles' => ['@'],
                     ],
@@ -202,5 +202,17 @@ class LogsController extends Controller
                 'user' => $user
             ]);
         }
+    }
+    
+    /*
+     * New action
+     * Add Data link
+     */
+    public function actionAddData()
+    {
+        
+        return $this->render('add_data', [
+
+        ]);
     }
 }

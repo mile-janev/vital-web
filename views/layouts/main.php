@@ -71,7 +71,7 @@ AppAsset::register($this);
             ]) ?>
         <?php endif; ?>
             
-        <div id="content" class="container">
+        <div id="content" class="container-fluid">
             <?= $content ?>
         </div>
         

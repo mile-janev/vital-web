@@ -30,11 +30,11 @@ body {
     /*padding: 70px 15px 20px;*/
 }
 #content {
-    padding: 103px 0;
+    padding: 83px 0 0 0;
     text-align: justify;
 }
 .footer {
-    bottom: 0;
+    /*bottom: 0;*/
     position: absolute;
     width: 100%;
     height: 83px;
@@ -592,11 +592,112 @@ a.alarm-link {
 }
 #bar-bottom {
     border-top: 1px solid #000000;
+    border-bottom: 1px solid #000000;
 }
 .bar img {
     height: 48px;
 }
 /*Bars end*/
+
+/*Block home start*/
+.block {
+    background-color: #d9e0ea;
+    min-height: 150px;
+    font-size: 24px;
+    text-transform: uppercase;
+    text-align: center;
+}
+.block a {
+    display: block;
+    float: left;
+    width: 100%;
+    color: #000000;
+    outline: none;
+    padding: 30px 0;
+}
+.block a:hover {
+    color: #000000;
+}
+.block a .text {
+    
+}
+.block a .image-wrapper {
+    display: inline-block;
+    padding-left: 50px;
+}
+.block a .image-wrapper img {
+    height: 90px;
+}
+.brw {
+    border-right: 2px solid #ffffff;
+}
+.bbw {
+    border-bottom: 2px solid #ffffff;
+}
+/*Block home end*/
+
+/*Block Sign panel start*/
+.block-sign {
+    background-color: #ffffff;
+    min-height: 134px;
+    font-size: 24px;
+    text-align: center;
+}
+.block-sign a {
+    display: block;
+    float: left;
+    width: 100%;
+    color: #000000;
+    outline: none;
+    padding: 20px 0;
+}
+.block-sign a:hover {
+    color: #000000;
+}
+.block-sign.empty-sign {
+    background-color: #f9f9f9;
+}
+.block-sign a .text {
+    display: block;
+}
+.block-sign a .image-wrapper {
+    display: block;
+}
+.block-sign a .image-wrapper img {
+    height: 58px;
+}
+.brb {
+    border-right: 2px solid #514f50;
+}
+.bbb {
+    border-bottom: 2px solid #514f50;
+}
+/*Block Sign panel end*/
+
+/*Only For Smaller then 390px*/
+@media (max-width: 390px) {
+    .block-sign {
+        font-size: 18px;
+    }
+}
+
+/*Only For Smaller then 412px*/
+@media (max-width: 412px) {
+    .block a .text {
+        display: none !important;
+    }
+}
+
+/*Only For Smaller then 630px*/
+@media (max-width: 630px) {
+    .block a .image-wrapper, .block a .text {
+        display: block;
+    }
+    .block a .image-wrapper {
+        padding-top: 10px;
+        padding-left: 0;
+    }
+}
 
 /*Only For Extra-Small xs*/
 @media (max-width: 767px) {
@@ -627,7 +728,13 @@ a.alarm-link {
         position: relative;
     }
     #content {
-        padding-top: 20px;
+        padding: 0;
+    }
+    .block {
+        font-size: 18px;
+    }
+    .block a .image-wrapper {
+        padding-left: 10px;
     }
 }
 /*Only For Small sm*/
@@ -639,7 +746,10 @@ a.alarm-link {
         margin: 24px 0;
     }
     #content {
-        padding: 137px 0;
+        padding: 117px 0 0 0;
+    }
+    .block a .image-wrapper {
+        padding-left: 10px;
     }
 }
 

@@ -66,8 +66,16 @@ class SiteController extends Controller
             ],
         ];
     }
-
+    
     public function actionIndex()
+    {
+        
+        return $this->render('index', [
+            
+        ]);
+    }
+
+    public function actionIndexOld()
     {
         if (!\Yii::$app->user->isGuest) {
             $id = \Yii::$app->user->id;
@@ -107,7 +115,7 @@ class SiteController extends Controller
             $user = false;
         }
         
-        return $this->render('index', [
+        return $this->render('index_old', [
             'heartRate' => $heartRate,
             'blodPressure' => $blodPressure,
             'temperature' => $temperature,
