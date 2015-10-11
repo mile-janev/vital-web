@@ -651,6 +651,15 @@ a.alarm-link {
     outline: none;
     padding: 20px 0;
 }
+.block-sign a.overview-chart {
+    padding: 10px;
+}
+.block-sign a.overview-text {
+    padding: 10px 0;
+}
+.block-sign a.overview-chart img {
+    height: 20px;
+}
 .block-sign a:hover {
     color: #000000;
 }
@@ -665,6 +674,12 @@ a.alarm-link {
 }
 .block-sign a .image-wrapper img {
     height: 58px;
+}
+.block-sign-splitted {
+    padding: 0;
+}
+.block-sign-splitted a:hover {
+    background-color: #f9f9f9;
 }
 .brb {
     border-right: 2px solid #514f50;

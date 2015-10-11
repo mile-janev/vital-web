@@ -9,32 +9,44 @@ $this->title = 'View Data | Healthcare Record System';
 <div class="site-add-data container-fluid">
     
     <div class="row">
-        <div class="col-xs-6 col-sm-3 block-sign brb bbb">
-            <a href="<?= Url::toRoute(["logs/view", "sign" => "heart_rate", "user_id" => Yii::$app->user->id]) ?>">
+        <div class="col-xs-6 col-sm-3 block-sign block-sign-splitted brb bbb">
+            <a class="overview-chart" href="<?= Url::toRoute(["logs/view-data-chart", "sign" => "heart_rate"]) ?>">
+                <img src="<?= Url::base() ?>/images/chart.png" />
+            </a>
+            <a class="overview-text" href="<?= Url::toRoute(["logs/view-data-text", "sign" => "heart_rate"]) ?>">
                 <span class="image-wrapper">
                     <img src="<?= Url::base() ?>/images/heart.png" />
                 </span>
                 <span class="text">Heart rate</span>
             </a>
         </div>
-        <div class="col-xs-6 col-sm-3 block-sign brb bbb">
-            <a href="<?= Url::toRoute(["logs/view", "sign" => "blod_pressure", "user_id" => Yii::$app->user->id]) ?>">
+        <div class="col-xs-6 col-sm-3 block-sign block-sign-splitted brb bbb">
+            <a class="overview-chart" href="<?= Url::toRoute(["logs/view-data-chart", "sign" => "blod_pressure"]) ?>">
+                <img src="<?= Url::base() ?>/images/chart.png" />
+            </a>
+            <a class="overview-text" href="<?= Url::toRoute(["logs/view-data-text", "sign" => "blod_pressure"]) ?>">
                 <span class="image-wrapper">
                     <img src="<?= Url::base() ?>/images/blood.png" />
                 </span>
                 <span class="text">Blood pressure</span>
             </a>
         </div>
-        <div class="col-xs-6 col-sm-3 block-sign brb bbb">
-            <a href="<?= Url::toRoute(["logs/view", "sign" => "temperature", "user_id" => Yii::$app->user->id]) ?>">
+        <div class="col-xs-6 col-sm-3 block-sign block-sign-splitted brb bbb">
+            <a class="overview-chart" href="<?= Url::toRoute(["logs/view-data-chart", "sign" => "temperature"]) ?>">
+                <img src="<?= Url::base() ?>/images/chart.png" />
+            </a>
+            <a class="overview-text" href="<?= Url::toRoute(["logs/view-data-text", "sign" => "temperature"]) ?>">
                 <span class="image-wrapper">
                     <img src="<?= Url::base() ?>/images/temperature.png" />
                 </span>
                 <span class="text">Temperature</span>
             </a>
         </div>
-        <div class="col-xs-6 col-sm-3 block-sign bbb">
-            <a href="<?= Url::toRoute(["logs/view", "sign" => "weight", "user_id" => Yii::$app->user->id]) ?>">
+        <div class="col-xs-6 col-sm-3 block-sign block-sign-splitted bbb">
+            <a class="overview-chart" href="<?= Url::toRoute(["logs/view-data-chart", "sign" => "weight"]) ?>">
+                <img src="<?= Url::base() ?>/images/chart.png" />
+            </a>
+            <a class="overview-text" href="<?= Url::toRoute(["logs/view-data-text", "sign" => "weight"]) ?>">
                 <span class="image-wrapper">
                     <img src="<?= Url::base() ?>/images/weight.png" />
                 </span>

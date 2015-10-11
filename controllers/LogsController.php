@@ -26,7 +26,7 @@ class LogsController extends Controller
                 'ruleConfig' => [
                     'class' => AccessRule::className(),
                 ],
-                'only' => ['create', 'update', 'index', 'delete', 'add', 'detail', 'view', 'add-data', 'overview', 'log', 'view-data'],
+                'only' => ['create', 'update', 'index', 'delete', 'add', 'detail', 'view', 'add-data', 'overview', 'log', 'view-data-text', 'view-data-chart'],
                 'rules' => [
                     [
                         'actions' => [''],
@@ -34,7 +34,7 @@ class LogsController extends Controller
                         'roles' => ['?'],
                     ],
                     [
-                        'actions' => ['add', 'detail', 'add-data', 'overview', 'log', 'view-data'],
+                        'actions' => ['add', 'detail', 'add-data', 'overview', 'log', 'view-data-text', 'view-data-chart'],
                         'allow' => true,
                         'roles' => ['@'],
                     ],
@@ -250,7 +250,7 @@ class LogsController extends Controller
     
     /**
      * New action
-     * View own log for some sign
+     * View own log for some sign in text format
      */
     public function actionViewDataText($sign)
     {
@@ -267,6 +267,33 @@ class LogsController extends Controller
         
         //Only for detail view for vital sign
         return $this->render('view_data_text', [
+            'sign' => $sign,
+            'user_id' => $user_id,
+            'logs' => $logs,
+            'signModel' => $signModel,
+            'user' => $user
+        ]);
+    }
+    
+    /**
+     * New action
+     * View own log for some sign in chart
+     */
+    public function actionViewDataChart($sign)
+    {
+        $user_id = Yii::$app->user->id;
+        
+        $logs = Logs::find()
+                ->where(['sign' => $sign, 'user_id' => $user_id])
+                ->orderBy("created_at DESC")
+                ->all();
+        
+        $signModel = Sign::find()->where(["alias" => $sign])->one();
+        
+        $user = \app\models\User::find()->where(["id" => $user_id])->one();
+        
+        //Only for detail view for vital sign
+        return $this->render('view_data_chart', [
             'sign' => $sign,
             'user_id' => $user_id,
             'logs' => $logs,
