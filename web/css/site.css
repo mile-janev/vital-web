@@ -10,7 +10,7 @@ body {
     background-color: #ffffff;
     color: #023448;
     font-family: 'Roboto', 'Arial', sans-serif;
-    font-size: 14px;
+    font-size: 16px;
     margin: 0px;
     padding: 0px
 }
@@ -141,7 +141,7 @@ a:hover, a:focus {
     background-color: #dfe4e7;
 }
 .btn {
-    background-color: #ea0649;
+    background-color: #c0504e;
     border-radius: 4px;
     -moz-border-radius: 4px;
     -webkit-border-radius: 4px;
@@ -153,11 +153,18 @@ a:hover, a:focus {
     padding: 7px 15px 7px 15px;
     text-shadow: none;
     transition: background-color 0.2s ease-in 0s;
-    min-width: 150px;
+    min-width: 60px;
 }
 .btn:hover, .btn:focus, .btn:active, .btn.focus, .btn.active {
     background-color: #a40004;
     outline: none;
+}
+.btn.btn-edit:hover, .btn.btn-edit:focus, .btn.btn-edit:active, .btn.btn-edit.focus, .btn.btn-edit.active {
+    background-color: #e87876;
+    outline: none;
+}
+.btn.btn-edit {
+    background-color: #f88886;
 }
 .required {
     
@@ -688,6 +695,26 @@ a.alarm-link {
     border-bottom: 2px solid #514f50;
 }
 /*Block Sign panel end*/
+
+/*Measurements page start*/
+.measurements-view-text {
+    
+}
+.measurements-view-text .sub-title {
+    font-weight: bold;
+    padding: 10px 0;
+    text-decoration: underline;
+}
+.measurements-wrapper {
+    padding: 10px 20px;
+}
+.measurements-wrapper .row-measure {
+    padding: 4px 0;
+}
+.measurements-wrapper .row-measure .data {
+    padding: 5px 0px;
+}
+/*Measurements page end*/
 
 /*Only For Smaller then 390px*/
 @media (max-width: 390px) {

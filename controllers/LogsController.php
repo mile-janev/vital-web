@@ -26,7 +26,7 @@ class LogsController extends Controller
                 'ruleConfig' => [
                     'class' => AccessRule::className(),
                 ],
-                'only' => ['create', 'update', 'index', 'delete', 'add', 'detail', 'view', 'add-data', 'overview', 'log', 'view-data-text', 'view-data-chart'],
+                'only' => ['create', 'update', 'index', 'delete', 'add', 'detail', 'view', 'add-data', 'overview', 'log', 'view-data-text', 'view-data-chart', 'edit', 'delete-own'],
                 'rules' => [
                     [
                         'actions' => [''],
@@ -34,7 +34,7 @@ class LogsController extends Controller
                         'roles' => ['?'],
                     ],
                     [
-                        'actions' => ['add', 'detail', 'add-data', 'overview', 'log', 'view-data-text', 'view-data-chart'],
+                        'actions' => ['add', 'detail', 'add-data', 'overview', 'log', 'view-data-text', 'view-data-chart', 'edit', 'delete-own'],
                         'allow' => true,
                         'roles' => ['@'],
                     ],
@@ -138,7 +138,7 @@ class LogsController extends Controller
     {
         $this->findModel($id)->delete();
 
-        return $this->redirect(['index']);
+        return $this->goBack();
     }
 
     /**
@@ -259,6 +259,7 @@ class LogsController extends Controller
         $logs = Logs::find()
                 ->where(['sign' => $sign, 'user_id' => $user_id])
                 ->orderBy("created_at DESC")
+                ->limit(8)
                 ->all();
         
         $signModel = Sign::find()->where(["alias" => $sign])->one();
@@ -268,7 +269,6 @@ class LogsController extends Controller
         //Only for detail view for vital sign
         return $this->render('view_data_text', [
             'sign' => $sign,
-            'user_id' => $user_id,
             'logs' => $logs,
             'signModel' => $signModel,
             'user' => $user
@@ -286,6 +286,7 @@ class LogsController extends Controller
         $logs = Logs::find()
                 ->where(['sign' => $sign, 'user_id' => $user_id])
                 ->orderBy("created_at DESC")
+                ->limit(8)
                 ->all();
         
         $signModel = Sign::find()->where(["alias" => $sign])->one();
@@ -295,10 +296,50 @@ class LogsController extends Controller
         //Only for detail view for vital sign
         return $this->render('view_data_chart', [
             'sign' => $sign,
-            'user_id' => $user_id,
             'logs' => $logs,
             'signModel' => $signModel,
             'user' => $user
         ]);
     }
+    
+    /**
+     * New action
+     * Edit own measurement
+     */
+    public function actionEdit($id)
+    {
+        $model = Logs::find()->where(["id" => $id, "user_id" => Yii::$app->user->id])->one();
+        $user = \app\models\User::find()->where(["id" => Yii::$app->user->id])->one();
+        
+        if ($model) {//Prevent updating other people logs
+            $signModel = Sign::find()->where(["alias" => $model->sign])->one();
+            if ($model->load(Yii::$app->request->post()) && $model->save()) {
+                return $this->redirect(["logs/view-data-text", "sign" => $model->sign]);
+            } else {
+                return $this->render('edit', [
+                    'model' => $model,
+                    'signModel' => $signModel,
+                    'user' => $user
+                ]);
+            }
+        } else {
+            return $this->goBack();
+        }
+    }
+    
+    /**
+     * New action
+     * Delete own measurement
+     */
+    public function actionDeleteOwn($id)
+    {
+        $model = Logs::find()->where(["id" => $id, "user_id" => Yii::$app->user->id])->one();
+        if ($model) {
+            $this->findModel($id)->delete();
+            return $this->redirect(["logs/view-data-text", "sign" => $model->sign]);
+        } else {
+            return $this->goBack();
+        }
+    }
+    
 }
