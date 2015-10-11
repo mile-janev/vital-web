@@ -293,11 +293,27 @@ class LogsController extends Controller
         
         $user = \app\models\User::find()->where(["id" => $user_id])->one();
         
+        //Data Formating for chart
+        $chart = [
+            'cols' => [
+                0 => ['id' => 'Time', 'label' => 'Time', 'type' => 'string'],
+                1 => ['id' => 'Log', 'label' => '', 'type' => 'number'],
+            ]
+        ];
+        for($i = 0; $i<count($logs); $i++){
+            $chartDate = date("m/d/Y H:i", strtotime($logs[$i]->created_at));
+            $chart['rows'][$i]['c'] = [
+                ['v' => $chartDate], 
+                ['v' => (int)$logs[$i]->value]
+            ];
+        }
+        
         //Only for detail view for vital sign
         return $this->render('view_data_chart', [
             'sign' => $sign,
             'logs' => $logs,
             'signModel' => $signModel,
+            'chart' => $chart,
             'user' => $user
         ]);
     }

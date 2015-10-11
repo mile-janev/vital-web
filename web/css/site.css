@@ -714,6 +714,27 @@ a.alarm-link {
 .measurements-wrapper .row-measure .data {
     padding: 5px 0px;
 }
+.measurements-view-chart {
+    padding: 20px 0;
+}
+.measurements-view-chart .sub-title {
+    font-weight: bold;
+    padding: 10px 0;
+    text-decoration: underline;
+}
+.measurements-view-chart .last-result-time {
+    font-size: 18px;
+    padding: 20px 0;
+}
+.measurements-view-chart .last-result-value span {
+    font-size: 36px;
+    padding: 5px 10px;
+    background-color: #f3f3f3;
+    border: 2px solid #dddddd;
+}
+#chart-measurement {
+    
+}
 /*Measurements page end*/
 
 /*Only For Smaller then 390px*/
@@ -777,6 +798,12 @@ a.alarm-link {
     }
     .block a .image-wrapper {
         padding-left: 10px;
+    }
+    .measurements-view-chart .last-result-time {
+        padding: 10px 0;
+    }
+    #chart1 {
+        padding: 20px 0;
     }
 }
 /*Only For Small sm*/

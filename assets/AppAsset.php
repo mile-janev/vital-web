@@ -21,6 +21,7 @@ class AppAsset extends AssetBundle
         'css/site.css',
     ];
     public $js = [
+        'js/google_analytics.js',
         'js/functions.js',
         'js/main.js',
     ];
