@@ -25,8 +25,18 @@ class ConnectionController extends Controller
                 'ruleConfig' => [
                     'class' => AccessRule::className(),
                 ],
-                'only' => ['create', 'update', 'index', 'delete', 'view'],
+                'only' => ['create', 'update', 'index', 'delete', 'view', 'overview'],
                 'rules' => [
+                    [
+                        'actions' => [''],
+                        'allow' => true,
+                        'roles' => ['?'],
+                    ],
+                    [
+                        'actions' => ['add', 'overview'],
+                        'allow' => true,
+                        'roles' => ['@'],
+                    ],
                     [
                         'actions' => ['create', 'update', 'index', 'delete', 'view'],
                         'allow' => true,
@@ -141,4 +151,18 @@ class ConnectionController extends Controller
             throw new NotFoundHttpException('The requested page does not exist.');
         }
     }
+    
+    /**
+     * New action
+     * Overview own connections
+     */
+    public function actionOverview()
+    {
+        $user = \app\models\User::find()->where(["id" => Yii::$app->user->id])->one();
+        
+        return $this->render('overview', [
+            'user' => $user
+        ]);
+    }
+    
 }
