@@ -37,7 +37,7 @@ $this->title = 'HRS | Healthcare Record System';
             </a>
         </div>
         <div class="col-xs-6 block bbw">
-            <a href="#">
+            <a href="<?= Url::toRoute(["medication/overview"]) ?>">
                 <span class="text">Medical records</span>
                 <span class="image-wrapper">
                     <img src="<?= Url::base() ?>/images/record.png" />

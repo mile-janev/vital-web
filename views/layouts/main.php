@@ -3,7 +3,6 @@ use yii\helpers\Html;
 use yii\bootstrap\Nav;
 use yii\bootstrap\NavBar;
 use yii\widgets\Breadcrumbs;
-use app\assets\AppAsset;
 use yii\helpers\Url;
 use app\components\Functions;
 use app\models\Role;
@@ -17,7 +16,7 @@ if (Yii::$app->user->id) {
     $alarms = \app\models\Alarm::findUserAlarms();
 }
 
-AppAsset::register($this);
+app\assets\AppAsset::register($this);
 ?>
 <?php $this->beginPage() ?>
 <!DOCTYPE html>

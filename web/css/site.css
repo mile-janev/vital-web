@@ -160,11 +160,18 @@ a:hover, a:focus {
     outline: none;
 }
 .btn.btn-edit:hover, .btn.btn-edit:focus, .btn.btn-edit:active, .btn.btn-edit.focus, .btn.btn-edit.active {
-    background-color: #e87876;
+    background-color: #c0504e;
     outline: none;
 }
 .btn.btn-edit {
     background-color: #f88886;
+}
+.btn.btn-view:hover, .btn.btn-view:focus, .btn.btn-view:active, .btn.btn-view.focus, .btn.btn-view.active {
+    background-color: #c0504e;
+    outline: none;
+}
+.btn.btn-view {
+    background-color: #e87876;
 }
 .required {
     

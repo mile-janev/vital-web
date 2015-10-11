@@ -26,7 +26,7 @@ class MedicationController extends Controller
                 'ruleConfig' => [
                     'class' => AccessRule::className(),
                 ],
-                'only' => ['create', 'update', 'index', 'delete', 'add', 'change', 'view'],
+                'only' => ['create', 'update', 'index', 'delete', 'add', 'change', 'view', 'overview'],
                 'rules' => [
                     [
                         'actions' => [''],
@@ -34,7 +34,7 @@ class MedicationController extends Controller
                         'roles' => ['?'],
                     ],
                     [
-                        'actions' => ['add'],
+                        'actions' => ['add', 'overview'],
                         'allow' => true,
                         'roles' => ['@'],
                     ],
@@ -201,6 +201,25 @@ class MedicationController extends Controller
                 'doctorNurse' => $doctorNurse
             ]);
         }
+    }
+    
+    /**
+     * New action
+     * Overview own medications
+     */
+    public function actionOverview()
+    {
+        $models = Medication::find()
+                ->where(["patient_id" => Yii::$app->user->id])
+                ->orderBy("created_at DESC")
+                ->limit(8)
+                ->all();
+        $user = \app\models\User::find()->where(["id" => Yii::$app->user->id])->one();
+        
+        return $this->render('overview', [
+            'models' => $models,
+            'user' => $user
+        ]);
     }
     
 }
