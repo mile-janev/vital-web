@@ -6,7 +6,7 @@ function drawChart() {
 
     var options = {
         legend: 'none',
-        colors: ['#ea0649'],
+        colors: ['#2cbc24'],
         enableInteractivity: true,
         width: '100%',
         pointSize: 10,
