@@ -1,76 +1,48 @@
 <?php
 /* @var $this yii\web\View */
 use yii\helpers\Url;
-use app\models\User;
+use yii\helpers\Html;
+use yii\bootstrap\Modal;
 
 $this->title = 'Contacts | Healthcare Record System';
-
-var_dump($user->patientConnection);
-exit();
 ?>
 
-<div class="site-contacts container-fluid">
+<?php 
+    Modal::begin([
+        'header'=>'<h4>Add Contact</h4>',
+        'id'=>'modal',
+        'size'=>'modal_lg',
+    ]);
+    echo"<div id='modalContent'></div>";
+    Modal::end();
+?>
+
+<div class="site-contacts container">
     
-    <div class="row">
-        <div class="col-xs-6 col-sm-3 block-sign block-sign-splitted brb bbb">
-            <a class="overview-chart" href="<?= Url::toRoute(["logs/view-data-chart", "sign" => "heart_rate"]) ?>">
-                <img src="<?= Url::base() ?>/images/chart.png" />
-            </a>
-            <a class="overview-text" href="<?= Url::toRoute(["logs/view-data-text", "sign" => "heart_rate"]) ?>">
-                <span class="image-wrapper">
-                    <img src="<?= Url::base() ?>/images/heart.png" />
-                </span>
-                <span class="text">Heart rate</span>
-            </a>
+    <div class="measurements-wrapper">
+        <div class="row row-measure">
+            <?= Html::button('Add Contact', ['value'=>Url::to(['connection/add']), 'class' => 'btn btn-success','id'=>'modalButton']) ?>
         </div>
-        <div class="col-xs-6 col-sm-3 block-sign block-sign-splitted brb bbb">
-            <a class="overview-chart" href="<?= Url::toRoute(["logs/view-data-chart", "sign" => "blod_pressure"]) ?>">
-                <img src="<?= Url::base() ?>/images/chart.png" />
-            </a>
-            <a class="overview-text" href="<?= Url::toRoute(["logs/view-data-text", "sign" => "blod_pressure"]) ?>">
-                <span class="image-wrapper">
-                    <img src="<?= Url::base() ?>/images/blood.png" />
-                </span>
-                <span class="text">Blood pressure</span>
-            </a>
-        </div>
-        <div class="col-xs-6 col-sm-3 block-sign block-sign-splitted brb bbb">
-            <a class="overview-chart" href="<?= Url::toRoute(["logs/view-data-chart", "sign" => "temperature"]) ?>">
-                <img src="<?= Url::base() ?>/images/chart.png" />
-            </a>
-            <a class="overview-text" href="<?= Url::toRoute(["logs/view-data-text", "sign" => "temperature"]) ?>">
-                <span class="image-wrapper">
-                    <img src="<?= Url::base() ?>/images/temperature.png" />
-                </span>
-                <span class="text">Temperature</span>
-            </a>
-        </div>
-        <div class="col-xs-6 col-sm-3 block-sign block-sign-splitted bbb">
-            <a class="overview-chart" href="<?= Url::toRoute(["logs/view-data-chart", "sign" => "weight"]) ?>">
-                <img src="<?= Url::base() ?>/images/chart.png" />
-            </a>
-            <a class="overview-text" href="<?= Url::toRoute(["logs/view-data-text", "sign" => "weight"]) ?>">
-                <span class="image-wrapper">
-                    <img src="<?= Url::base() ?>/images/weight.png" />
-                </span>
-                <span class="text">Weight</span>
-            </a>
-        </div>
-    </div>
-    
-    <div class="row hidden-xs">
-        <div class="col-xs-6 col-sm-3 block-sign empty-sign brb">
-            <a href="#">&nbsp;</a>
-        </div>
-        <div class="col-xs-6 col-sm-3 block-sign empty-sign brb">
-            <a href="#">&nbsp;</a>
-        </div>
-        <div class="col-xs-6 col-sm-3 block-sign empty-sign brb">
-            <a href="#">&nbsp;</a>
-        </div>
-        <div class="col-xs-6 col-sm-3 block-sign empty-sign">
-            <a href="#">&nbsp;</a>
-        </div>
+        
+        <?php foreach ($user->patientConnection as $conUser) : ?>
+            <?php $usr = $conUser->user; ?>
+            <div class="row row-measure">
+                <div class="col-lg-6 col-lg-6 col-sm-6 col-xs-12 data">
+                    <?= $usr->name ?>,
+                    <a href="mailto: <?= $usr->email ?>"><?= $usr->email ?></a>,
+                    <span><?= $usr->role->description ?></span>
+                </div>
+                <div class="col-lg-2 col-md-2 col-sm-2 col-xs-4">
+                    <?= Html::a('Remove', Url::toRoute(["connection/remove-own", "user_id" => $usr->id]), [
+                        'class' => 'btn btn-success',
+                        'data' => [
+                            'confirm' => 'Are you sure you want to remove this contact?',
+                            'method' => 'post',
+                        ],
+                    ]) ?>
+                </div>
+            </div>
+        <?php endforeach; ?>
     </div>
     
 </div>

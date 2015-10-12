@@ -41,8 +41,8 @@ class Connection extends \yii\db\ActiveRecord
     public function attributeLabels()
     {
         return [
-            'user_id' => 'User ID',
-            'patient_id' => 'Patient ID',
+            'user_id' => 'User',
+            'patient_id' => 'Patient',
         ];
     }
 

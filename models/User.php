@@ -291,7 +291,6 @@ class User extends \yii\db\ActiveRecord implements IdentityInterface
             $users = self::find()->where(['role_id' => $role->id])->all();
         }
         
-        
         return $users;
     }
     
@@ -306,5 +305,22 @@ class User extends \yii\db\ActiveRecord implements IdentityInterface
         }
         
         return $isDN;
+    }
+    
+    /**
+     * Find all users elimination own connection. Usefull for dropdown
+     * @return array
+     */
+    public static function findUsersWithoutConnections()
+    {
+        $connections = Connection::find()->where(["patient_id" => Yii::$app->user->id])->all();
+        $connIDs = [];
+        foreach ($connections as $connection) {
+            $connIDs[] = $connection->user_id;
+        }
+        
+        $users = self::find()->where(['NOT IN', 'id', $connIDs])->all();
+        
+        return $users;
     }
 }

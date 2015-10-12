@@ -25,7 +25,7 @@ class ConnectionController extends Controller
                 'ruleConfig' => [
                     'class' => AccessRule::className(),
                 ],
-                'only' => ['create', 'update', 'index', 'delete', 'view', 'overview'],
+                'only' => ['create', 'update', 'index', 'delete', 'view', 'overview', 'remove-own'],
                 'rules' => [
                     [
                         'actions' => [''],
@@ -33,7 +33,7 @@ class ConnectionController extends Controller
                         'roles' => ['?'],
                     ],
                     [
-                        'actions' => ['add', 'overview'],
+                        'actions' => ['add', 'overview', 'remove-own'],
                         'allow' => true,
                         'roles' => ['@'],
                     ],
@@ -163,6 +163,42 @@ class ConnectionController extends Controller
         return $this->render('overview', [
             'user' => $user
         ]);
+    }
+    
+    /**
+     * New action
+     * Remove own connection
+     */
+    public function actionRemoveOwn($user_id)
+    {
+        $connection = Connection::find()
+                ->where(["patient_id" => Yii::$app->user->id, "user_id" => $user_id])
+                ->one();
+        
+        if ($connection) {
+            $connection->delete();
+        }
+        
+        return $this->redirect(['connection/overview']);
+    }
+    
+    /**
+     * New action
+     * Add connection to your own profile
+     */
+    public function actionAdd()
+    {
+        $model = new Connection();
+
+        $model->patient_id = Yii::$app->user->id;
+        
+        if ($model->load(Yii::$app->request->post()) && $model->save()) {
+            return $this->redirect(['connection/overview']);
+        } else {
+            return $this->renderAjax('add', [
+                'model' => $model,
+            ]);
+        }
     }
     
 }
