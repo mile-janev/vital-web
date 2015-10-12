@@ -8,6 +8,14 @@ $(document).ready(function(){
                 .load($(this).attr('value'));
     });
     
+    //Click on modal window
+    $('.modalLog').click(function(){
+        $('#modal .modal-title').html($(this).attr('title'));
+        $('#modal').modal('show')
+                .find('#modalContent')
+                .load($(this).attr('rel'));
+    });
+    
     //Modal info popup add title and content
     $(".view-medication").click(function(){
         var id = $(this).attr("rel");

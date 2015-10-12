@@ -664,6 +664,7 @@ a.alarm-link {
     color: #000000;
     outline: none;
     padding: 20px 0;
+    cursor: pointer;
 }
 .block-sign a.overview-chart {
     padding: 10px;
@@ -742,7 +743,6 @@ a.alarm-link {
 #chart-measurement {
     
 }
-/*Measurements page end*/
 
 /*Only For Smaller then 390px*/
 @media (max-width: 390px) {

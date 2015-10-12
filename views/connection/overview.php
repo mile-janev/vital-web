@@ -21,7 +21,7 @@ $this->title = 'Contacts | Healthcare Record System';
     
     <div class="measurements-wrapper">
         <div class="row row-measure">
-            <?= Html::button('Add Contact', ['value'=>Url::to(['connection/add']), 'class' => 'btn btn-success','id'=>'modalButton']) ?>
+            <?= Html::button('Add Contact', ['value'=>Url::to(['connection/add']), 'class' => 'btn btn-success', 'id'=>'modalButton']) ?>
         </div>
         
         <?php foreach ($user->patientConnection as $conUser) : ?>

@@ -230,7 +230,7 @@ class LogsController extends Controller
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
             return $this->redirect(['view-data-text', 'sign' => $sign]);
         } else {
-            return $this->render('log', [
+            return $this->renderAjax('log', [
                 'model' => $model,
                 'sign' => $sign,
                 'signModel' => $signModel,
@@ -332,7 +332,7 @@ class LogsController extends Controller
             if ($model->load(Yii::$app->request->post()) && $model->save()) {
                 return $this->redirect(["logs/view-data-text", "sign" => $model->sign]);
             } else {
-                return $this->render('edit', [
+                return $this->renderAjax('edit', [
                     'model' => $model,
                     'signModel' => $signModel,
                     'user' => $user

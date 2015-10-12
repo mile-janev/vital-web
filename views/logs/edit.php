@@ -14,34 +14,28 @@ if (User::patientDoctorNurse($user->id, Yii::$app->user->id)) {
 }
 $this->params['breadcrumbs'][] = $this->title;
 ?>
-<div class="logs-create container">
+<div class="logs-log logs-form">
 
-    <h1><?= Html::encode($this->title) ?></h1>
+    <?php $form = ActiveForm::begin(); ?>
 
-    <div class="logs-form">
+    <?= $form->field($model, 'value')->textInput()->hint("X ".$signModel->measure) ?>
 
-        <?php $form = ActiveForm::begin(); ?>
+    <?= $form->field($model, 'description')->textarea(['rows' => 3]) ?>
 
-        <?= $form->field($model, 'value')->textInput()->hint("X ".$signModel->measure) ?>
+    <?= $form->field($model, 'created_at')->widget(DateTimePicker::classname(), [
+                'options' => ['placeholder' => 'Enter log time ...'],
+                'pluginOptions' => [
+                    'autoclose' => true
+                ]
+        ])
+        ->hint("*Current time will be logged if you not insert value"); ?>
 
-        <?= $form->field($model, 'description')->textarea(['rows' => 3]) ?>
+    <?= $form->field($model, 'sign')->hiddenInput(['value' => $model->sign]) ?>
 
-        <?= $form->field($model, 'created_at')->widget(DateTimePicker::classname(), [
-                    'options' => ['placeholder' => 'Enter log time ...'],
-                    'pluginOptions' => [
-                        'autoclose' => true
-                    ]
-            ])
-            ->hint("*Current time will be logged if you not insert value"); ?>
-
-        <?= $form->field($model, 'sign')->hiddenInput(['value' => $model->sign]) ?>
-
-        <div class="form-group">
-            <?= Html::submitButton($model->isNewRecord ? 'Create' : 'Update', ['class' => $model->isNewRecord ? 'btn btn-success' : 'btn btn-primary']) ?>
-        </div>
-
-        <?php ActiveForm::end(); ?>
-
+    <div class="form-group">
+        <?= Html::submitButton('Update', ['class' => 'btn btn-primary']) ?>
     </div>
+
+    <?php ActiveForm::end(); ?>
 
 </div>
