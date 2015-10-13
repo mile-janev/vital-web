@@ -48,7 +48,7 @@ class Alarm extends \yii\db\ActiveRecord
     {
         return [
             'id' => 'ID',
-            'title' => 'Alarm Content',
+            'title' => 'Reminder',
             'created_at' => 'Created At',
             'updated_at' => 'Updated At',
             'patient_id' => 'Patient',

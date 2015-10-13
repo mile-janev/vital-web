@@ -27,7 +27,7 @@ class AlarmController extends Controller
                 'ruleConfig' => [
                     'class' => AccessRule::className(),
                 ],
-                'only' => ['create', 'update', 'index', 'delete', 'add', 'change', 'view'],
+                'only' => ['create', 'update', 'index', 'delete', 'add', 'change', 'view', 'overview', 'add-own'],
                 'rules' => [
                     [
                         'actions' => [''],
@@ -35,7 +35,7 @@ class AlarmController extends Controller
                         'roles' => ['?'],
                     ],
                     [
-                        'actions' => ['add'],
+                        'actions' => ['add', 'overview', 'add-own'],
                         'allow' => true,
                         'roles' => ['@'],
                     ],
@@ -202,4 +202,61 @@ class AlarmController extends Controller
             ]);
         }
     }
+    
+    /**
+     * New action
+     * Overview own alarms
+     */
+    public function actionOverview()
+    {
+        $models = Alarm::find()
+                ->where(["patient_id" => Yii::$app->user->id])
+                ->orderBy("created_at DESC")
+                ->limit(8)
+                ->all();
+        $user = \app\models\User::find()->where(["id" => Yii::$app->user->id])->one();
+        
+        return $this->render('overview', [
+            'user' => $user,
+            'models' => $models,
+        ]);
+    }
+    
+    /**
+     * New action
+     * Create own alarm
+     * @return mixed
+     */
+    public function actionAddOwn()
+    {
+        $model = new Alarm();
+        
+        $model->patient_id = Yii::$app->user->id;
+        if ($model->load(Yii::$app->request->post()) && $model->save()) {
+            return $this->redirect(['alarm/overview']);
+        } else {
+            return $this->renderAjax('add_own', [
+                'model' => $model
+            ]);
+        }
+    }
+    
+    /**
+     * New action
+     * Edit own alarm
+     * @return mixed
+     */
+    public function actionEditOwn($id)
+    {
+        $model = Alarm::find()->where(["id" => $id, "patient_id" => Yii::$app->user->id])->one();
+        
+        if ($model->load(Yii::$app->request->post()) && $model->save()) {
+            return $this->redirect(['alarm/overview']);
+        } else {
+            return $this->renderAjax('add_own', [
+                'model' => $model
+            ]);
+        }
+    }
+    
 }

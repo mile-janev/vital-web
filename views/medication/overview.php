@@ -4,7 +4,7 @@ use app\models\User;
 use yii\helpers\Url;
 use app\components\Functions;
 
-$this->title = 'List medications';
+$this->title = 'Medical Records | Healthcare Record System';
 ?>
 <div class="measurements-view-text container">
 
