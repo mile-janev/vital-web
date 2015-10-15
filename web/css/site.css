@@ -603,6 +603,7 @@ a.alarm-link {
 }
 #sos, #time, #message-box {
     margin: 7px 0;
+    outline: none;
 }
 #bar-bottom {
     border-top: 1px solid #000000;
@@ -743,6 +744,24 @@ a.alarm-link {
 #chart-measurement {
     
 }
+
+/*Reminder popup start*/
+#reminder-later {
+    float: left;
+    background-image: url("../images/later.png");
+    background-repeat: no-repeat;
+    background-position: 7px 50%;
+    background-size: 16px auto;
+    padding-left: 32px;
+}
+#reminder-done {
+    background-image: url("../images/done.png");
+    background-repeat: no-repeat;
+    background-position: 7px 50%;
+    background-size: 24px auto;
+    padding-left: 32px;
+}
+/*Reminder popup end*/
 
 /*Only For Smaller then 390px*/
 @media (max-width: 390px) {

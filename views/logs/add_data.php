@@ -1,7 +1,6 @@
 <?php
 /* @var $this yii\web\View */
 use yii\helpers\Url;
-use app\models\User;
 use yii\bootstrap\Modal;
 
 $this->title = 'Add Data | Healthcare Record System';

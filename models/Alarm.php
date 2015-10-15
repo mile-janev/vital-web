@@ -65,6 +65,14 @@ class Alarm extends \yii\db\ActiveRecord
     }
     
     /**
+     * @return \yii\db\ActiveQuery
+     */
+    public function getFrom()
+    {
+        return $this->hasOne(User::className(), ['id' => 'from_id']);
+    }
+    
+    /**
      * @inheritdoc
      */
     public function behaviors()
@@ -80,16 +88,16 @@ class Alarm extends \yii\db\ActiveRecord
     }
     
     /**
-     * Find all alarms for current user
+     * Find first alarm for current user
      */
-    public static function findUserAlarms() 
+    public static function findUserAlarm() 
     {
-        $alarms = \app\models\Alarm::find()
-            ->where(["patient_id" => Yii::$app->user->id])
-            ->andWhere("time > NOW()")
+        $alarm = \app\models\Alarm::find()
+            ->where(["patient_id" => Yii::$app->user->id, "seen" => 0])
+            ->andWhere("time <= NOW()")
             ->orderBy("time ASC")
-            ->all();
+            ->one();
         
-        return $alarms;
+        return $alarm;
     }
 }

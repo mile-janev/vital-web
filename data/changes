@@ -1,0 +1,10 @@
+---------- 15.10.2015 ----------------------------------------------------------
+ALTER TABLE `alarm` ADD `from_id` INT UNSIGNED NOT NULL ,
+ADD `seen` BOOLEAN NOT NULL DEFAULT FALSE ,
+ADD INDEX ( `from_id` ) ;
+
+Napravi gi from_id i patient id da imat isti vrednosti.
+
+ALTER TABLE `alarm` ADD FOREIGN KEY ( `from_id` ) REFERENCES `user` (
+`id`
+) ON DELETE CASCADE ON UPDATE RESTRICT ;

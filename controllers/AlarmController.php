@@ -27,7 +27,7 @@ class AlarmController extends Controller
                 'ruleConfig' => [
                     'class' => AccessRule::className(),
                 ],
-                'only' => ['create', 'update', 'index', 'delete', 'add', 'change', 'view', 'overview', 'add-own'],
+                'only' => ['create', 'update', 'index', 'delete', 'add', 'change', 'view', 'overview', 'add-own', 'done'],
                 'rules' => [
                     [
                         'actions' => [''],
@@ -35,7 +35,7 @@ class AlarmController extends Controller
                         'roles' => ['?'],
                     ],
                     [
-                        'actions' => ['add', 'overview', 'add-own'],
+                        'actions' => ['add', 'overview', 'add-own', 'done'],
                         'allow' => true,
                         'roles' => ['@'],
                     ],
@@ -257,6 +257,46 @@ class AlarmController extends Controller
                 'model' => $model
             ]);
         }
+    }
+    
+    public function actionDone()
+    {
+        $this->layout=false;
+        header('Content-type: application/json');
+        
+        $output["status"] = "no";
+        
+        $params = Yii::$app->request->post();
+        
+        if ($params['id']) {
+            $alarm = Alarm::find()->where(["id" => $params['id'], "patient_id" => Yii::$app->user->id])->one();
+            if ($alarm) {
+                $alarm->seen = 1;
+                $saved = $alarm->save();
+                if ($saved) {
+                    $output["status"] = "yes";
+                    $newAlarm = \app\models\Alarm::findUserAlarm();
+                    if ($newAlarm) {
+                        
+                        if ($newAlarm->patient_id == $newAlarm->from_id) {
+                            $label = 'New own reminder';
+                        } else {
+                            $label = "New message from " . $newAlarm->from->role->description . " " . $newAlarm->from->name;
+                        }
+                        $output['new_label'] = $label;
+                        $output['new_content'] = $newAlarm->title;
+                        $output['new_id'] = $newAlarm->id;
+                    } else {
+                        $output['new'] = 'no';
+                    }
+                }
+            }
+        }
+//        var_dump($params);
+//        exit();
+        
+        echo \yii\helpers\Json::encode($output);
+        exit();
     }
     
 }

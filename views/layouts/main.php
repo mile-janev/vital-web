@@ -13,7 +13,7 @@ use app\models\Role;
 $user = false;
 if (Yii::$app->user->id) {
     $user = app\models\User::find()->where(['id' => Yii::$app->user->id])->one();
-    $alarms = \app\models\Alarm::findUserAlarms();
+    $alarm = \app\models\Alarm::findUserAlarm();
 }
 
 app\assets\AppAsset::register($this);
@@ -66,7 +66,7 @@ app\assets\AppAsset::register($this);
         <?php if (!Yii::$app->user->isGuest) { ?>
         <footer class="footer">
             <?= $this->render('_footer', [
-                'user' => $user, 'alarms' => $alarms
+                'user' => $user, 'alarm' => $alarm
             ]) ?>
         </footer>
         <?php } ?>
