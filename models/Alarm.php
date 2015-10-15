@@ -55,6 +55,24 @@ class Alarm extends \yii\db\ActiveRecord
             'time' => 'Time'
         ];
     }
+    
+    /*
+     * Override beforeSave() method
+     * Method called before listing is saved, on create or update
+     */
+    public function beforeSave($insert) {
+        if ($this->isNewRecord) {
+            if (!$this->created_at) {
+                $this->created_at = new Expression('NOW()');
+            }
+            $this->updated_at = new Expression('NOW()');
+            $this->from_id = Yii::$app->user->id;
+        } else {
+            $this->updated_at = new Expression('NOW()');
+        }
+        
+        return parent::beforeSave($insert);
+    }
 
     /**
      * @return \yii\db\ActiveQuery

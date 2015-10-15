@@ -248,7 +248,7 @@ class AlarmController extends Controller
      */
     public function actionEditOwn($id)
     {
-        $model = Alarm::find()->where(["id" => $id, "patient_id" => Yii::$app->user->id])->one();
+        $model = Alarm::find()->where(["id" => $id, "patient_id" => Yii::$app->user->id, "from_id" => Yii::$app->user->id])->one();
         
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
             return $this->redirect(['alarm/overview']);
@@ -292,8 +292,6 @@ class AlarmController extends Controller
                 }
             }
         }
-//        var_dump($params);
-//        exit();
         
         echo \yii\helpers\Json::encode($output);
         exit();
