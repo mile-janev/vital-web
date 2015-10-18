@@ -4,12 +4,12 @@
 
             <div class="modal-header">
                 <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-                <h4 id="infoModalTitle" class="modal-title"><?= ($title) ? $title : "Title" ?></h4>
+                <h4 id="infoModalTitle" class="modal-title"><?= isset($title) ? $title : "Title" ?></h4>
             </div>
 
             <div class="modal-body">
 
-                <div id="infoModalContent" class="popupContent"><?= ($content) ? $content : "Content" ?></div>
+                <div id="infoModalContent" class="popupContent"><?= isset($content) ? $content : "Content" ?></div>
 
             </div>
 
