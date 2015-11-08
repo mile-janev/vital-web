@@ -27,7 +27,7 @@
                             <?php if ($user->image) { ?>
                                 <img src="<?= Url::base() . "/pics" . $user->image ?>" />
                             <?php } else { ?>
-                                <img src="<?=Url::base() ?>/images/user.png" />
+                                <img src="<?= Url::base() ?>/images/user.png" />
                             <?php } ?>
                         </span>
                         <span class="text">Profile</span>

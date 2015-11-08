@@ -763,6 +763,15 @@ a.alarm-link {
 }
 /*Reminder popup end*/
 
+/*Communication start*/
+.site-communication .block-sign a .text {
+/*    background-image: url("../images/phone_green.png");
+    background-repeat: no-repeat;
+    background-size: 24px;
+    background-position: 10px 50%;*/
+}
+/*Communication end*/
+
 /*Only For Smaller then 390px*/
 @media (max-width: 390px) {
     .block-sign {

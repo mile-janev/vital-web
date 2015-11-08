@@ -33,7 +33,7 @@ class ConnectionController extends Controller
                         'roles' => ['?'],
                     ],
                     [
-                        'actions' => ['add', 'overview', 'remove-own'],
+                        'actions' => ['add', 'overview', 'remove-own', 'communication'],
                         'allow' => true,
                         'roles' => ['@'],
                     ],
@@ -199,6 +199,19 @@ class ConnectionController extends Controller
                 'model' => $model,
             ]);
         }
+    }
+    
+    /**
+     * New action
+     * Overview own connections
+     */
+    public function actionCommunication()
+    {
+        $user = \app\models\User::find()->where(["id" => Yii::$app->user->id])->one();
+        
+        return $this->render('communication', [
+            'user' => $user
+        ]);
     }
     
 }

@@ -56,7 +56,7 @@ $this->title = 'HRS | Healthcare Record System';
             </a>
         </div>
         <div class="col-xs-6 block">
-            <a href="#">
+            <a href="<?= Url::toRoute(["connection/communication"]) ?>">
                 <span class="text">Communication</span>
                 <span class="image-wrapper">
                     <img src="<?= Url::base() ?>/images/communication.png" />
