@@ -13,7 +13,7 @@ class CallAsset extends AssetBundle
     ];
     public $js = [
         'other/webrtc.js',
-//        'js/webrtc_call.js',
+        'js/webrtc_call.js',
     ];
     public $depends = [
         'yii\web\YiiAsset',

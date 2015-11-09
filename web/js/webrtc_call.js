@@ -1,5 +1,31 @@
-// grab the room from the URL
-//var room = location.search && location.search.split('?')[1];
+$(document).ready(function(){
+    $("#done").attr("href", $("#call-end").html());
+    $("#done img").attr("src", "/images/end_call.png").css("height", "36px");
+    
+    var counter = 0;
+    setInterval(function () {
+        ++counter;
+        var time = format_time(counter);
+        $("#call-time").html(time);
+    }, 1000);
+})
+
+//Napravi da pokazuva minuti i sekundi
+function format_time (time) {
+    var formated_time = time;
+    
+    if (time < 10) {
+        formated_time = "00:0" + time;
+    } else if (time < 60) {
+        formated_time = "00:" + time;
+    } else if (time > 60 && time < 3600) {
+        //Dodaj minuti, sekundi tuka
+    } else {
+        //dodaj saati, minuti, sekundi
+    }
+    
+    return formated_time;
+}
 
 // create our webrtc connection
 var webrtc = new SimpleWebRTC({
@@ -12,7 +38,7 @@ var webrtc = new SimpleWebRTC({
     debug: false,
     detectSpeakingEvents: true,
     autoAdjustMic: false,
-    nick: 'Nekoj'//Stavi ja tuka realnata vrednost
+    nick: myNick
 });
 
 // when it's ready, join if we got a room from the URL
@@ -49,13 +75,13 @@ webrtc.on('localScreenAdded', function(video) {
         video.style.width = video.videoWidth + 'px';
         video.style.height = video.videoHeight + 'px';
     };
-    document.getElementById('localScreenContainer').appendChild(video);
-    $('#localScreenContainer').show();
+//    document.getElementById('localScreenContainer').appendChild(video);
+//    $('#localScreenContainer').show();
 });
 // local screen removed
 webrtc.on('localScreenRemoved', function(video) {
     document.getElementById('localScreenContainer').removeChild(video);
-    $('#localScreenContainer').hide();
+//    $('#localScreenContainer').hide();
 });
 
 // a peer video has been added
@@ -63,6 +89,8 @@ webrtc.on('videoAdded', function(video, peer) {
     console.log('video added', peer);
     var remotes = document.getElementById('remotes');
     if (remotes) {
+        $("#local").css("position", "absolute");
+        
         var container = document.createElement('div');
         container.className = 'videoContainer';
         container.id = 'container_' + webrtc.getDomId(peer);
@@ -129,15 +157,6 @@ webrtc.on('videoRemoved', function(video, peer) {
     }
 });
 
-// local volume has changed
-webrtc.on('volumeChange', function(volume, treshold) {
-    showVolume(document.getElementById('localVolume'), volume);
-});
-// remote volume has changed
-webrtc.on('remoteVolumeChange', function(peer, volume) {
-    showVolume(document.getElementById('volume_' + peer.id), volume);
-});
-
 // local p2p/ice failure
 webrtc.on('iceFailed', function(peer) {
     var connstate = document.querySelector('#container_' + webrtc.getDomId(peer) + ' .connectionstate');
@@ -157,34 +176,6 @@ webrtc.on('connectivityError', function(peer) {
         fileinput.disabled = 'disabled';
     }
 });
-
-// Since we use this twice we put it here
-function setRoom(name) {
-    document.querySelector('form').remove();
-    document.getElementById('title').innerText = 'Room: ' + name;
-    document.getElementById('subTitle').innerText = 'Link to join: ' + location.href;
-    $('body').addClass('active');
-}
-
-if (room) {
-    setRoom(room);
-} else {
-    $('form').submit(function() {
-        var val = $('#sessionInput').val().toLowerCase().replace(/\s/g, '-').replace(/[^A-Za-z0-9_\-]/g, '');
-        webrtc.createRoom(val, function(err, name) {
-            console.log(' create room cb', arguments);
-
-            var newUrl = location.pathname + '?' + name;
-            if (!err) {
-                history.replaceState({foo: 'bar'}, null, newUrl);
-                setRoom(name);
-            } else {
-                console.log(err);
-            }
-        });
-        return false;
-    });
-}
 
 var button = document.getElementById('screenShareButton'),
         setButton = function(bool) {
@@ -214,22 +205,3 @@ button.onclick = function() {
 
     }
 };
-
-//For Text Chat ------------------------------------------------------------------
-// Await messages from others
-
-webrtc.connection.on('message', function(data) {
-    if (data.type === 'chat') {
-        console.log('chat received', data);
-        $('#messages').append('<br>' + data.payload.nick + ':<br>' + data.payload.message);
-    }
-});
-
-
-// Send a chat message
-$('#send').click(function() {
-    var msg = $('#text').val();
-    webrtc.sendToAll('chat', {message: msg, nick: webrtc.config.nick});
-    $('#messages').append('<br>You:<br>' + msg);
-    $('#text').val('');
-});
