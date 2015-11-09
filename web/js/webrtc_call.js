@@ -1,5 +1,6 @@
 $(document).ready(function(){
     $("#done").attr("href", $("#call-end").html());
+    $("#done .text").html("Hang up");
     $("#done img").attr("src", "/images/end_call.png").css("height", "36px");
     
     var counter = 0;
