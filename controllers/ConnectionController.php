@@ -214,4 +214,12 @@ class ConnectionController extends Controller
         ]);
     }
     
+    public function actionCall($id) {
+        $user = \app\models\User::find()->where(["id" => Yii::$app->user->id])->one();
+        
+        return $this->render('call', [
+            'user' => $user
+        ]);
+    }
+    
 }

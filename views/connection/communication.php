@@ -12,7 +12,7 @@ $this->title = 'Communication | Healthcare Record System';
         <?php foreach ($user->patientConnection as $key => $conUser) : ?>
             <?php $usr = $conUser->user; ?>
             <div class="col-xs-6 col-sm-3 block-sign block-sign-splitted bbb <?= (($key+1)%4!==0) ? "brb" : "" ?>">
-                <a href="<?= Url::toRoute(["logs/view-data-text", "sign" => "heart_rate"]) ?>">
+                <a href="<?= Url::toRoute(["connection/call", "id" => $usr->id]) ?>">
                     <span class="image-wrapper">
                         <img src="<?= ($usr->image) ? Url::base()."/pics".$usr->image : Url::base()."/images/user.png" ?>" />
                     </span>
