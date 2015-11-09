@@ -11,21 +11,22 @@ $(document).ready(function(){
     }, 1000);
 })
 
-//Napravi da pokazuva minuti i sekundi
 function format_time (time) {
-    var formated_time = time;
     
-    if (time < 10) {
-        formated_time = "00:0" + time;
-    } else if (time < 60) {
-        formated_time = "00:" + time;
-    } else if (time > 60 && time < 3600) {
-        //Dodaj minuti, sekundi tuka
-    } else {
-        //dodaj saati, minuti, sekundi
-    }
+    var minutes = Math.floor(time / 60);
     
-    return formated_time;
+    var seconds = time - minutes * 60;
+    
+    var hours = Math.floor(time / 3600);
+    time = time - hours * 3600;
+    
+    var finalTime = str_pad_left(minutes,'0',2)+':'+str_pad_left(seconds,'0',2);
+    
+    return finalTime;
+    
+}
+function str_pad_left(string,pad,length) {
+    return (new Array(length+1).join(pad)+string).slice(-length);
 }
 
 // create our webrtc connection
