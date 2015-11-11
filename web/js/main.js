@@ -1,5 +1,6 @@
 $(document).ready(function(){
     tile();
+    checkForCall();
     
     //Click on modal window
     $('#modalButton').click(function(){
@@ -46,6 +47,27 @@ $(document).ready(function(){
                 }
             }, 'json');
     });
+    
+    //Check for call start
+    setInterval(function () {
+        checkForCall();
+    }, 5000);
+    
+    $("#callDismiss").click(function(e){
+        e.preventDefault();
+        $.post("/connection/call-dismiss", 
+        {
+            
+        },
+        function(response){
+            if (response.status == 'yes') {
+                $('#modalCall').modal('hide');
+            } else {
+                console.log("error");
+            }
+        }, 'json')
+    })
+    //Check for call end
     
 })
 

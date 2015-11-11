@@ -25,7 +25,7 @@ class ConnectionController extends Controller
                 'ruleConfig' => [
                     'class' => AccessRule::className(),
                 ],
-                'only' => ['create', 'update', 'index', 'delete', 'view', 'overview', 'remove-own'],
+                'only' => ['create', 'update', 'index', 'delete', 'view', 'overview', 'remove-own', 'ajax-call', 'check-call', 'call-dismiss'],
                 'rules' => [
                     [
                         'actions' => [''],
@@ -33,7 +33,7 @@ class ConnectionController extends Controller
                         'roles' => ['?'],
                     ],
                     [
-                        'actions' => ['add', 'overview', 'remove-own', 'communication'],
+                        'actions' => ['add', 'overview', 'remove-own', 'communication', 'ajax-call', 'check-call', 'call-dismiss'],
                         'allow' => true,
                         'roles' => ['@'],
                     ],
@@ -222,6 +222,86 @@ class ConnectionController extends Controller
             'user_called' => $user_called,
             'user_caller' => $user_caller
         ]);
+    }
+    
+    public function actionAjaxCall()
+    {
+        $this->layout=false;
+        header('Content-type: application/json');
+        $output = [];
+        
+        $params = Yii::$app->request->post();
+        
+        if (\Yii::$app->user->id == $params["called"]) {//Means this is an answer
+            $call = \app\models\Call::find()->where([
+                    "called" => \Yii::$app->user->id,
+                    "status" => 0
+                ])
+                ->orderBy(["start" => SORT_DESC])
+                ->one();
+            if ($call !== null) {
+                $call->status = 1;
+                $call->update();
+            }
+        } else {//If caller
+            if ($params["answer"] == 0) {
+                $call = new \app\models\Call();
+                $call->caller = $params['caller'];
+                $call->called = $params['called'];
+                $call->save();
+            }
+        }
+        
+        $output["status"] = "yes";
+        
+        echo \yii\helpers\Json::encode($output);
+        exit();
+    }
+    
+    public function actionCheckCall()
+    {
+        $this->layout=false;
+        header('Content-type: application/json');
+        $output = [];
+        
+        $call = \app\models\Call::find()->where([
+                    "called" => \Yii::$app->user->id,
+                    "status" => 0
+                ])
+                ->orderBy(["start" => SORT_DESC])
+                ->one();
+        if ($call) {
+            $output['call'] = 'yes';
+            $output['caller'] = $call->caller0->name;
+        } else {
+            $output['call'] = 'no';
+        }
+        
+        echo \yii\helpers\Json::encode($output);
+        exit();
+    }
+    
+    public function actionCallDismiss()
+    {
+        $this->layout=false;
+        header('Content-type: application/json');
+        $output = [];
+        
+        $calls = \app\models\Call::find()->where([
+                    "called" => \Yii::$app->user->id,
+                    "status" => 0
+                ])
+                ->all();
+
+        foreach ($calls as $call) {
+            $call->status = 2;
+            $call->save();
+        }
+        
+        $output['status'] = 'yes';
+        
+        echo \yii\helpers\Json::encode($output);
+        exit();
     }
     
 }

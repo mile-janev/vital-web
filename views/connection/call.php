@@ -35,3 +35,7 @@ $this->registerJsFile(Url::base() . '/js/webrtc_call.js', [
     </div>
 </div>
 <div id="call-end" class="hidden"><?= Url::toRoute(["connection/communication"]) ?></div>
+<div id="caller" class="hidden"><?= Yii::$app->user->id ?></div>
+<div id="called" class="hidden"><?= $user_called->id ?></div>
+<div id="ajaxCall" class="hidden"><?= Url::toRoute(["connection/ajax-call"]) ?></div>
+<div id="ajaxCallAnswer" class="hidden"><?= Url::toRoute(["connection/ajax-call-answer"]) ?></div>

@@ -1,33 +1,6 @@
 $(document).ready(function(){
-    $("#done").attr("href", $("#call-end").html());
-    $("#done .text").html("Hang up");
-    $("#done img").attr("src", "/images/end_call.png").css("height", "36px");
-    
-    var counter = 0;
-    setInterval(function () {
-        ++counter;
-        var time = format_time(counter);
-        $("#call-time").html(time);
-    }, 1000);
+    $("#call-time").html("Waiting...");
 })
-
-function format_time (time) {
-    
-    var minutes = Math.floor(time / 60);
-    
-    var seconds = time - minutes * 60;
-    
-    var hours = Math.floor(time / 3600);
-    time = time - hours * 3600;
-    
-    var finalTime = str_pad_left(minutes,'0',2)+':'+str_pad_left(seconds,'0',2);
-    
-    return finalTime;
-    
-}
-function str_pad_left(string,pad,length) {
-    return (new Array(length+1).join(pad)+string).slice(-length);
-}
 
 // create our webrtc connection
 var webrtc = new SimpleWebRTC({
@@ -46,8 +19,25 @@ var webrtc = new SimpleWebRTC({
 // when it's ready, join if we got a room from the URL
 webrtc.on('readyToCall', function() {
     // you can name it anything
-    if (room)
+    if (room) {
         webrtc.joinRoom(room);
+        //Added new code start
+        //Save call in DB
+        jQuery.post($("#ajaxCall").html(), 
+        { 
+            caller: $("#caller").html(),
+            called: $("#called").html(),
+            answer: 0
+        },
+        function(response){
+            if (response.status == 'yes') {
+                console.log("ok")
+            } else {
+                console.log("error");
+            }
+        }, 'json')
+        //Added new code end
+    }
 });
 
 function showVolume(el, volume) {
@@ -148,6 +138,35 @@ webrtc.on('videoAdded', function(video, peer) {
         }
         remotes.appendChild(container);
     }
+    
+    //Added new code start
+    $("#done").attr("href", $("#call-end").html());
+    $("#done .text").html("Hang up");
+    $("#done img").attr("src", "/images/end_call.png").css("height", "36px");
+    
+    var counter = 0;
+    setInterval(function () {
+        ++counter;
+        var time = format_time(counter);
+        $("#call-time").html(time);
+    }, 1000);
+    
+    //Save call answered in DB
+    jQuery.post($("#ajaxCall").html(), 
+    { 
+        caller: $("#caller").html(),
+        called: $("#called").html(),
+        answer: 1
+    },
+    function(response){
+        if (response.status == 'yes') {
+            console.log("ok")
+        } else {
+            console.log("error");
+        }
+    }, 'json')
+    //Added new code end
+    
 });
 // a peer was removed
 webrtc.on('videoRemoved', function(video, peer) {
@@ -179,31 +198,31 @@ webrtc.on('connectivityError', function(peer) {
     }
 });
 
-var button = document.getElementById('screenShareButton'),
-        setButton = function(bool) {
-            button.innerText = bool ? 'share screen' : 'stop sharing';
-        };
-if (!webrtc.capabilities.screenSharing) {
-    button.disabled = 'disabled';
-}
-webrtc.on('localScreenRemoved', function() {
-    setButton(true);
-});
-
-setButton(true);
-
-button.onclick = function() {
-    if (webrtc.getLocalScreen()) {
-        webrtc.stopScreenShare();
-        setButton(true);
-    } else {
-        webrtc.shareScreen(function(err) {
-            if (err) {
-                setButton(true);
-            } else {
-                setButton(false);
-            }
-        });
-
-    }
-};
+//var button = document.getElementById('screenShareButton'),
+//        setButton = function(bool) {
+//            button.innerText = bool ? 'share screen' : 'stop sharing';
+//        };
+//if (!webrtc.capabilities.screenSharing) {
+//    button.disabled = 'disabled';
+//}
+//webrtc.on('localScreenRemoved', function() {
+//    setButton(true);
+//});
+//
+//setButton(true);
+//
+//button.onclick = function() {
+//    if (webrtc.getLocalScreen()) {
+//        webrtc.stopScreenShare();
+//        setButton(true);
+//    } else {
+//        webrtc.shareScreen(function(err) {
+//            if (err) {
+//                setButton(true);
+//            } else {
+//                setButton(false);
+//            }
+//        });
+//
+//    }
+//};

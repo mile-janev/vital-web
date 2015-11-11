@@ -71,7 +71,10 @@ app\assets\AppAsset::register($this);
         </footer>
         <?php } ?>
     </div>
+    
 
+<?=$this->render('_popup-call') ?>
+    
 <?php $this->endBody() ?>
 </body>
 </html>
