@@ -36,8 +36,9 @@ function str_pad_left(string,pad,length) {
 
 function checkForCall() {
     var userLogged = $("#userLogged").html();
+    var url = $("#ajaxUrl").html();
     if (userLogged == "1") {
-        jQuery.post("/connection/check-call", 
+        jQuery.post(url, 
         { 
 
         },
