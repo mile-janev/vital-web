@@ -35,14 +35,17 @@ function str_pad_left(string,pad,length) {
 }
 
 function checkForCall() {
-    jQuery.post("/connection/check-call", 
-    { 
+    var userLogged = $("#userLogged").html();
+    if (userLogged == "1") {
+        jQuery.post("/connection/check-call", 
+        { 
 
-    },
-    function(response){
-        if (response.call == 'yes') {
-            $("#modalCall #infoModalContent").html("New call from " + response.caller);
-            $('#modalCall').modal('show');
-        }
-    }, 'json')
+        },
+        function(response){
+            if (response.call == 'yes') {
+                $("#modalCall #infoModalContent").html("New call from " + response.caller);
+                $('#modalCall').modal('show');
+            }
+        }, 'json')
+    }
 }

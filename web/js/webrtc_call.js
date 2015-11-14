@@ -114,27 +114,27 @@ webrtc.on('videoAdded', function(video, peer) {
             var connstate = document.createElement('div');
             connstate.className = 'connectionstate';
             container.appendChild(connstate);
-            peer.pc.on('iceConnectionStateChange', function(event) {
-                switch (peer.pc.iceConnectionState) {
-                    case 'checking':
-                        connstate.innerText = 'Connecting to peer...';
-                        break;
-                    case 'connected':
-                    case 'completed': // on caller side
-                        $(vol).show();
-                        connstate.innerText = 'Connection established.';
-                        break;
-                    case 'disconnected':
-                        connstate.innerText = 'Disconnected.';
-                        break;
-                    case 'failed':
-                        connstate.innerText = 'Connection failed.';
-                        break;
-                    case 'closed':
-                        connstate.innerText = 'Connection closed.';
-                        break;
-                }
-            });
+//            peer.pc.on('iceConnectionStateChange', function(event) {
+//                switch (peer.pc.iceConnectionState) {
+//                    case 'checking':
+//                        connstate.innerText = 'Connecting to peer...';
+//                        break;
+//                    case 'connected':
+//                    case 'completed': // on caller side
+//                        $(vol).show();
+//                        connstate.innerText = 'Connection established.';
+//                        break;
+//                    case 'disconnected':
+//                        connstate.innerText = 'Disconnected.';
+//                        break;
+//                    case 'failed':
+//                        connstate.innerText = 'Connection failed.';
+//                        break;
+//                    case 'closed':
+//                        connstate.innerText = 'Connection closed.';
+//                        break;
+//                }
+//            });
         }
         remotes.appendChild(container);
     }

@@ -21,3 +21,5 @@
         </div>
     </div>
 </div>
+<div id="controller-view" class="hidden"><?= Yii::$app->controller->id . "/" . Yii::$app->controller->action->id ?></div>
+<div id="userLogged" class="hidden"><?= (!Yii::$app->user->isGuest) ? 1 : 0 ?></div>

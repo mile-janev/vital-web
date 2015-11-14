@@ -1,6 +1,9 @@
 $(document).ready(function(){
     tile();
-    checkForCall();
+    
+    if ($("#controller-view").html() != "connection/call") {
+        checkForCall();
+    }
     
     //Click on modal window
     $('#modalButton').click(function(){
