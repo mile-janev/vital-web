@@ -10,13 +10,27 @@ use yii\helpers\Url;
 $this->title = 'Register';
 $this->params['breadcrumbs'][] = $this->title;
 ?>
-<div class="user-create">
+<div class="site-login-register container">
 
-    <h1><?= Html::encode($this->title) ?></h1>
+    <div class="row">
+        <div class="col-lg-2 col-md-3 col-sm-3 hidden-xs">
+            &nbsp;
+        </div>
+        <div class="col-lg-4 col-md-5 col-sm-6 text-center">
+            <h1><?= Html::encode($this->title) ?></h1>
+        </div>
+    </div>
 
     <div class="user-form">
 
-        <?php $form = ActiveForm::begin(); ?>
+        <?php $form = ActiveForm::begin([
+            'id' => 'register-form',
+            'options' => ['class' => 'form-horizontal'],
+            'fieldConfig' => [
+                'template' => "{label}\n<div class=\"col-lg-4 col-md-5 col-sm-6\">{input}</div>\n<div class=\"col-lg-6 col-md-4 col-sm-3\">{error}</div>",
+                'labelOptions' => ['class' => 'col-lg-2 col-md-3 col-sm-3 control-label'],
+            ],
+        ]); ?>
 
         <?= $form->field($model, 'name')->textInput(['maxlength' => true]) ?>
 
@@ -27,15 +41,23 @@ $this->params['breadcrumbs'][] = $this->title;
         <?= $form->field($model, 'password_confirm')->passwordInput(['maxlength' => true]) ?>
 
         <div class="form-group">
-            <?= Html::submitButton('Register', ['class' => 'btn btn-primary']) ?>
+            <div class="col-lg-2 col-md-3 col-sm-3 hidden-xs">
+                &nbsp;
+            </div>
+            <div class="col-lg-4 col-md-5 col-sm-6">
+                <?= Html::submitButton('Register', ['class' => 'btn btn-primary login-register-button', 'name' => 'register-button']) ?>
+            </div>
         </div>
         
         <div class="form-group">
-            <div class="row">
-                <div class="col-lg-12 register-login-reset-links">
-                    <a href="<?= Url::toRoute("site/login") ?>">Login</a>
-                    <a href="<?= Url::toRoute("site/password-forget") ?>">Forget your password?</a>
-                </div>
+            <div class="col-lg-2 col-md-3 col-sm-3 hidden-xs">
+                &nbsp;
+            </div>
+            <div class="col-lg-1 col-md-2 col-sm-2 col-xs-4">
+                <a href="<?= Url::toRoute("site/login") ?>">Login</a>
+            </div>
+            <div class="col-lg-3 col-md-3 col-sm-4 col-xs-8 text-right">
+                <a href="<?= Url::toRoute("site/password-forget") ?>">Forget your password?</a>
             </div>
         </div>
 

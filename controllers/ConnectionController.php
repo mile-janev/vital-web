@@ -232,6 +232,8 @@ class ConnectionController extends Controller
         
         $params = Yii::$app->request->post();
         
+        $output["status"] = "yes";
+        
         if (\Yii::$app->user->id == $params["called"]) {//Means this is an answer
             $call = \app\models\Call::find()->where([
                     "called" => \Yii::$app->user->id,
@@ -242,6 +244,7 @@ class ConnectionController extends Controller
             if ($call !== null) {
                 $call->status = 1;
                 $call->update();
+                $output["status"] = "yes";
             }
         } else {//If caller
             if ($params["answer"] == 0) {
@@ -249,10 +252,9 @@ class ConnectionController extends Controller
                 $call->caller = $params['caller'];
                 $call->called = $params['called'];
                 $call->save();
+                $output["status"] = "yes";
             }
         }
-        
-        $output["status"] = "yes";
         
         echo \yii\helpers\Json::encode($output);
         exit();

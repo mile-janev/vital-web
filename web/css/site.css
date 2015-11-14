@@ -59,7 +59,7 @@ h1, h2, h3, h4, h5, h6 {
     color: #023448;
 }
 h1 {
-    
+    margin-bottom: 20px;
 }
 h2 {
     
@@ -406,6 +406,13 @@ a.alarm-link {
 }
 .register-login-reset-links a:first-child {
     padding-left: 0;
+}
+.site-login-register {
+    margin-top: 20px;
+    margin-bottom: 20px;
+}
+.login-register-button {
+    width: 100%;
 }
 /*Login page end*/
 
