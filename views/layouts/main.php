@@ -42,8 +42,9 @@ app\assets\AppAsset::register($this);
                 'user' => $user
             ]) ?>
         <?php elseif(Functions::isRole(Role::DOCTOR) || Functions::isRole(Role::NURSE)) : ?>
-            <?= $this->render('_doctor-header', [
-                'user' => $user
+            <?= $this->render('_bar-doctor', [
+                'user' => $user,
+                'alarm' => $alarm
             ]) ?>
         <?php elseif(Functions::isRole(Role::VISITOR) || Functions::isRole(Role::FAMILY)) : ?>
             <?= $this->render('_other-header', [
@@ -66,7 +67,8 @@ app\assets\AppAsset::register($this);
         <?php if (!Yii::$app->user->isGuest) { ?>
         <footer class="footer">
             <?= $this->render('_footer', [
-                'user' => $user, 'alarm' => $alarm
+                'user' => $user,
+                'alarm' => $alarm
             ]) ?>
         </footer>
         <?php } ?>

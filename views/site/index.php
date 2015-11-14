@@ -1,68 +1,23 @@
 <?php
-/* @var $this yii\web\View */
 use yii\helpers\Url;
-use app\models\User;
+use app\components\Functions;
+use app\models\Role;
 
 $this->title = 'HRS | Healthcare Record System';
 ?>
 
 <div class="site-index container-fluid">
     
-    <div class="row">
-        <div class="col-xs-6 block brw bbw">
-            <a href="<?= Url::toRoute(["connection/overview"]) ?>">
-                <span class="text">Contacts</span>
-                <span class="image-wrapper">
-                    <img src="<?= Url::base() ?>/images/contact.png" />
-                </span>
-            </a>
-        </div>
-        <div class="col-xs-6 block bbw">
-            <a href="<?= Url::toRoute(["alarm/overview"]) ?>">
-                <span class="text">Reminders</span>
-                <span class="image-wrapper">
-                    <img src="<?= Url::base() ?>/images/reminder.png" />
-                </span>
-            </a>
-        </div>
-    </div>
-
-    <div class="row">
-        <div class="col-xs-6 block brw bbw">
-            <a href="<?= Url::toRoute(["logs/overview"]) ?>">
-                <span class="text">Biosignals</span>
-                <span class="image-wrapper">
-                    <img src="<?= Url::base() ?>/images/biosignal.png" />
-                </span>
-            </a>
-        </div>
-        <div class="col-xs-6 block bbw">
-            <a href="<?= Url::toRoute(["medication/overview"]) ?>">
-                <span class="text">Medical records</span>
-                <span class="image-wrapper">
-                    <img src="<?= Url::base() ?>/images/record.png" />
-                </span>
-            </a>
-        </div>
-    </div>
-    
-    <div class="row">
-        <div class="col-xs-6 block brw">
-            <a href="<?= Url::toRoute(["logs/add-data"]) ?>">
-                <span class="text">Add data</span>
-                <span class="image-wrapper">
-                    <img src="<?= Url::base() ?>/images/add_data.png" />
-                </span>
-            </a>
-        </div>
-        <div class="col-xs-6 block">
-            <a href="<?= Url::toRoute(["connection/communication"]) ?>">
-                <span class="text">Communication</span>
-                <span class="image-wrapper">
-                    <img src="<?= Url::base() ?>/images/communication.png" />
-                </span>
-            </a>
-        </div>
-    </div>
+    <?php if (Functions::isRole(Role::ADMINISTRATOR)) : ?>
+        <?= $this->render('_index-admin') ?>
+    <?php elseif(Functions::isRole(Role::DOCTOR) || Functions::isRole(Role::NURSE)) : ?>
+        <?= $this->render('_index-doctor') ?>
+    <?php elseif(Functions::isRole(Role::VISITOR) || Functions::isRole(Role::FAMILY)) : ?>
+        <?= $this->render('_index-default') ?>
+    <?php elseif(Functions::isRole(Role::PATIENT)) : ?>
+        <?= $this->render('_index-patient') ?>
+    <?php else : ?>
+        <?= $this->render('_index-default') ?>
+    <?php endif; ?>
     
 </div>
