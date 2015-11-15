@@ -811,6 +811,9 @@ a.alarm-link {
 .block-sign-splitted a:hover {
     background-color: #f9f9f9;
 }
+.site-add-data .block-sign:hover{
+    background-color: #f9f9f9
+}
 .brb {
     border-right: 2px solid #514f50;
 }
@@ -819,6 +822,9 @@ a.alarm-link {
 }
 .hint-additional {
     font-size: 12px;
+}
+.overview-data .block-sign {
+    min-height: 166px !important;
 }
 /*Block Sign panel end*/
 
@@ -995,18 +1001,12 @@ a.alarm-link {
     #doctor-patient-menu {
         border-bottom: 0;
     }
+    #content.add-margin {
+        padding: 0 !important;
+    }
 }
 /*Only For Small sm*/
 @media (min-width: 768px) and (max-width: 991px) {
-    .bar .image-wrapper {
-        display: block;
-    }
-    #sos, #time, #message-box {
-        margin: 24px 0;
-    }
-    #content.add-margin {
-        padding: 83px 0 0 0;
-    }
     .block a .image-wrapper {
         padding-left: 10px;
     }

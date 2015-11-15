@@ -323,4 +323,71 @@ class User extends \yii\db\ActiveRecord implements IdentityInterface
         
         return $users;
     }
+    
+    public static function mews($id)
+    {
+        $mews = 0;
+        
+        $blood = Logs::find()
+                ->where(["user_id" => $id, "sign" => "blod_pressure"])
+                ->orderBy(["updated_at" => SORT_DESC])
+                ->one();
+        if ($blood !== NULL) {
+            $sysDia = explode("/", $blood->value);
+            if (count($sysDia) == 2) {
+                $systolic = $sysDia[0];
+                if ($systolic <= 70) {
+                    $mews += 3;
+                } else if ( ($systolic >= 71 && $systolic <= 100) || $systolic >= 200) {
+                    $mews += 2;
+                }
+            }
+        }
+        
+        $heart_rate = Logs::find()
+                ->where(["user_id" => $id, "sign" => "heart_rate"])
+                ->orderBy(["updated_at" => SORT_DESC])
+                ->one();
+        if ($heart_rate !== NULL) {
+            $heart = $heart_rate->value;
+            if ($heart >= 130) {
+                $mews += 3;
+            } else if ( $heart <= 40 || ($heart >= 111 && $heart <= 129) ) {
+                $mews += 2;
+            } else if ( ($heart >= 41 && $heart <= 50) || ($heart >= 101 && $heart <= 110) ) {
+                $mews += 1;
+            }
+        }
+        
+        $respiratory_rate = Logs::find()
+                ->where(["user_id" => $id, "sign" => "respiratory_rate"])
+                ->orderBy(["updated_at" => SORT_DESC])
+                ->one();
+        if ($respiratory_rate !== NULL) {
+            $respiratory = $respiratory_rate->value;
+            if ($respiratory >= 30) {
+                $mews += 3;
+            } else if ( $respiratory < 9 || ($respiratory >= 21 && $respiratory <= 29) ) {
+                $mews += 2;
+            } else if ($respiratory >= 15 && $respiratory <= 20) {
+                $mews += 1;
+            }
+        }
+        
+        $temperature = Logs::find()
+                ->where(["user_id" => $id, "sign" => "temperature"])
+                ->orderBy(["updated_at" => SORT_DESC])
+                ->one();
+        if ($temperature !== NULL) {
+            $temp = $temperature->value;
+            if ($temp < 35 || $temp >= 38.5) {
+                $mews += 2;
+            }
+        }
+        
+        //For AVPU always 0
+        
+        return $mews;
+    }
+    
 }

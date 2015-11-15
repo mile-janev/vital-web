@@ -405,6 +405,7 @@ class UserController extends Controller
             "signHeartModel" => $signHeartModel,
             "chartTemp" => $chartTemp,
             "signTempModel" => $signTempModel,
+            "user" => $user,
             
             'model' => $model,
             'heartRate' => $heartRate,

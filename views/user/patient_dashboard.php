@@ -5,10 +5,12 @@
     use app\models\User;
     use yii\web\View;
     use yii\helpers\Json;
+    
+    $mews = User::mews($user->id);
 
     $this->title = $model->name;
     $this->params['breadcrumbs'][] = ['label' => 'My patients', 'url' => ['patients']];
-    $this->params['breadcrumbs'][] = $this->title;
+    $this->params['breadcrumbs'][] = $this->title . " (" . $mews . ")";
     
     $jsVars = "";
     $jsVars .= "var measureHeart='".$signHeartModel->measure."'; ";

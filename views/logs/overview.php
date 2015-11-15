@@ -6,7 +6,7 @@ use app\models\User;
 $this->title = 'View Data | Healthcare Record System';
 ?>
 
-<div class="site-add-data container-fluid">
+<div class="overview-data container-fluid">
     
     <div class="row">
         <div class="col-xs-6 col-sm-3 block-sign block-sign-splitted brb bbb">
@@ -56,8 +56,16 @@ $this->title = 'View Data | Healthcare Record System';
     </div>
     
     <div class="row hidden-xs">
-        <div class="col-xs-6 col-sm-3 block-sign empty-sign brb">
-            <a href="#">&nbsp;</a>
+        <div class="col-xs-6 col-sm-3 block-sign block-sign-splitted brb">
+            <a class="overview-chart" href="<?= Url::toRoute(["logs/view-data-chart", "sign" => "respiratory_rate"]) ?>">
+                <img src="<?= Url::base() ?>/images/chart.png" />
+            </a>
+            <a class="overview-text" href="<?= Url::toRoute(["logs/view-data-text", "sign" => "respiratory"]) ?>">
+                <span class="image-wrapper">
+                    <img src="<?= Url::base() ?>/images/respiratory.png" />
+                </span>
+                <span class="text">Respiratory Rate</span>
+            </a>
         </div>
         <div class="col-xs-6 col-sm-3 block-sign empty-sign brb">
             <a href="#">&nbsp;</a>
