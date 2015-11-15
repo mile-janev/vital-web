@@ -4,6 +4,7 @@
     use yii\helpers\Url;
     use app\models\User;
     use yii\web\View;
+    use yii\helpers\Json;
 
     $this->title = $model->name;
     $this->params['breadcrumbs'][] = ['label' => 'My patients', 'url' => ['patients']];
@@ -11,7 +12,9 @@
     
     $jsVars = "";
     $jsVars .= "var measureHeart='".$signHeartModel->measure."'; ";
-    $jsVars .= 'var chartDataHeart=' . \yii\helpers\Json::encode($chartHeart) . '; ';
+    $jsVars .= 'var chartDataHeart=' . Json::encode($chartHeart) . '; ';
+    $jsVars .= "var measureTemp='".$signTempModel->measure."'; ";
+    $jsVars .= 'var chartDataTemp=' . Json::encode($chartTemp) . '; ';
 
     $this->registerJs($jsVars, View::POS_HEAD, 'charts');
     $this->registerJsFile(Url::base() . '/js/chart_measurement_doctor.js', [
@@ -41,7 +44,7 @@
         </div>
         <div class="col-xs-6 col-sm-4 block-sign block-sign-splitted bbb">
             <h2>Temperature</h2>
-            <div id="dp-chart-temperature" class="doctor-patient-chart"></div>
+            <div id="dp-chart-temp" class="doctor-patient-chart"></div>
         </div>
     </div>
     <div class="row">

@@ -2,7 +2,7 @@ google.load('visualization', '1', {'packages':['corechart']});
 
 google.setOnLoadCallback(drawChartHeart);
 //google.setOnLoadCallback(drawChartPressure);
-//google.setOnLoadCallback(drawChartTemperature);
+google.setOnLoadCallback(drawChartTemp);
 //google.setOnLoadCallback(drawChartRespiratory);
 //google.setOnLoadCallback(drawChartWeight);
 
@@ -19,9 +19,9 @@ function drawChartHeart() {
         pointShape: { 
             type: 'circle'
         },
-        vAxis: {
-            format: '#,### '+measureHeart
-        }
+//        vAxis: {
+//            format: '#,### '+measureHeart
+//        }
     };
     
     var formatter = new google.visualization.NumberFormat(
@@ -32,6 +32,32 @@ function drawChartHeart() {
     chart.draw(data, options);
 }
 
+function drawChartTemp() {
+    var data = new google.visualization.DataTable(chartDataTemp);
+
+    var options = {
+        legend: 'none',
+        colors: ['#2cbc24'],
+        enableInteractivity: true,
+        width: '100%',
+        pointSize: 10,
+        pointShape: { 
+            type: 'circle'
+        },
+//        vAxis: {
+//            format: '#,### '+measureTemp
+//        }
+    };
+    
+    var formatter = new google.visualization.NumberFormat(
+         {negativeColor: 'red', negativeParens: true, pattern: '###,### '+measureTemp});
+        formatter.format(data, 1);  
+
+    var chart = new google.visualization.LineChart(document.getElementById('dp-chart-temp'));
+    chart.draw(data, options);
+}
+
 jQuery(window).resize(function(){
     drawChartHeart();
+    drawChartTemp();
 });
