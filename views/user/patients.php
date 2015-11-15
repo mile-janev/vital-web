@@ -3,7 +3,7 @@
     use yii\grid\GridView;
     use yii\helpers\Url;
 
-    $this->title = 'Patients';
+    $this->title = 'My patients';
     $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="user-index container">

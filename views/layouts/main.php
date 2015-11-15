@@ -60,7 +60,7 @@ app\assets\AppAsset::register($this);
             ]) ?>
         <?php endif; ?>
             
-        <div id="content" class="container-fluid">
+        <div id="content" class="container-fluid <?= (Functions::isRole(Role::VISITOR) || Functions::isRole(Role::FAMILY) || Functions::isRole(Role::PATIENT)) ? "add-margin" : "" ?>">
             <?= $content ?>
         </div>
         

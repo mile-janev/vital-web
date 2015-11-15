@@ -14,6 +14,7 @@ use app\models\Role;
 use app\models\UserEditForm;
 use yii\helpers\Url;
 use app\models\Logs;
+use app\models\Sign;
 
 /**
  * UserController implements the CRUD actions for User model.
@@ -349,7 +350,38 @@ class UserController extends Controller
                 ->orderBy("time ASC")
                 ->all();
         
+        
+        
+//        ----------------------------
+        
+        $user = User::find()->where(["id" => $id])->one();
+        
+        //Log Heart start
+        $logsHeart = Logs::find()
+                ->where(['sign' => "heart_rate", 'user_id' => $id])
+                ->orderBy("created_at DESC")
+                ->limit(8)
+                ->all();
+        $chartHeart = [
+            'cols' => [
+                0 => ['id' => 'Time', 'label' => 'Time', 'type' => 'string'],
+                1 => ['id' => 'Log', 'label' => '', 'type' => 'number'],
+            ]
+        ];
+        for($i = 0; $i<count($logsHeart); $i++){
+            $chartDate = date("m/d/Y H:i", strtotime($logsHeart[$i]->created_at));
+            $chartHeart['rows'][$i]['c'] = [
+                ['v' => $chartDate], 
+                ['v' => (int)$logsHeart[$i]->value]
+            ];
+        }
+        $signHeartModel = Sign::find()->where(["alias" => "heart_rate"])->one();
+        //Log Heart end
+        
         return $this->render('patient_dashboard', [
+            "chartHeart" => $chartHeart,
+            "signHeartModel" => $signHeartModel,
+            
             'model' => $model,
             'heartRate' => $heartRate,
             'blodPressure' => $blodPressure,

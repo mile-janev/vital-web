@@ -30,8 +30,11 @@ body {
     /*padding: 70px 15px 20px;*/
 }
 #content {
-    padding: 83px 0 0 0;
+    padding: 0 0 0 0;
     text-align: justify;
+}
+#content.add-margin {
+    padding: 83px 0 0 0;
 }
 .footer {
     /*bottom: 0;*/
@@ -354,6 +357,7 @@ a.alarm-link {
     width: 100%;
     padding: 0;
     border-bottom: 2px solid #080808;
+    margin-bottom: 0;
 }
 #doctor-patient-menu li {
     float: left;
@@ -381,6 +385,23 @@ a.alarm-link {
     background-color: #bfbfbf;
 }
 /*Doctor patient menu end*/
+
+/*Doctor patient dashboard start*/
+.doctor-patient-dashboard {
+    
+}
+.doctor-patient-dashboard h2 {
+    font-size: 18px;
+    font-weight: normal;
+    text-align: left;
+    text-decoration: underline;
+    padding: 10px;
+    margin: 0;
+}
+.doctor-patient-sign-chart {
+    /*padding: 15px;*/
+}
+/*Doctor patient dashboard end*/
 
 /*Footer start*/
 .footer-links {
@@ -949,9 +970,6 @@ a.alarm-link {
     #bar-top {
         position: relative;
     }
-    #content {
-        padding: 0;
-    }
     .block {
         font-size: 18px;
     }
@@ -983,8 +1001,8 @@ a.alarm-link {
     #sos, #time, #message-box {
         margin: 24px 0;
     }
-    #content {
-        padding: 117px 0 0 0;
+    #content.add-margin {
+        padding: 83px 0 0 0;
     }
     .block a .image-wrapper {
         padding-left: 10px;
