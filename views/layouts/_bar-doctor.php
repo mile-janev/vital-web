@@ -1,10 +1,8 @@
 <?php
-use yii\bootstrap\Nav;
-use yii\bootstrap\NavBar;
-use yii\helpers\Html;
-use yii\helpers\Url;
-//var_dump($alarm);
-//exit();
+    use yii\bootstrap\Nav;
+    use yii\bootstrap\NavBar;
+    use yii\helpers\Url;
+    use yii\widgets\Breadcrumbs;
 ?>
 
 <?php
@@ -13,6 +11,8 @@ if (count($alarm) > 0) {
 } else {
     $alText = "";
 }
+
+$controllerAction = Yii::$app->controller->id . "/" . Yii::$app->controller->action->id;
 ?>
 
 <?php
@@ -29,11 +29,22 @@ echo Nav::widget([
     'items' => [
         ['label' => 'Alerts'.$alText, 'url' => ['/alarm/overview']],
 //        ['label' => 'Messages', 'url' => ['#']],
-        ['label' => 'Dr. ' . $user->name, 'url' => ['/site/logout']],
-        ['label' => 'Settings', 'url' => Url::toRoute("user/patients")],
+        ['label' => 'Dr. ' . $user->name, 'url' => ['/user/edit']],
+        ['label' => 'Settings', 'url' => Url::toRoute("user/edit")],
         ['label' => 'Log out', 'url' => ['/site/logout']],
     ],
 ]);
 
 NavBar::end();
 ?>
+
+<?= Breadcrumbs::widget([
+    'links' => isset($this->params['breadcrumbs']) ? $this->params['breadcrumbs'] : [],
+]) ?>
+
+<ul id="doctor-patient-menu">
+    <li><a class="<?= ($controllerAction == "medication/patient-history") ? "active" : "" ?>" href="<?= Url::toRoute(["medication/patient-history"]) ?>">Medical history</a></li>
+    <li><a class="<?= ($controllerAction == "user/patient-dashboard") ? "active" : "" ?>" href="<?= Url::toRoute(["user/patient-dashboard"]) ?>">Dashboard</a></li>
+    <li><a class="<?= ($controllerAction == "alarm/patient-reminders") ? "active" : "" ?>" href="<?= Url::toRoute(["alarm/patient-reminders"]) ?>">Reminders</a></li>
+    <li><a class="<?= ($controllerAction == "connection/patient-communication") ? "active" : "" ?>" href="<?= Url::toRoute(["connection/patient-communication"]) ?>">Communication</a></li>
+</ul>

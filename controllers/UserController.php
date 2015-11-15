@@ -28,7 +28,7 @@ class UserController extends Controller
                 'ruleConfig' => [
                     'class' => AccessRule::className(),
                 ],
-                'only' => ['create', 'update', 'index', 'delete', 'edit', 'resetpassword', 'patients', 'patient', 'view'],
+                'only' => ['create', 'update', 'index', 'delete', 'edit', 'resetpassword', 'patients', 'patient', 'view', 'patient-dashboard'],
                 'rules' => [
                     [
                         'actions' => ['resetpassword'],
@@ -41,7 +41,7 @@ class UserController extends Controller
                         'roles' => ['@'],
                     ],
                     [
-                        'actions' => [''],
+                        'actions' => ['patient-dashboard'],
                         'allow' => true,
                         'roles' => [
                             Role::find()->where(['name' => Role::DOCTOR])->one(),
@@ -311,6 +311,52 @@ class UserController extends Controller
         } else {
             return $this->redirect(['site/password-forget']);
         }        
+    }
+    
+    /**
+     * Displays a single User model.
+     * @param integer $id
+     * @return mixed
+     */
+    public function actionPatientDashboard($id)
+    {
+        $model = $this->findModel($id);
+        
+        $heartRate = Logs::find()
+                ->where(["sign" => "heart_rate", "user_id" => $id])
+                ->orderBy("created_at DESC")
+                ->limit(3)
+                ->all();
+        $blodPressure = Logs::find()
+                ->where(["sign" => "blod_pressure", "user_id" => $id])
+                ->orderBy("created_at DESC")
+                ->limit(3)
+                ->all();
+        $temperature = Logs::find()
+                ->where(["sign" => "temperature", "user_id" => $id])
+                ->orderBy("created_at DESC")
+                ->limit(3)
+                ->all();
+        $weight = Logs::find()
+                ->where(["sign" => "weight", "user_id" => $id])
+                ->orderBy("created_at DESC")
+                ->limit(3)
+                ->all();
+        
+        $alarms = \app\models\Alarm::find()
+                ->where(["patient_id" => $id])
+                ->andWhere("time > NOW()")
+                ->orderBy("time ASC")
+                ->all();
+        
+        return $this->render('patient_dashboard', [
+            'model' => $model,
+            'heartRate' => $heartRate,
+            'blodPressure' => $blodPressure,
+            'temperature' => $temperature,
+            'weight' => $weight,
+            'alarms' => $alarms
+        ]);
     }
     
 }

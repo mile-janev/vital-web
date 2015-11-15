@@ -4,7 +4,8 @@ use yii\helpers\Url;
 use yii\helpers\Html;
 use yii\bootstrap\Modal;
 
-$this->title = 'Reminders | Healthcare Record System';
+$this->title = 'Reminders';
+$this->params['breadcrumbs'][] = $this->title;
 ?>
 
 <?php 

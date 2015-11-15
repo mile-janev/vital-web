@@ -138,7 +138,25 @@ a:hover, a:focus {
     text-decoration: none;
 }
 .breadcrumb {
-    background-color: #dfe4e7;
+    margin-top: 51px;
+    background-color: #f2f2f3;
+    border-radius: 0;
+    -moz-border-radius: 0;
+    -webkit-border-radius: 0;
+    border-bottom: 2px solid #080808;
+    margin-bottom: 0;
+    color: #060f1d;
+}
+.breadcrumb > .active {
+    color: #060f1d;
+}
+.breadcrumb > li + li::before {
+    content: ">";
+    color: #060f1d;
+}
+.breadcrumb li a {
+    color: #060f1d;
+    text-decoration: underline;
 }
 .btn {
     background-color: #c0504e;
@@ -300,6 +318,7 @@ a.alarm-link {
 .doctor-menu-nav {
     background-color: #ffffff;
     color: #000000;
+    border-bottom: 2px solid #080808;
 }
 .doctor-menu-nav .navbar-nav li a {
     color: #000000;
@@ -328,6 +347,40 @@ a.alarm-link {
     background-color: #333333;
 }
 /*Doctor main menu end*/
+
+/*Doctor patient menu start*/
+#doctor-patient-menu {
+    float: left;
+    width: 100%;
+    padding: 0;
+    border-bottom: 2px solid #080808;
+}
+#doctor-patient-menu li {
+    float: left;
+    list-style-type: none;
+    width: 25%;
+    text-align: center;
+}
+
+#doctor-patient-menu li a {
+    float: left;
+    width: 100%;
+    padding: 8px;
+    color: #060f1d;
+    -webkit-box-shadow: -2px 0px 0px 0px #080808 inset;
+    box-shadow: -2px 0px 0px 0px #080808 inset;
+}
+#doctor-patient-menu li:last-child a {
+    -webkit-box-shadow: none;
+    box-shadow: none;
+}
+#doctor-patient-menu li a:hover,
+#doctor-patient-menu li a:active,
+#doctor-patient-menu li a:focus,
+#doctor-patient-menu li a.active {
+    background-color: #bfbfbf;
+}
+/*Doctor patient menu end*/
 
 /*Footer start*/
 .footer-links {
@@ -913,6 +966,13 @@ a.alarm-link {
     }
     .doctor-menu-nav .navbar-nav li a {
         border-right: none;
+    }
+    #doctor-patient-menu li {
+        width: 50%;
+        border-bottom: 2px solid #080808;
+    }
+    #doctor-patient-menu {
+        border-bottom: 0;
     }
 }
 /*Only For Small sm*/
