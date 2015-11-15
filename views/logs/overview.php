@@ -60,7 +60,7 @@ $this->title = 'View Data | Healthcare Record System';
             <a class="overview-chart" href="<?= Url::toRoute(["logs/view-data-chart", "sign" => "respiratory_rate"]) ?>">
                 <img src="<?= Url::base() ?>/images/chart.png" />
             </a>
-            <a class="overview-text" href="<?= Url::toRoute(["logs/view-data-text", "sign" => "respiratory"]) ?>">
+            <a class="overview-text" href="<?= Url::toRoute(["logs/view-data-text", "sign" => "respiratory_rate"]) ?>">
                 <span class="image-wrapper">
                     <img src="<?= Url::base() ?>/images/respiratory.png" />
                 </span>
