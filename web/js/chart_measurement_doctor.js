@@ -43,6 +43,7 @@ function drawChartTemp() {
         pointShape: { 
             type: 'circle'
         },
+        curveType: 'function',
 //        vAxis: {
 //            format: '#,### '+measureTemp
 //        }
@@ -101,7 +102,7 @@ function drawChartRespiratory() {
          {negativeColor: 'red', negativeParens: true, pattern: '###,### '+measureRespiratory});
         formatter.format(data, 1);  
 
-    var chart = new google.visualization.LineChart(document.getElementById('dp-chart-respiratory'));
+    var chart = new google.visualization.ColumnChart(document.getElementById('dp-chart-respiratory'));
     chart.draw(data, options);
 }
 function drawChartWeight() {
@@ -116,6 +117,7 @@ function drawChartWeight() {
         pointShape: { 
             type: 'circle'
         },
+        lineDashStyle: [7, 2, 4, 3]
 //        vAxis: {
 //            format: '#,### '+measureTemp
 //        }

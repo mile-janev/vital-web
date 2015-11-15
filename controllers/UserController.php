@@ -323,37 +323,6 @@ class UserController extends Controller
     {
         $model = $this->findModel($id);
         
-        $heartRate = Logs::find()
-                ->where(["sign" => "heart_rate", "user_id" => $id])
-                ->orderBy("created_at DESC")
-                ->limit(3)
-                ->all();
-        $blodPressure = Logs::find()
-                ->where(["sign" => "blod_pressure", "user_id" => $id])
-                ->orderBy("created_at DESC")
-                ->limit(3)
-                ->all();
-        $temperature = Logs::find()
-                ->where(["sign" => "temperature", "user_id" => $id])
-                ->orderBy("created_at DESC")
-                ->limit(3)
-                ->all();
-        $weight = Logs::find()
-                ->where(["sign" => "weight", "user_id" => $id])
-                ->orderBy("created_at DESC")
-                ->limit(3)
-                ->all();
-        
-        $alarms = \app\models\Alarm::find()
-                ->where(["patient_id" => $id])
-                ->andWhere("time > NOW()")
-                ->orderBy("time ASC")
-                ->all();
-        
-        
-        
-//        ----------------------------
-        
         $user = User::find()->where(["id" => $id])->one();
         
         //Log Heart start
@@ -477,13 +446,8 @@ class UserController extends Controller
             "signRespiratoryModel" => $signRespiratoryModel,
             "chartWeight" => $chartWeight,
             "signWeightModel" => $signWeightModel,
-            
-            'model' => $model,
-            'heartRate' => $heartRate,
-            'blodPressure' => $blodPressure,
-            'temperature' => $temperature,
-            'weight' => $weight,
-            'alarms' => $alarms
+            "user" => $user,
+            "model" => $model
         ]);
     }
     

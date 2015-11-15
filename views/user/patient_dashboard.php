@@ -54,8 +54,6 @@
             <h2>Temperature</h2>
             <div id="dp-chart-temp" class="doctor-patient-chart"></div>
         </div>
-    </div>
-    <div class="row">
         <div class="col-xs-6 col-sm-4 block-sign block-sign-splitted brb">
             <h2>Respiratory rate</h2>
             <div id="dp-chart-respiratory" class="doctor-patient-chart"></div>
@@ -64,7 +62,7 @@
             <h2>Weight</h2>
             <div id="dp-chart-weight" class="doctor-patient-chart"></div>
         </div>
-        <div class="col-xs-6 col-sm-4 block-sign empty-sign hidden-xs">
+        <div class="col-xs-6 col-sm-4 block-sign hidden-xs">
             &nbsp;
         </div>
     </div>
