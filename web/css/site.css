@@ -817,6 +817,9 @@ a.alarm-link {
 .bbb {
     border-bottom: 2px solid #514f50;
 }
+.hint-additional {
+    font-size: 12px;
+}
 /*Block Sign panel end*/
 
 /*Measurements page start*/

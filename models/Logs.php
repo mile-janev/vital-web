@@ -36,7 +36,7 @@ class Logs extends \yii\db\ActiveRecord
     {
         return [
             [['sign', 'value', 'user_id'], 'required'],
-            [['value'], 'number'],
+//            [['value'], 'number'],
             [['description'], 'string'],
             [['created_at', 'updated_at'], 'safe'],
             [['user_id'], 'integer'],

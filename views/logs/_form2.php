@@ -1,12 +1,7 @@
 <?php
-
-use yii\helpers\Html;
-use yii\widgets\ActiveForm;
-use kartik\datetime\DateTimePicker;
-
-/* @var $this yii\web\View */
-/* @var $model app\models\Logs */
-/* @var $form yii\widgets\ActiveForm */
+    use yii\helpers\Html;
+    use yii\widgets\ActiveForm;
+    use kartik\datetime\DateTimePicker;
 ?>
 
 <div class="logs-form">

@@ -8,3 +8,6 @@ Napravi gi from_id i patient id da imat isti vrednosti.
 ALTER TABLE `alarm` ADD FOREIGN KEY ( `from_id` ) REFERENCES `user` (
 `id`
 ) ON DELETE CASCADE ON UPDATE RESTRICT ;
+
+---------- 15.11.2015 ----------------------------------------------------------
+ALTER TABLE `logs` CHANGE `value` `value` VARCHAR( 64 ) NOT NULL;
