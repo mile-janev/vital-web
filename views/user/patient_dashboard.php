@@ -15,6 +15,12 @@
     $jsVars .= 'var chartDataHeart=' . Json::encode($chartHeart) . '; ';
     $jsVars .= "var measureTemp='".$signTempModel->measure."'; ";
     $jsVars .= 'var chartDataTemp=' . Json::encode($chartTemp) . '; ';
+    $jsVars .= "var measurePressure='".$signPressureModel->measure."'; ";
+    $jsVars .= 'var chartDataPressure=' . Json::encode($chartPressure) . '; ';
+    $jsVars .= "var measureRespiratory='".$signRespiratoryModel->measure."'; ";
+    $jsVars .= 'var chartDataRespiratory=' . Json::encode($chartRespiratory) . '; ';
+    $jsVars .= "var measureWeight='".$signWeightModel->measure."'; ";
+    $jsVars .= 'var chartDataWeight=' . Json::encode($chartWeight) . '; ';
 
     $this->registerJs($jsVars, View::POS_HEAD, 'charts');
     $this->registerJsFile(Url::base() . '/js/chart_measurement_doctor.js', [
