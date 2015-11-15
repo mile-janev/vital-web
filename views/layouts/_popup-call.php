@@ -14,7 +14,7 @@
             </div>
 
             <div class="modal-footer">
-                <a id="callDismiss" class="btn btn-success" href="#"><?= Yii::t("app", "Dismiss") ?></a>
+                <a id="callDismiss" class="btn btn-success" href="<?= \yii\helpers\Url::toRoute(["/connection/call-dismiss"]) ?>"><?= Yii::t("app", "Dismiss") ?></a>
                 <a id="callAnswer" class="btn btn-success" href="<?= yii\helpers\Url::toRoute(['connection/call', "id" => Yii::$app->user->id]) ?>"><?= Yii::t("app", "Answer") ?></a>
             </div>
 

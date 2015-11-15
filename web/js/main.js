@@ -58,7 +58,8 @@ $(document).ready(function(){
     
     $("#callDismiss").click(function(e){
         e.preventDefault();
-        $.post("/connection/call-dismiss", 
+        var url = $(this).attr("href");
+        $.post(url, 
         {
             
         },
