@@ -399,13 +399,84 @@ class UserController extends Controller
         }
         $signTempModel = Sign::find()->where(["alias" => "temperature"])->one();
         //Log Temperature end
+       
+        // Log Pressure
+        $logsPressure = Logs::find()
+                ->where(['sign' => "blod_pressure", 'user_id' => $id])
+                ->orderBy("created_at DESC")
+                ->limit(8)
+                ->all();
+        $chartPressure = [
+            'cols' => [
+                0 => ['id' => 'Time', 'label' => 'Time', 'type' => 'string'],
+                1 => ['id' => 'Log', 'label' => '', 'type' => 'number'],
+            ]
+        ];
+        for($i = 0; $i<count($logsPressure); $i++){
+            $chartDate = date("m/d/Y H:i", strtotime($logsPressure[$i]->created_at));
+            $chartPressure['rows'][$i]['c'] = [
+                ['v' => $chartDate], 
+                ['v' => (int)$logsPressure[$i]->value]
+            ];
+        }
+        $signPressureModel = Sign::find()->where(["alias" => "blod_pressure"])->one();
+        // end Pressure
+       
+        // Log Respiratory
+        $logsRespiratory = Logs::find()
+                ->where(['sign' => "respiratory_rate", 'user_id' => $id])
+                ->orderBy("created_at DESC")
+                ->limit(8)
+                ->all();
+        $chartRespiratory = [
+            'cols' => [
+                0 => ['id' => 'Time', 'label' => 'Time', 'type' => 'string'],
+                1 => ['id' => 'Log', 'label' => '', 'type' => 'number'],
+            ]
+        ];
+        for($i = 0; $i<count($logsRespiratory); $i++){
+            $chartDate = date("m/d/Y H:i", strtotime($logsRespiratory[$i]->created_at));
+            $chartRespiratory['rows'][$i]['c'] = [
+                ['v' => $chartDate], 
+                ['v' => (int)$logsRespiratory[$i]->value]
+            ];
+        }
+        $signRespiratoryModel = Sign::find()->where(["alias" => "respiratory_rate"])->one();
+        // end Respiratory
+        
+        // Log Weight
+        $logsWeight = Logs::find()
+                ->where(['sign' => "weight", 'user_id' => $id])
+                ->orderBy("created_at DESC")
+                ->limit(8)
+                ->all();
+        $chartWeight = [
+            'cols' => [
+                0 => ['id' => 'Time', 'label' => 'Time', 'type' => 'string'],
+                1 => ['id' => 'Log', 'label' => '', 'type' => 'number'],
+            ]
+        ];
+        for($i = 0; $i<count($logsWeight); $i++){
+            $chartDate = date("m/d/Y H:i", strtotime($logsWeight[$i]->created_at));
+            $chartWeight['rows'][$i]['c'] = [
+                ['v' => $chartDate], 
+                ['v' => (int)$logsWeight[$i]->value]
+            ];
+        }
+        $signWeightModel = Sign::find()->where(["alias" => "weight"])->one();
+        // end Weight
         
         return $this->render('patient_dashboard', [
             "chartHeart" => $chartHeart,
             "signHeartModel" => $signHeartModel,
             "chartTemp" => $chartTemp,
             "signTempModel" => $signTempModel,
-            "user" => $user,
+            "chartPressure" => $chartPressure,
+            "signPressureModel" => $signPressureModel,
+            "chartRespiratory" => $chartRespiratory,
+            "signRespiratoryModel" => $signRespiratoryModel,
+            "chartWeight" => $chartWeight,
+            "signWeightModel" => $signWeightModel,
             
             'model' => $model,
             'heartRate' => $heartRate,
