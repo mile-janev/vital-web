@@ -14,11 +14,19 @@ if (User::patientDoctorNurse($user->id, Yii::$app->user->id)) {
 }
 $this->params['breadcrumbs'][] = $this->title;
 ?>
+
+<?php
+if ($signModel->alias == "blod_pressure") {
+    $hintAdditional = " <span class='hint-additional'>(systolic/diastolic separate with '/')</span>";
+} else {
+    $hintAdditional = "";
+}
+?>
 <div class="logs-log logs-form">
 
     <?php $form = ActiveForm::begin(); ?>
 
-    <?= $form->field($model, 'value')->textInput()->hint("X ".$signModel->measure) ?>
+    <?= $form->field($model, 'value')->textInput()->hint("X ".$signModel->measure.$hintAdditional) ?>
 
     <?= $form->field($model, 'description')->textarea(['rows' => 3]) ?>
 

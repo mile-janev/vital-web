@@ -54,8 +54,13 @@ $this->title = 'Add Data | Healthcare Record System';
     </div>
     
     <div class="row hidden-xs">
-        <div class="col-xs-6 col-sm-3 block-sign empty-sign brb">
-            <a href="#">&nbsp;</a>
+        <div class="col-xs-6 col-sm-3 block-sign brb">
+            <a href="#" rel="<?= Url::toRoute(["logs/log", "sign" => "respiratory_rate"]) ?>" class='modalLog' title="Respiratory rate">
+                <span class="image-wrapper">
+                    <img src="<?= Url::base() ?>/images/respiratory.png" />
+                </span>
+                <span class="text">Respiratory rate</span>
+            </a>
         </div>
         <div class="col-xs-6 col-sm-3 block-sign empty-sign brb">
             <a href="#">&nbsp;</a>
