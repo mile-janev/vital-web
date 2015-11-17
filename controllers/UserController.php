@@ -91,9 +91,7 @@ class UserController extends Controller
         $searchModel = new UserSearch();
         $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
         $user = User::find()->where(['id' => \Yii::$app->user->id])->one();
-//        var_dump($dataProvider->getModels());
-//        var_dump($user->connection);
-//        exit();
+        
         return $this->render('patients', [
             'searchModel' => $searchModel,
             'dataProvider' => $dataProvider,

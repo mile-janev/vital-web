@@ -13,6 +13,8 @@ use yii\filters\AccessControl;
 use app\components\AccessRule;
 use app\models\Role;
 use app\models\Logs;
+use app\components\Functions;
+use app\models\UserSearch;
 
 class SiteController extends Controller
 {
@@ -63,10 +65,35 @@ class SiteController extends Controller
     
     public function actionIndex()
     {
-        
-        return $this->render('index', [
+        if (Yii::$app->user->isGuest) {
             
-        ]);
+            $model = new LoginForm();
+            if ($model->load(Yii::$app->request->post()) && $model->login()) {
+                return $this->goBack();
+            } else {
+                return $this->render('index', [
+                    'model' => $model,
+                ]);
+            }
+            
+        } else {
+        
+            if(Functions::isRole(Role::DOCTOR) || Functions::isRole(Role::NURSE)) {
+                $searchModel = new UserSearch();
+                $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
+                $user = User::find()->where(['id' => \Yii::$app->user->id])->one();
+
+                return $this->render('index', [
+                    'searchModel' => $searchModel,
+                    'dataProvider' => $dataProvider,
+                ]);
+            } else {
+                return $this->render('index', [
+
+                ]);
+            }
+            
+        }
     }
 
     public function actionIndexOld()

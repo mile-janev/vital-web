@@ -9,7 +9,7 @@
     $mews = User::mews($user->id);
 
     $this->title = $model->name;
-    $this->params['breadcrumbs'][] = ['label' => 'My patients', 'url' => ['patients']];
+    $this->params['breadcrumbs'][] = ['label' => 'My patients', 'url' => ['site/index']];
     $this->params['breadcrumbs'][] = $this->title . " (" . $mews . ")";
     
     $jsVars = "";
