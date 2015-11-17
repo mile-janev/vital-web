@@ -37,7 +37,7 @@
                 &nbsp;
             </div>
             <div class="col-lg-4 col-md-6 col-sm-5 col-xs-12">
-                <?= Html::submitButton('Reset', ['class' => 'btn btn-primary login-register-button', 'name' => 'login-button']) ?>
+                <?= Html::submitButton('Change', ['class' => 'btn btn-primary login-register-button', 'name' => 'login-button']) ?>
             </div>
         </div>
 

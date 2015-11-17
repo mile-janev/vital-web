@@ -499,6 +499,9 @@ a.alarm-link {
 /*Tiles end*/
 
 /*Login page start*/
+.site-login-register h1 {
+    margin-bottom: 30px;
+}
 #login-form {
     
 }
