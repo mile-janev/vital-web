@@ -96,55 +96,6 @@ class SiteController extends Controller
         }
     }
 
-    public function actionIndexOld()
-    {
-        if (!\Yii::$app->user->isGuest) {
-            $id = \Yii::$app->user->id;
-            
-            $heartRate = Logs::find()
-                    ->where(["sign" => "heart_rate", "user_id" => $id])
-                    ->orderBy("created_at DESC")
-                    ->limit(3)
-                    ->all();
-            $blodPressure = Logs::find()
-                    ->where(["sign" => "blod_pressure", "user_id" => $id])
-                    ->orderBy("created_at DESC")
-                    ->limit(3)
-                    ->all();
-            $temperature = Logs::find()
-                    ->where(["sign" => "temperature", "user_id" => $id])
-                    ->orderBy("created_at DESC")
-                    ->limit(3)
-                    ->all();
-            $weight = Logs::find()
-                    ->where(["sign" => "weight", "user_id" => $id])
-                    ->orderBy("created_at DESC")
-                    ->limit(3)
-                    ->all();
-
-            $alarms = \app\models\Alarm::find()
-                    ->where(["patient_id" => $id])
-                    ->andWhere("time > NOW()")
-                    ->orderBy("time ASC")
-                    ->all();
-        } else {
-            $heartRate = [];
-            $blodPressure = [];
-            $temperature = [];
-            $weight = [];
-            $alarms = [];
-            $user = false;
-        }
-        
-        return $this->render('index_old', [
-            'heartRate' => $heartRate,
-            'blodPressure' => $blodPressure,
-            'temperature' => $temperature,
-            'weight' => $weight,
-            'alarms' => $alarms,
-        ]);
-    }
-
     public function actionLogin()
     {
         $model = new LoginForm();

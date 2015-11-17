@@ -29,7 +29,7 @@ class UserController extends Controller
                 'ruleConfig' => [
                     'class' => AccessRule::className(),
                 ],
-                'only' => ['create', 'update', 'index', 'delete', 'edit', 'resetpassword', 'patients', 'patient', 'view', 'patient-dashboard'],
+                'only' => ['create', 'update', 'index', 'delete', 'edit', 'resetpassword', 'patients', 'patient', 'view', 'view-own', 'patient-dashboard'],
                 'rules' => [
                     [
                         'actions' => ['resetpassword'],
@@ -37,7 +37,7 @@ class UserController extends Controller
                         'roles' => ['?'],
                     ],
                     [
-                        'actions' => ['edit', 'patients', 'patient'],
+                        'actions' => ['edit', 'patients', 'patient', 'view-own'],
                         'allow' => true,
                         'roles' => ['@'],
                     ],
@@ -50,7 +50,7 @@ class UserController extends Controller
                         ],
                     ],
                     [
-                        'actions' => ['create', 'update', 'index', 'delete', 'edit', 'view'],
+                        'actions' => ['create', 'update', 'index', 'delete', 'view'],
                         'allow' => true,
                         'roles' => [
                             Role::find()->where(['name' => Role::ADMINISTRATOR])->one()
@@ -107,6 +107,18 @@ class UserController extends Controller
     {
         return $this->render('view', [
             'model' => $this->findModel($id),
+        ]);
+    }
+    
+    /**
+     * Displays a single User model.
+     * @param integer $id
+     * @return mixed
+     */
+    public function actionViewOwn()
+    {
+        return $this->render('view_own', [
+            'model' => $this->findModel(Yii::$app->user->id),
         ]);
     }
     

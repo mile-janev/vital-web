@@ -1,17 +1,17 @@
 <?php
+    use yii\helpers\Html;
 
-use yii\helpers\Html;
-
-/* @var $this yii\web\View */
-/* @var $model app\models\User */
-
-$this->title = 'Edit: ' . ' ' . $model->name;
-$this->params['breadcrumbs'][] = ['label' => $model->name, 'url' => ['view', 'id' => $model->id]];
-$this->params['breadcrumbs'][] = 'Update';
+    $this->title = 'Edit: ' . ' ' . $model->name;
+    $this->params['breadcrumbs'][] = ['label' => $model->name, 'url' => ['view-own']];
+    $this->params['breadcrumbs'][] = 'Edit';
 ?>
-<div class="user-update">
+<div class="user-update container-fluid">
 
-    <h1><?= Html::encode($this->title) ?></h1>
+    <div class="row">
+        <div class="col-xs-12 text-center">
+            <h1><?= Html::encode($this->title) ?></h1>
+        </div>
+    </div>
 
     <?= $this->render('_form', [
         'model' => $model,

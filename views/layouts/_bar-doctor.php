@@ -24,7 +24,7 @@ $showPatientMenuArray = [
 
 <?php
 NavBar::begin([
-    'brandLabel' => "<img src='".Url::base()."/images/uncap.png' alt='Healthcare Record System' />",
+    'brandLabel' => "<img src='".Url::base()."/images/uncap.png' alt='UNCAP' />",
     'brandUrl' => Yii::$app->homeUrl,
     'options' => [
         'class' => 'navbar-inverse navbar-fixed-top doctor-menu-nav',
@@ -35,9 +35,8 @@ echo Nav::widget([
     'options' => ['class' => 'navbar-nav navbar-right doctor-menu-main'],
     'items' => [
         ['label' => 'Alerts'.$alText, 'url' => ['/alarm/overview']],
-//        ['label' => 'Messages', 'url' => ['#']],
-        ['label' => 'Dr. ' . $user->name, 'url' => ['/user/edit']],
-        ['label' => 'Settings', 'url' => Url::toRoute("user/edit")],
+        ['label' => 'Dr. ' . $user->name, 'url' => ['/user/view-own']],
+        ['label' => 'Settings', 'url' => ['/user/edit']],
         ['label' => 'Log out', 'url' => ['/site/logout']],
     ],
 ]);

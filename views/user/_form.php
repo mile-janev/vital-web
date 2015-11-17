@@ -5,7 +5,7 @@
     use yii\helpers\Url;
 ?>
 
-<div class="user-form">
+<div class="user-form row">
 
     <?php $form = ActiveForm::begin(['options' => ['enctype' => 'multipart/form-data']]); ?>
     
@@ -57,7 +57,7 @@
     
     <div class="col-xs-12">
         <div class="form-group">
-            <?= Html::submitButton($user->isNewRecord ? 'Create' : 'Update', ['class' => $user->isNewRecord ? 'btn btn-success' : 'btn btn-primary']) ?>
+            <?= Html::submitButton($user->isNewRecord ? 'Create' : 'Update', ['class' => $user->isNewRecord ? 'btn btn-success mobile-full' : 'btn btn-primary mobile-full']) ?>
         </div>
     </div>
 

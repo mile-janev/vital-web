@@ -333,9 +333,11 @@ a.alarm-link {
 }
 .doctor-menu-nav .navbar-nav li a:hover,
 .doctor-menu-nav .navbar-nav li a:focus, 
-.doctor-menu-nav .navbar-nav li a:active {
-    color: #ff0000;
-    text-decoration: none;
+.doctor-menu-nav .navbar-nav li a:active,
+.doctor-menu-nav .navbar-nav li.active a {
+    color: #ea0649 !important;
+    background-color: #ffffff !important;
+    text-decoration: underline;
 }
 .doctor-menu-main {
     
@@ -709,7 +711,7 @@ a.alarm-link {
     position: fixed;
     width: 100%
 }
-#home, #profile, #time, #sos, #inbox, #message-box, #done {
+#home, #profile, #time, #sos, #inbox, #message-box, #done, #logout-patient {
     padding: 17px 0;
     float: left;
     width: 100%;
@@ -728,6 +730,9 @@ a.alarm-link {
 }
 .bar img {
     height: 48px;
+}
+#logout-patient {
+    padding: 24px 0;
 }
 /*Bars end*/
 
@@ -1007,11 +1012,26 @@ a.alarm-link {
     #content.add-margin {
         padding: 0 !important;
     }
+    .logout-patient-wrapper {
+        border-right: 1px solid #000000 !important;
+    }
+    .mobile-full {
+        width: 100%;
+    }
 }
 /*Only For Small sm*/
 @media (min-width: 768px) and (max-width: 991px) {
     .block a .image-wrapper {
         padding-left: 10px;
+    }
+    .border-bottom-small {
+        border-bottom: 1px solid #000000;
+    }
+    #bar-top.bar-patient {
+        position: relative;
+    }
+    #content.add-margin {
+        padding: 0 !important;
     }
 }
 
