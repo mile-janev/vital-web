@@ -339,7 +339,7 @@ class UserController extends Controller
         $logsHeart = Logs::find()
                 ->where(['sign' => "heart_rate", 'user_id' => $id])
                 ->orderBy("created_at DESC")
-                ->limit(8)
+                ->limit(30)
                 ->all();
         $chartHeart = [
             'cols' => [
@@ -356,34 +356,12 @@ class UserController extends Controller
         }
         $signHeartModel = Sign::find()->where(["alias" => "heart_rate"])->one();
         //Log Heart end
-        
-        //Log Temperature start
-        $logsTemp = Logs::find()
-                ->where(['sign' => "temperature", 'user_id' => $id])
-                ->orderBy("created_at DESC")
-                ->limit(8)
-                ->all();
-        $chartTemp = [
-            'cols' => [
-                0 => ['id' => 'Time', 'label' => 'Time', 'type' => 'string'],
-                1 => ['id' => 'Log', 'label' => '', 'type' => 'number'],
-            ]
-        ];
-        for($i = 0; $i<count($logsTemp); $i++){
-            $chartDate = date("m/d/Y H:i", strtotime($logsTemp[$i]->created_at));
-            $chartTemp['rows'][$i]['c'] = [
-                ['v' => $chartDate], 
-                ['v' => (int)$logsTemp[$i]->value]
-            ];
-        }
-        $signTempModel = Sign::find()->where(["alias" => "temperature"])->one();
-        //Log Temperature end
        
         // Log Pressure
         $logsPressure = Logs::find()
                 ->where(['sign' => "blood_pressure", 'user_id' => $id])
                 ->orderBy("created_at DESC")
-                ->limit(8)
+                ->limit(30)
                 ->all();
         
         $lpData = [];
@@ -409,13 +387,35 @@ class UserController extends Controller
             ];
         }
         $signPressureModel = Sign::find()->where(["alias" => "blood_pressure"])->one();
-        // end Pressure
+        //Log Blood Pressure end
+        
+        //Log Temperature start
+        $logsTemp = Logs::find()
+                ->where(['sign' => "temperature", 'user_id' => $id])
+                ->orderBy("created_at DESC")
+                ->limit(30)
+                ->all();
+        $chartTemp = [
+            'cols' => [
+                0 => ['id' => 'Time', 'label' => 'Time', 'type' => 'string'],
+                1 => ['id' => 'Log', 'label' => '', 'type' => 'number'],
+            ]
+        ];
+        for($i = 0; $i<count($logsTemp); $i++){
+            $chartDate = date("m/d/Y H:i", strtotime($logsTemp[$i]->created_at));
+            $chartTemp['rows'][$i]['c'] = [
+                ['v' => $chartDate], 
+                ['v' => (int)$logsTemp[$i]->value]
+            ];
+        }
+        $signTempModel = Sign::find()->where(["alias" => "temperature"])->one();
+        //Log Temperature end
        
         // Log Respiratory
         $logsRespiratory = Logs::find()
                 ->where(['sign' => "respiratory_rate", 'user_id' => $id])
                 ->orderBy("created_at DESC")
-                ->limit(8)
+                ->limit(30)
                 ->all();
         $chartRespiratory = [
             'cols' => [
@@ -437,7 +437,7 @@ class UserController extends Controller
         $logsWeight = Logs::find()
                 ->where(['sign' => "weight", 'user_id' => $id])
                 ->orderBy("created_at DESC")
-                ->limit(8)
+                ->limit(30)
                 ->all();
         $chartWeight = [
             'cols' => [
