@@ -789,14 +789,15 @@ a.alarm-link {
     padding: 20px 0;
     cursor: pointer;
 }
-.block-sign a.overview-chart {
-    padding: 10px;
+.block-sign .data-chart-view {
+    float: left;
+    width: 50%;
 }
-.block-sign a.overview-text {
+.block-sign .left-button {
+    border-right: 1px solid #000000;
+}
+.block-sign .overview-text {
     padding: 10px 0;
-}
-.block-sign a.overview-chart img {
-    height: 20px;
 }
 .block-sign a:hover {
     color: #000000;
@@ -804,13 +805,13 @@ a.alarm-link {
 .block-sign.empty-sign {
     background-color: #f9f9f9;
 }
-.block-sign a .text {
+.block-sign .text {
     display: block;
 }
-.block-sign a .image-wrapper {
+.block-sign .image-wrapper {
     display: block;
 }
-.block-sign a .image-wrapper img {
+.block-sign .image-wrapper img {
     height: 58px;
 }
 .block-sign-splitted {

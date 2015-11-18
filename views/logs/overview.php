@@ -10,9 +10,10 @@ $this->title = 'View Data | Healthcare Record System';
     
     <div class="row">
         <div class="col-xs-6 col-sm-3 block-sign block-sign-splitted brb bbb">
-            <a class="overview-chart" href="<?= Url::toRoute(["logs/view-data-chart", "sign" => "heart_rate"]) ?>">
-                <img src="<?= Url::base() ?>/images/chart.png" />
-            </a>
+            <div class="overview-chart">
+                <a class="data-chart-view left-button" href="<?= Url::toRoute(["logs/view-data-text", "sign" => "heart_rate"]) ?>">Data</a>
+                <a class="data-chart-view right-button" href="<?= Url::toRoute(["logs/view-data-chart", "sign" => "heart_rate"]) ?>">Chart</a>
+            </div>
             <a class="overview-text" href="<?= Url::toRoute(["logs/view-data-text", "sign" => "heart_rate"]) ?>">
                 <span class="image-wrapper">
                     <img src="<?= Url::base() ?>/images/heart.png" />
@@ -21,9 +22,10 @@ $this->title = 'View Data | Healthcare Record System';
             </a>
         </div>
         <div class="col-xs-6 col-sm-3 block-sign block-sign-splitted brb bbb">
-            <a class="overview-chart" href="<?= Url::toRoute(["logs/view-data-chart", "sign" => "blood_pressure"]) ?>">
-                <img src="<?= Url::base() ?>/images/chart.png" />
-            </a>
+            <div class="overview-chart">
+                <a class="data-chart-view left-button" href="<?= Url::toRoute(["logs/view-data-text", "sign" => "blood_pressure"]) ?>">Data</a>
+                <a class="data-chart-view right-button" href="<?= Url::toRoute(["logs/view-data-chart", "sign" => "blood_pressure"]) ?>">Chart</a>
+            </div>
             <a class="overview-text" href="<?= Url::toRoute(["logs/view-data-text", "sign" => "blood_pressure"]) ?>">
                 <span class="image-wrapper">
                     <img src="<?= Url::base() ?>/images/blood.png" />
@@ -32,9 +34,10 @@ $this->title = 'View Data | Healthcare Record System';
             </a>
         </div>
         <div class="col-xs-6 col-sm-3 block-sign block-sign-splitted brb bbb">
-            <a class="overview-chart" href="<?= Url::toRoute(["logs/view-data-chart", "sign" => "temperature"]) ?>">
-                <img src="<?= Url::base() ?>/images/chart.png" />
-            </a>
+            <div class="overview-chart">
+                <a class="data-chart-view left-button" href="<?= Url::toRoute(["logs/view-data-text", "sign" => "temperature"]) ?>">Data</a>
+                <a class="data-chart-view right-button" href="<?= Url::toRoute(["logs/view-data-chart", "sign" => "temperature"]) ?>">Chart</a>
+            </div>
             <a class="overview-text" href="<?= Url::toRoute(["logs/view-data-text", "sign" => "temperature"]) ?>">
                 <span class="image-wrapper">
                     <img src="<?= Url::base() ?>/images/temperature.png" />
@@ -43,9 +46,10 @@ $this->title = 'View Data | Healthcare Record System';
             </a>
         </div>
         <div class="col-xs-6 col-sm-3 block-sign block-sign-splitted bbb">
-            <a class="overview-chart" href="<?= Url::toRoute(["logs/view-data-chart", "sign" => "weight"]) ?>">
-                <img src="<?= Url::base() ?>/images/chart.png" />
-            </a>
+            <div class="overview-chart">
+                <a class="data-chart-view left-button" href="<?= Url::toRoute(["logs/view-data-text", "sign" => "weight"]) ?>">Data</a>
+                <a class="data-chart-view right-button" href="<?= Url::toRoute(["logs/view-data-chart", "sign" => "weight"]) ?>">Chart</a>
+            </div>
             <a class="overview-text" href="<?= Url::toRoute(["logs/view-data-text", "sign" => "weight"]) ?>">
                 <span class="image-wrapper">
                     <img src="<?= Url::base() ?>/images/weight.png" />
@@ -57,9 +61,10 @@ $this->title = 'View Data | Healthcare Record System';
     
     <div class="row hidden-xs">
         <div class="col-xs-6 col-sm-3 block-sign block-sign-splitted brb">
-            <a class="overview-chart" href="<?= Url::toRoute(["logs/view-data-chart", "sign" => "respiratory_rate"]) ?>">
-                <img src="<?= Url::base() ?>/images/chart.png" />
-            </a>
+            <div class="overview-chart">
+                <a class="data-chart-view left-button" href="<?= Url::toRoute(["logs/view-data-text", "sign" => "respiratory_rate"]) ?>">Data</a>
+                <a class="data-chart-view right-button" href="<?= Url::toRoute(["logs/view-data-chart", "sign" => "respiratory_rate"]) ?>">Chart</a>
+            </div>
             <a class="overview-text" href="<?= Url::toRoute(["logs/view-data-text", "sign" => "respiratory_rate"]) ?>">
                 <span class="image-wrapper">
                     <img src="<?= Url::base() ?>/images/respiratory.png" />

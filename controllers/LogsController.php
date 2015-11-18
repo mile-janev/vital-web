@@ -286,7 +286,7 @@ class LogsController extends Controller
         $logs = Logs::find()
                 ->where(['sign' => $sign, 'user_id' => $user_id])
                 ->orderBy("created_at DESC")
-                ->limit(8)
+                ->limit(30)
                 ->all();
         
         $signModel = Sign::find()->where(["alias" => $sign])->one();
