@@ -21,10 +21,10 @@ $this->title = 'View Data | Healthcare Record System';
             </a>
         </div>
         <div class="col-xs-6 col-sm-3 block-sign block-sign-splitted brb bbb">
-            <a class="overview-chart" href="<?= Url::toRoute(["logs/view-data-chart", "sign" => "blod_pressure"]) ?>">
+            <a class="overview-chart" href="<?= Url::toRoute(["logs/view-data-chart", "sign" => "blood_pressure"]) ?>">
                 <img src="<?= Url::base() ?>/images/chart.png" />
             </a>
-            <a class="overview-text" href="<?= Url::toRoute(["logs/view-data-text", "sign" => "blod_pressure"]) ?>">
+            <a class="overview-text" href="<?= Url::toRoute(["logs/view-data-text", "sign" => "blood_pressure"]) ?>">
                 <span class="image-wrapper">
                     <img src="<?= Url::base() ?>/images/blood.png" />
                 </span>

@@ -28,7 +28,7 @@ $this->title = 'Add Data | Healthcare Record System';
             </a>
         </div>
         <div class="col-xs-6 col-sm-3 block-sign brb bbb">
-            <a href="#" rel="<?= Url::toRoute(["logs/log", "sign" => "blod_pressure"]) ?>" class='modalLog' title="Blood pressure">
+            <a href="#" rel="<?= Url::toRoute(["logs/log", "sign" => "blood_pressure"]) ?>" class='modalLog' title="Blood pressure">
                 <span class="image-wrapper">
                     <img src="<?= Url::base() ?>/images/blood.png" />
                 </span>

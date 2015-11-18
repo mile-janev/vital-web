@@ -15,7 +15,7 @@ use Yii;
 class Sign extends \yii\db\ActiveRecord
 {
     const HEART_RATE = "heart_rate";
-    const BLOOD_PRESSURE = "blod_pressure";
+    const BLOOD_PRESSURE = "blood_pressure";
     const TEMPERATURE = "temperature";
     const WEIGHT = "weight";
     

@@ -137,7 +137,7 @@ class UserController extends Controller
                 ->limit(3)
                 ->all();
         $blodPressure = Logs::find()
-                ->where(["sign" => "blod_pressure", "user_id" => $id])
+                ->where(["sign" => "blood_pressure", "user_id" => $id])
                 ->orderBy("created_at DESC")
                 ->limit(3)
                 ->all();
@@ -381,7 +381,7 @@ class UserController extends Controller
        
         // Log Pressure
         $logsPressure = Logs::find()
-                ->where(['sign' => "blod_pressure", 'user_id' => $id])
+                ->where(['sign' => "blood_pressure", 'user_id' => $id])
                 ->orderBy("created_at DESC")
                 ->limit(8)
                 ->all();
@@ -408,7 +408,7 @@ class UserController extends Controller
                 ['v' => (int)$lpData[$i]['diastolic']]
             ];
         }
-        $signPressureModel = Sign::find()->where(["alias" => "blod_pressure"])->one();
+        $signPressureModel = Sign::find()->where(["alias" => "blood_pressure"])->one();
         // end Pressure
        
         // Log Respiratory

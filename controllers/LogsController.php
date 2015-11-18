@@ -294,7 +294,7 @@ class LogsController extends Controller
         $user = \app\models\User::find()->where(["id" => $user_id])->one();
         
         //Data Formating for chart
-        if ($sign == "blod_pressure") {
+        if ($sign == "blood_pressure") {
             $lines = 2;
             $lpData = [];
             foreach ($logs as $key => $lp) {

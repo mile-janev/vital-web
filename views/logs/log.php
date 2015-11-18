@@ -16,7 +16,7 @@ $this->params['breadcrumbs'][] = $this->title;
 ?>
 
 <?php
-if ($signModel->alias == "blod_pressure") {
+if ($signModel->alias == "blood_pressure") {
     $hintAdditional = " <span class='hint-additional'>(systolic/diastolic separate with '/')</span>";
 } else {
     $hintAdditional = "";

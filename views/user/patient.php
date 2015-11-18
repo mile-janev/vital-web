@@ -121,11 +121,11 @@
                     <?php } ?>
                     
                     <?php if (User::patientDoctorNurse($model->id, Yii::$app->user->id)) { ?>
-                        <p><a href="<?= Url::toRoute(["logs/add", "sign" => "blod_pressure", "user_id" => $model->id]) ?>">Log Measurement</a></p>
+                        <p><a href="<?= Url::toRoute(["logs/add", "sign" => "blood_pressure", "user_id" => $model->id]) ?>">Log Measurement</a></p>
                     <?php } ?>
                         
                 </div>
-                <div class="link"><a href="<?= Url::toRoute(['logs/detail', 'sign' => 'blod_pressure', 'user_id' => $model->id]) ?>">View Measurements</a></div>
+                <div class="link"><a href="<?= Url::toRoute(['logs/detail', 'sign' => 'blood_pressure', 'user_id' => $model->id]) ?>">View Measurements</a></div>
             </div>
         </div>
         <div class="col-xs-12 col-sm-6 col-md-3">

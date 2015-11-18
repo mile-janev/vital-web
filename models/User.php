@@ -329,7 +329,7 @@ class User extends \yii\db\ActiveRecord implements IdentityInterface
         $mews = 0;
         
         $blood = Logs::find()
-                ->where(["user_id" => $id, "sign" => "blod_pressure"])
+                ->where(["user_id" => $id, "sign" => "blood_pressure"])
                 ->orderBy(["updated_at" => SORT_DESC])
                 ->one();
         if ($blood !== NULL) {
