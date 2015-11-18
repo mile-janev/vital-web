@@ -12,6 +12,7 @@ use app\models\Sign;
 use yii\filters\AccessControl;
 use app\components\AccessRule;
 use app\models\Role;
+use yii\data\ActiveDataProvider;
 
 /**
  * LogsController implements the CRUD actions for Logs model.
@@ -256,20 +257,26 @@ class LogsController extends Controller
     {
         $user_id = Yii::$app->user->id;
         
-        $logs = Logs::find()
-                ->where(['sign' => $sign, 'user_id' => $user_id])
-                ->orderBy("created_at DESC")
-                ->limit(8)
-                ->all();
+        $user = \app\models\User::find()->where(["id" => $user_id])->one();
         
         $signModel = Sign::find()->where(["alias" => $sign])->one();
         
-        $user = \app\models\User::find()->where(["id" => $user_id])->one();
+        $query = Logs::find()
+                ->where(['sign' => $sign, 'user_id' => $user_id])
+                ->orderBy("created_at DESC");
+        
+        $dataProvider = new ActiveDataProvider([
+            'query' => $query,
+            'sort' => ['defaultOrder' => ['created_at' => SORT_DESC]],
+            'pagination' => [
+                'pageSize' => 8,
+            ],
+        ]);
         
         //Only for detail view for vital sign
         return $this->render('view_data_text', [
             'sign' => $sign,
-            'logs' => $logs,
+            'dataProvider' => $dataProvider,
             'signModel' => $signModel,
             'user' => $user
         ]);

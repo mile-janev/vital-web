@@ -80,6 +80,10 @@ h6 {
     
 }
 
+.go-back {
+    display: block;
+    padding: 10px 0 0 0;
+}
 /* add sorting icons to gridview sort links */
 a.asc:after, a.desc:after {
     position: relative;
@@ -934,6 +938,39 @@ a.alarm-link {
     display: none !important;
 }
 /*Communication end*/
+
+/*Pager design start*/
+.pagination > .active > a,
+.pagination > .active > span, 
+.pagination > .active > a:hover, 
+.pagination > .active > span:hover,
+.pagination > .active > a:focus, 
+.pagination > .active > span:focus {
+    background-color: #c0504e;
+    border-color: #c0504e;
+}
+.pagination > li > a,
+.pagination > li > span {
+    color: #c0504e;
+}
+.pagination > li > a:hover,
+.pagination > li > span:hover,
+.pagination > li > a:focus,
+.pagination > li > span:focus {
+    color: #c0504e;
+    border-color: #c0504e;
+}
+.pagination > .disabled > span,
+.pagination > .disabled > span:hover, 
+.pagination > .disabled > span:focus, 
+.pagination > .disabled > a, 
+.pagination > .disabled > a:hover, 
+.pagination > .disabled > a:focus,
+.pagination > li > a, 
+.pagination > li > span{
+    border-color: #c0504e;
+}
+/*Pager design end*/
 
 /*Only For Smaller then 390px*/
 @media (max-width: 390px) {
