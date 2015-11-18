@@ -294,18 +294,44 @@ class LogsController extends Controller
         $user = \app\models\User::find()->where(["id" => $user_id])->one();
         
         //Data Formating for chart
-        $chart = [
-            'cols' => [
-                0 => ['id' => 'Time', 'label' => 'Time', 'type' => 'string'],
-                1 => ['id' => 'Log', 'label' => '', 'type' => 'number'],
-            ]
-        ];
-        for($i = 0; $i<count($logs); $i++){
-            $chartDate = date("m/d/Y H:i", strtotime($logs[$i]->created_at));
-            $chart['rows'][$i]['c'] = [
-                ['v' => $chartDate], 
-                ['v' => (int)$logs[$i]->value]
+        if ($sign == "blod_pressure") {
+            $lines = 2;
+            $lpData = [];
+            foreach ($logs as $key => $lp) {
+                $lpArr = explode("/", $lp->value);
+                $lpData[$key]['date'] = date("m/d/Y H:i", strtotime($lp->created_at));
+                $lpData[$key]['systolic'] = $lpArr[0];
+                $lpData[$key]['diastolic'] = isset($lpArr[1]) ? $lpArr[1] : 0;
+            }
+            $chart = [
+                'cols' => [
+                    0 => ['id' => 'Time', 'label' => 'Time', 'type' => 'string'],
+                    1 => ['id' => 'Systolic', 'label' => 'Systolic', 'type' => 'number'],
+                    2 => ['id' => 'Diastolic', 'label' => 'Diastolic', 'type' => 'number'],
+                ]
             ];
+            for($i = 0; $i<count($lpData); $i++){
+                $chart['rows'][$i]['c'] = [
+                    ['v' => $lpData[$i]['date']], 
+                    ['v' => (int)$lpData[$i]['systolic']],
+                    ['v' => (int)$lpData[$i]['diastolic']]
+                ];
+            }
+        } else {
+            $lines = 1;
+            $chart = [
+                'cols' => [
+                    0 => ['id' => 'Time', 'label' => 'Time', 'type' => 'string'],
+                    1 => ['id' => 'Log', 'label' => '', 'type' => 'number'],
+                ]
+            ];
+            for($i = 0; $i<count($logs); $i++){
+                $chartDate = date("m/d/Y H:i", strtotime($logs[$i]->created_at));
+                $chart['rows'][$i]['c'] = [
+                    ['v' => $chartDate], 
+                    ['v' => (int)$logs[$i]->value]
+                ];
+            }
         }
         
         //Only for detail view for vital sign
@@ -314,7 +340,8 @@ class LogsController extends Controller
             'logs' => $logs,
             'signModel' => $signModel,
             'chart' => $chart,
-            'user' => $user
+            'user' => $user,
+            'lines' => $lines
         ]);
     }
     

@@ -11,7 +11,7 @@ function drawChartHeart() {
 
     var options = {
         legend: 'none',
-        colors: ['#2cbc24'],
+        colors: ['#ed3c18'],
         enableInteractivity: true,
         width: '100%',
         pointSize: 10,
@@ -31,12 +31,36 @@ function drawChartHeart() {
     chart.draw(data, options);
 }
 
+function drawChartPressure() {
+    var data = new google.visualization.DataTable(chartDataPressure);
+
+    var options = {
+        legend: 'none',
+        colors: ['#6395a6', '#edbe4c'],
+        enableInteractivity: true,
+        width: '100%',
+        pointSize: 10,
+        pointShape: { 
+            type: 'circle'
+        },
+    };
+    
+    var formatter = new google.visualization.NumberFormat(
+        {negativeColor: 'red', negativeParens: true, pattern: '###,### '+measurePressure}
+    );
+    formatter.format(data, 1);
+    formatter.format(data, 2);
+
+    var chart = new google.visualization.LineChart(document.getElementById('dp-chart-pressure'));
+    chart.draw(data, options);
+}
+
 function drawChartTemp() {
     var data = new google.visualization.DataTable(chartDataTemp);
 
     var options = {
         legend: 'none',
-        colors: ['#2cbc24'],
+        colors: ['#c0504e'],
         enableInteractivity: true,
         width: '100%',
         pointSize: 10,
@@ -56,46 +80,15 @@ function drawChartTemp() {
     var chart = new google.visualization.LineChart(document.getElementById('dp-chart-temp'));
     chart.draw(data, options);
 }
-function drawChartPressure() {
-    var data = new google.visualization.DataTable(chartDataPressure);
-
-    var options = {
-        legend: 'none',
-        colors: ['#2cbc24'],
-        enableInteractivity: true,
-        width: '100%',
-        pointSize: 10,
-        pointShape: { 
-            type: 'circle'
-        },
-//        vAxis: {
-//            format: '#,### '+measureTemp
-//        }
-    };
-    
-    var formatter = new google.visualization.NumberFormat(
-         {negativeColor: 'red', negativeParens: true, pattern: '###,### '+measurePressure});
-        formatter.format(data, 1);  
-
-    var chart = new google.visualization.LineChart(document.getElementById('dp-chart-pressure'));
-    chart.draw(data, options);
-}
 
 function drawChartRespiratory() {
     var data = new google.visualization.DataTable(chartDataRespiratory);
 
     var options = {
         legend: 'none',
-        colors: ['#2cbc24'],
+        colors: ['#5f98ca'],
         enableInteractivity: true,
         width: '100%',
-        pointSize: 10,
-        pointShape: { 
-            type: 'circle'
-        },
-//        vAxis: {
-//            format: '#,### '+measureTemp
-//        }
     };
     
     var formatter = new google.visualization.NumberFormat(

@@ -385,17 +385,27 @@ class UserController extends Controller
                 ->orderBy("created_at DESC")
                 ->limit(8)
                 ->all();
+        
+        $lpData = [];
+        foreach ($logsPressure as $key => $lp) {
+            $lpArr = explode("/", $lp->value);
+            $lpData[$key]['date'] = date("m/d/Y H:i", strtotime($lp->created_at));
+            $lpData[$key]['systolic'] = $lpArr[0];
+            $lpData[$key]['diastolic'] = isset($lpArr[1]) ? $lpArr[1] : 0;
+        }
+        
         $chartPressure = [
             'cols' => [
                 0 => ['id' => 'Time', 'label' => 'Time', 'type' => 'string'],
-                1 => ['id' => 'Log', 'label' => '', 'type' => 'number'],
+                1 => ['id' => 'Systolic', 'label' => 'Systolic', 'type' => 'number'],
+                2 => ['id' => 'Diastolic', 'label' => 'Diastolic', 'type' => 'number'],
             ]
         ];
-        for($i = 0; $i<count($logsPressure); $i++){
-            $chartDate = date("m/d/Y H:i", strtotime($logsPressure[$i]->created_at));
+        for($i = 0; $i<count($lpData); $i++){
             $chartPressure['rows'][$i]['c'] = [
-                ['v' => $chartDate], 
-                ['v' => (int)$logsPressure[$i]->value]
+                ['v' => $lpData[$i]['date']], 
+                ['v' => (int)$lpData[$i]['systolic']],
+                ['v' => (int)$lpData[$i]['diastolic']]
             ];
         }
         $signPressureModel = Sign::find()->where(["alias" => "blod_pressure"])->one();

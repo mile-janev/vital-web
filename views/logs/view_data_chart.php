@@ -6,6 +6,7 @@ use yii\web\View;
 use app\components\Functions;
 
 $jsVars = "";
+$jsVars .= "var lines=".$lines."; ";
 $jsVars .= "var measure='".$signModel->measure."'; ";
 $jsVars .= 'var chartData=' . \yii\helpers\Json::encode($chart) . '; ';
 

@@ -7,7 +7,7 @@ function drawChart() {
 
     var options = {
         legend: 'none',
-        colors: ['#2cbc24'],
+        colors: ['#c0504e', '#edbe4c'],
         enableInteractivity: true,
         width: '100%',
         pointSize: 10,
@@ -20,8 +20,12 @@ function drawChart() {
     };
     
     var formatter = new google.visualization.NumberFormat(
-         {negativeColor: 'red', negativeParens: true, pattern: '###,### '+measure});
-        formatter.format(data, 1);  
+        {negativeColor: 'red', negativeParens: true, pattern: '###,### '+measure}
+    );
+    formatter.format(data, 1);
+    if (lines == 2) {
+        formatter.format(data, 2);
+    }
 
     var chart = new google.visualization.LineChart(document.getElementById('chart-measurement'));
     chart.draw(data, options);
