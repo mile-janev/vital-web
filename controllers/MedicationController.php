@@ -11,6 +11,7 @@ use app\models\User;
 use yii\filters\AccessControl;
 use app\components\AccessRule;
 use app\models\Role;
+use yii\data\ActiveDataProvider;
 
 /**
  * MedicationController implements the CRUD actions for Medication model.
@@ -209,15 +210,20 @@ class MedicationController extends Controller
      */
     public function actionOverview()
     {
-        $models = Medication::find()
-                ->where(["patient_id" => Yii::$app->user->id])
-                ->orderBy("created_at DESC")
-                ->limit(8)
-                ->all();
+        $query = Medication::find()->where(["patient_id" => Yii::$app->user->id]);
+        
+        $dataProvider = new ActiveDataProvider([
+            'query' => $query,
+            'sort' => ['defaultOrder' => ['created_at' => SORT_DESC]],
+            'pagination' => [
+                'pageSize' => 8,
+            ],
+        ]);
+        
         $user = \app\models\User::find()->where(["id" => Yii::$app->user->id])->one();
         
         return $this->render('overview', [
-            'models' => $models,
+            'dataProvider' => $dataProvider,
             'user' => $user
         ]);
     }

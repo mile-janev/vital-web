@@ -12,6 +12,7 @@ use app\models\User;
 use yii\filters\AccessControl;
 use app\components\AccessRule;
 use app\models\Role;
+use yii\data\ActiveDataProvider;
 
 /**
  * AlarmController implements the CRUD actions for Alarm model.
@@ -209,16 +210,21 @@ class AlarmController extends Controller
      */
     public function actionOverview()
     {
-        $models = Alarm::find()
-                ->where(["patient_id" => Yii::$app->user->id])
-                ->orderBy("created_at DESC")
-                ->limit(8)
-                ->all();
+        $query = Alarm::find()->where(["patient_id" => Yii::$app->user->id]);
+        
+        $dataProvider = new ActiveDataProvider([
+            'query' => $query,
+            'sort' => ['defaultOrder' => ['created_at' => SORT_DESC]],
+            'pagination' => [
+                'pageSize' => 8,
+            ],
+        ]);
+        
         $user = \app\models\User::find()->where(["id" => Yii::$app->user->id])->one();
         
         return $this->render('overview', [
             'user' => $user,
-            'models' => $models,
+            'dataProvider' => $dataProvider,
         ]);
     }
     

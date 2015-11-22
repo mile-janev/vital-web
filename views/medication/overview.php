@@ -1,34 +1,24 @@
 <?php
-use yii\helpers\Html;
-use app\models\User;
-use yii\helpers\Url;
-use app\components\Functions;
+    use yii\helpers\Html;
+    use app\models\User;
+    use yii\helpers\Url;
+    use app\components\Functions;
 
-$this->title = 'Medical Records | Healthcare Record System';
+    $this->title = 'Medical Records | Healthcare Record System';
 ?>
 <div class="measurements-view-text container">
-
-    <div class="sub-title">Your last 8 medications:</div>
     
+    <div class="sub-title">Your last medications:</div>
+
     <div class="measurements-wrapper">
-        <?php foreach ($models as $model) : ?>
-            <div class="row row-measure">
-                <div class="col-lg-6 col-lg-6 col-sm-6 col-xs-12 data">
-                    <?= date("m/d/Y H:i", strtotime($model->created_at)) . " - " 
-                        . "Rx: <b>" . $model->rx_number . "</b>, " . $model->name 
-                        . " " . $model->strength . " " . $model->strength_measure  ?>
-                </div>
-                <div class="col-lg-1 col-md-1 col-sm-2 col-xs-4">
-                    <button rel="#medic_<?= $model->id ?>" class="btn btn-success btn-view view-medication" data-target="#modalInfo" data-toggle="modal" type="button">View</button>
-                    <div id="medic_<?= $model->id ?>" class="hide" rel="RX: <?= $model->rx_number ?>">
-                        <b>Medication:</b><br /> <?= $model->name . " " . $model->strength . " " . $model->strength_measure ?><br />
-                        <b>Schedule:</b> <?= $model->schedule ?><br />
-                        <b>Note:</b> <?= $model->note ?> <br /><br />
-                        <?= date("m/d/Y H:i", strtotime($model->created_at)) ?>
-                    </div>
-                </div>
-            </div>
-        <?php endforeach; ?>
+        <?php
+        echo yii\widgets\ListView::widget([
+            'dataProvider' => $dataProvider,
+            'itemOptions' => ['class' => 'item'],
+            'itemView' => '_item',
+            'summary' => '',
+        ]);
+        ?>
     </div>
 
 </div>

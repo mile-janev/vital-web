@@ -261,9 +261,7 @@ class LogsController extends Controller
         
         $signModel = Sign::find()->where(["alias" => $sign])->one();
         
-        $query = Logs::find()
-                ->where(['sign' => $sign, 'user_id' => $user_id])
-                ->orderBy("created_at DESC");
+        $query = Logs::find()->where(['sign' => $sign, 'user_id' => $user_id]);
         
         $dataProvider = new ActiveDataProvider([
             'query' => $query,
