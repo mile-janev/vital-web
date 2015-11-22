@@ -29,7 +29,7 @@ class UserController extends Controller
                 'ruleConfig' => [
                     'class' => AccessRule::className(),
                 ],
-                'only' => ['create', 'update', 'index', 'delete', 'edit', 'resetpassword', 'patients', 'patient', 'view', 'view-own', 'patient-dashboard'],
+                'only' => ['create', 'update', 'index', 'delete', 'edit', 'resetpassword', 'patients', 'patient', 'view', 'view-own', 'patient-dashboard', 'sos'],
                 'rules' => [
                     [
                         'actions' => ['resetpassword'],
@@ -40,6 +40,13 @@ class UserController extends Controller
                         'actions' => ['edit', 'patients', 'patient', 'view-own'],
                         'allow' => true,
                         'roles' => ['@'],
+                    ],
+                    [
+                        'actions' => ['sos'],
+                        'allow' => true,
+                        'roles' => [
+                            Role::find()->where(['name' => Role::PATIENT])->one()
+                        ],
                     ],
                     [
                         'actions' => ['patient-dashboard'],
@@ -469,6 +476,30 @@ class UserController extends Controller
             "user" => $user,
             "model" => $model
         ]);
+    }
+    
+    public function actionSos()
+    {
+//        $this->layout=false;
+//        header('Content-type: application/json');
+//        $output = [];
+        
+        $user = User::find()->where(["id" => Yii::$app->user->id])->one();
+        $output["status"] = "yes";
+        
+        foreach ($user->patientConnection as $usrConn) {
+            if ($usrConn->user->role->name == Role::DOCTOR || $usrConn->user->role->name == Role::NURSE) {
+                $alarm = new \app\models\Alarm();
+                $alarm->title = "SOS from " . $user->name;
+                $alarm->time = date("Y-m-d H:i:s", time());
+                $alarm->from_id = Yii::$app->user->id;
+                $alarm->patient_id = $usrConn->user->id;
+                $alarm->save();
+            }
+        }
+        
+        echo \yii\helpers\Json::encode($output);
+        exit();
     }
     
 }

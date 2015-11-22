@@ -16,7 +16,7 @@
             <div class="modal-footer">
                 <div id="url" class="hidden"><?= \yii\helpers\Url::toRoute(["alarm/done"]) ?></div>
                 <button id="reminder-later" type="button" class="btn btn-success" data-dismiss="modal">Later</button>
-                <button id="reminder-done" type="button" class="btn btn-success" data-dismiss="modal" rel="<?= $alarm->id ?>">Done</button>
+                <button id="reminder-done" type="button" class="btn btn-success reminder-done" data-dismiss="modal" rel="<?= $alarm->id ?>">Done</button>
             </div>
 
         </div>

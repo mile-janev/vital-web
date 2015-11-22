@@ -24,7 +24,7 @@
     <div class="container-fluid">
         <div class="row">
             <div class="col-lg-2 col-md-2 col-sm-3 col-xs-12 bar-cell">
-                <a id="inbox" href="#">
+                <a id="inbox" href="<?= Url::toRoute(["alarm/overview"]) ?>">
                     <img src="<?php echo Url::base(); ?>/images/mail.png" />
                     <span class="text">Inbox</span>
                 </a>
@@ -33,7 +33,7 @@
                 <?php if ($alarm) { ?>
                     <a href="#" id="message-box" data-target="#modalInfo" data-toggle="modal">
                         <?php if ($alarm->patient_id == $alarm->from_id) { ?>
-                            New own reminder
+                            New reminder
                         <?php } else { ?>
                             New message from <?= $alarm->from->role->description . " " . $alarm->from->name ?>
                         <?php } ?>
@@ -43,7 +43,7 @@
                 <?php } ?>
             </div>
             <div class="col-lg-2 col-md-2 col-sm-3 col-xs-12 bar-cell">
-                <a id="done" href="#" rel='<?= Url::base(); ?>/images/end_call.png'>
+                <a id="done" class="reminder-done" href="#" rel='<?= Url::base(); ?>/images/end_call.png'>
                     <img src="<?php echo Url::base(); ?>/images/done.png" />
                     <span class="text">Done</span>
                 </a>

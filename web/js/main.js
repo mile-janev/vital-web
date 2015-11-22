@@ -29,7 +29,7 @@ $(document).ready(function(){
         $("#infoModalContent").html(content);
     });
     
-    $("#reminder-done").click(function(){
+    $(".reminder-done").click(function(){
         var toUrl = $("#url").html();
         var id = $(this).attr("rel");
         
@@ -45,7 +45,7 @@ $(document).ready(function(){
                     } else {
                         $("#message-box").html(response.new_label);
                         $("#infoModalContent").html(response.new_content);
-                        $("#reminder-done").attr("rel", response.new_id);
+                        $(".reminder-done").attr("rel", response.new_id);
                     }
                 }
             }, 'json');
@@ -72,6 +72,24 @@ $(document).ready(function(){
         }, 'json')
     })
     //Check for call end
+    
+    //SOS click start
+    $("#sos").click(function(e){
+        e.preventDefault();
+        var url = $(this).attr("href");
+        $.post(url, 
+        {
+            
+        },
+        function(response){
+            if (response.status == 'yes') {
+                $('#modalCall').modal('hide');
+            } else {
+                console.log("error");
+            }
+        }, 'json')
+    })
+    //SOS click end
     
 })
 

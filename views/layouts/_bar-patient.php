@@ -32,7 +32,7 @@
                 <span id="time"><?= date("H:i", time()) ?></span>
             </div>
             <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12 bar-cell bg-dark-red">
-                <a id="sos" href="#">SOS</a>
+                <a id="sos" href="<?= Url::toRoute(["user/sos"]) ?>">SOS</a>
             </div>
         </div>
     </div>

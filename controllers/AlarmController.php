@@ -282,7 +282,7 @@ class AlarmController extends Controller
                     if ($newAlarm) {
                         
                         if ($newAlarm->patient_id == $newAlarm->from_id) {
-                            $label = 'New own reminder';
+                            $label = 'New reminder';
                         } else {
                             $label = "New message from " . $newAlarm->from->role->description . " " . $newAlarm->from->name;
                         }
