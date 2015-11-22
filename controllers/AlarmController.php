@@ -220,11 +220,8 @@ class AlarmController extends Controller
             ],
         ]);
         
-        $user = \app\models\User::find()->where(["id" => Yii::$app->user->id])->one();
-        
         return $this->render('overview', [
-            'user' => $user,
-            'dataProvider' => $dataProvider,
+            'dataProvider' => $dataProvider
         ]);
     }
     

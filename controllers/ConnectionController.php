@@ -11,6 +11,7 @@ use yii\filters\VerbFilter;
 use yii\filters\AccessControl;
 use app\components\AccessRule;
 use app\models\Role;
+use yii\data\ActiveDataProvider;
 
 /**
  * ConnectionController implements the CRUD actions for Connection model.
@@ -158,10 +159,19 @@ class ConnectionController extends Controller
      */
     public function actionOverview()
     {
-        $user = \app\models\User::find()->where(["id" => Yii::$app->user->id])->one();
+        $query = \app\models\User::find()
+                ->joinWith("connection")
+                ->where(["connection.patient_id" => Yii::$app->user->id]);
+        
+        $dataProvider = new ActiveDataProvider([
+            'query' => $query,
+            'pagination' => [
+                'pageSize' => 8,
+            ],
+        ]);
         
         return $this->render('overview', [
-            'user' => $user
+            'dataProvider' => $dataProvider,
         ]);
     }
     
