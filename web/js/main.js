@@ -83,7 +83,7 @@ $(document).ready(function(){
         },
         function(response){
             if (response.status == 'yes') {
-                $('#modalCall').modal('hide');
+                $('#modalSos').modal('show');
             } else {
                 console.log("error");
             }
