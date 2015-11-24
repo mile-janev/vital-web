@@ -21,6 +21,14 @@
             'name',
             'email:email',
             [
+                'label' => Yii::t( 'app', 'MEWS' ),
+                'format' => 'raw',
+                'attribute' => 'mews',
+                'value' => function ( $data ) {
+                    return app\models\User::mews($data['id']);
+                },
+            ],
+            [
                 'label' => Yii::t( 'app', 'Image' ),
                 'format' => 'raw',
                 'attribute' => 'image',

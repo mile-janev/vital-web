@@ -27,7 +27,9 @@ class User extends \yii\db\ActiveRecord implements IdentityInterface
 {    
     
     public $password_confirm;
-    
+    public $mews;
+
+
     /**
      * @inheritdoc
      */
