@@ -4,7 +4,9 @@ use yii\helpers\Url;
 use yii\helpers\Html;
 use yii\bootstrap\Modal;
 
-$this->title = 'Contacts | Healthcare Record System';
+$this->title = 'Contacts';
+$this->params['breadcrumbs'][] = ['label' => 'Communication', 'url' => ['connection/communication']];
+$this->params['breadcrumbs'][] = $this->title;
 ?>
 
 <?php 

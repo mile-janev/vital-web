@@ -35,7 +35,8 @@ echo Nav::widget([
     'options' => ['class' => 'navbar-nav navbar-right doctor-menu-main'],
     'items' => [
         ['label' => 'Alerts'.$alText, 'url' => ['/alarm/overview']],
-        ['label' => 'Dr. ' . $user->name, 'url' => ['/user/view-own']],
+        ['label' => 'Communication', 'url' => ['/connection/communication']],
+        ['label' => 'Contacts', 'url' => ['/connection/overview']],
         ['label' => 'Settings', 'url' => ['/user/edit']],
         ['label' => 'Log out', 'url' => ['/site/logout']],
     ],
