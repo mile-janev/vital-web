@@ -137,7 +137,7 @@ class User extends \yii\db\ActiveRecord implements IdentityInterface
      */
     public function getAlarms()
     {
-        return $this->hasMany(Alarm::className(), ['user_id' => 'id']);
+        return $this->hasMany(Alarm::className(), ['for_id' => 'id']);
     }
 
     /**

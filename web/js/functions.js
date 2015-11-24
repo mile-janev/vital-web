@@ -15,7 +15,7 @@ function tile() {
     }
 }
 
-function format_time (time) {
+function format_time(time) {
     
     var minutes = Math.floor(time / 60);
     
@@ -46,6 +46,25 @@ function checkForCall() {
             if (response.call == 'yes') {
                 $("#modalCall #infoModalContent").html("New call from " + response.caller);
                 $('#modalCall').modal('show');
+            }
+        }, 'json')
+    }
+}
+
+function checkForSOS() {
+    var sosNoteShow = $("#sosNote").html();
+    var urlSos = $("#sosNote").attr("rel");
+    if ($.trim(sosNoteShow) == "1") {
+        jQuery.post(urlSos, 
+        { 
+
+        },
+        function(response){
+            if (response.status == 'yes') {
+                $("#modalSos #from-sos").html(response.from_id);
+                $("#modalSos #infoModalTitle").html("SOS from " + response.patient);
+                $("#modalSos #infoModalContent").html(response.sos + " at " + response.time);
+                $('#modalSos').modal('show');
             }
         }, 'json')
     }

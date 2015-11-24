@@ -74,6 +74,9 @@ app\assets\AppAsset::register($this);
         <?php } ?>
     </div>
     
+    <div id="sosNote" class="hidden" rel="<?= Url::toRoute(["alarm/check-sos"]) ?>">
+        <?= (Functions::isRole(Role::DOCTOR) || Functions::isRole(Role::NURSE)) ? 1 : 0 ?>
+    </div>
 
 <?=$this->render('_popup-call') ?>
     

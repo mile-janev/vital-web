@@ -28,7 +28,7 @@ class AlarmController extends Controller
                 'ruleConfig' => [
                     'class' => AccessRule::className(),
                 ],
-                'only' => ['create', 'update', 'index', 'delete', 'add', 'change', 'view', 'overview', 'add-own', 'done'],
+                'only' => ['create', 'update', 'index', 'delete', 'view', 'overview', 'add-own', 'done'],
                 'rules' => [
                     [
                         'actions' => [''],
@@ -36,12 +36,12 @@ class AlarmController extends Controller
                         'roles' => ['?'],
                     ],
                     [
-                        'actions' => ['add', 'overview', 'add-own', 'done'],
+                        'actions' => ['overview', 'add-own', 'done'],
                         'allow' => true,
                         'roles' => ['@'],
                     ],
                     [
-                        'actions' => ['add', 'change'],
+                        'actions' => ['check-sos', 'remove-sos'],
                         'allow' => true,
                         'roles' => [
                             Role::find()->where(['name' => Role::DOCTOR])->one(),
@@ -49,7 +49,7 @@ class AlarmController extends Controller
                         ],
                     ],
                     [
-                        'actions' => ['create', 'update', 'index', 'delete', 'add', 'change', 'view'],
+                        'actions' => ['create', 'update', 'index', 'delete', 'view'],
                         'allow' => true,
                         'roles' => [
                             Role::find()->where(['name' => Role::ADMINISTRATOR])->one()
@@ -160,57 +160,12 @@ class AlarmController extends Controller
     }
     
     /**
-     * Creates a new Alarm model.
-     * If creation is successful, the browser will be redirected to the 'view' page.
-     * @return mixed
-     */
-    public function actionAdd()
-    {
-        $model = new Alarm();
-        
-        $params = Yii::$app->request->get();
-        
-        $patient = User::find()->where(["id" => $params["patient_id"]])->one();
-
-        if ($model->load(Yii::$app->request->post()) && $model->save()) {
-            return $this->redirect(['user/patient', 'id' => $params["patient_id"]]);
-        } else {
-            return $this->render('add_change', [
-                'model' => $model,
-                'patient' => $patient,
-            ]);
-        }
-    }
-    
-    /**
-     * Updates an existing Alarm model.
-     * If update is successful, the browser will be redirected to the 'view' page.
-     * @param string $id
-     * @return mixed
-     */
-    public function actionChange($id)
-    {
-        $model = $this->findModel($id);
-        
-        $patient = User::find()->where(["id" => $model->patient_id])->one();
-
-        if ($model->load(Yii::$app->request->post()) && $model->save()) {
-            return $this->redirect(['user/patient', 'id' => $model->patient_id]);
-        } else {
-            return $this->render('add_change', [
-                'model' => $model,
-                'patient' => $patient,
-            ]);
-        }
-    }
-    
-    /**
      * New action
      * Overview own alarms
      */
     public function actionOverview()
     {
-        $query = Alarm::find()->where(["patient_id" => Yii::$app->user->id]);
+        $query = Alarm::find()->where(["for_id" => Yii::$app->user->id]);
         
         $dataProvider = new ActiveDataProvider([
             'query' => $query,
@@ -234,7 +189,7 @@ class AlarmController extends Controller
     {
         $model = new Alarm();
         
-        $model->patient_id = Yii::$app->user->id;
+        $model->for_id = Yii::$app->user->id;
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
             return $this->redirect(['alarm/overview']);
         } else {
@@ -251,7 +206,7 @@ class AlarmController extends Controller
      */
     public function actionEditOwn($id)
     {
-        $model = Alarm::find()->where(["id" => $id, "patient_id" => Yii::$app->user->id, "from_id" => Yii::$app->user->id])->one();
+        $model = Alarm::find()->where(["id" => $id, "for_id" => Yii::$app->user->id, "from_id" => Yii::$app->user->id])->one();
         
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
             return $this->redirect(['alarm/overview']);
@@ -272,7 +227,7 @@ class AlarmController extends Controller
         $params = Yii::$app->request->post();
         
         if ($params['id']) {
-            $alarm = Alarm::find()->where(["id" => $params['id'], "patient_id" => Yii::$app->user->id])->one();
+            $alarm = Alarm::find()->where(["id" => $params['id'], "for_id" => Yii::$app->user->id])->one();
             if ($alarm) {
                 $alarm->seen = 1;
                 $saved = $alarm->save();
@@ -281,7 +236,7 @@ class AlarmController extends Controller
                     $newAlarm = \app\models\Alarm::findUserAlarm();
                     if ($newAlarm) {
                         
-                        if ($newAlarm->patient_id == $newAlarm->from_id) {
+                        if ($newAlarm->for_id == $newAlarm->from_id) {
                             $label = 'New reminder';
                         } else {
                             $label = "New message from " . $newAlarm->from->role->description . " " . $newAlarm->from->name;
@@ -294,6 +249,62 @@ class AlarmController extends Controller
                     }
                 }
             }
+        }
+        
+        echo \yii\helpers\Json::encode($output);
+        exit();
+    }
+    
+    public function actionCheckSos()
+    {
+        $this->layout=false;
+        header('Content-type: application/json');
+        $output = [];
+        
+        $sos = Alarm::find()->where([
+                    "for_id" => \Yii::$app->user->id,
+                    "seen" => 0,
+                    "is_sos" => 1
+                ])
+                ->orderBy(["time" => SORT_DESC])
+                ->one();
+        if ($sos) {
+            $output['status'] = "yes";
+            $output['from_id'] = $sos->from_id;
+            $output['sos'] = $sos->title;
+            $output['patient'] = $sos->from->name;
+            $output['time'] = $sos->time;
+        } else {
+            $output['status'] = 'no';
+        }
+        
+        echo \yii\helpers\Json::encode($output);
+        exit();
+    }
+    
+    public function actionRemoveSos()
+    {
+        $this->layout=false;
+        header('Content-type: application/json');
+        $output = [];
+
+        $params = Yii::$app->request->post();
+        $from_id = $params["from_id"];
+        
+        $sosS = Alarm::find()->where([
+                    "from_id" => $from_id,
+                    "seen" => 0,
+                    "is_sos" => 1
+                ])
+                ->all();
+        if (count($sosS) > 0) {
+            foreach ($sosS as $sos) {
+                $sos->seen = 1;
+                $sos->save();
+            }
+            $output['status'] = "yes";
+        } else {
+            $output['status'] = 'no';
         }
         
         echo \yii\helpers\Json::encode($output);

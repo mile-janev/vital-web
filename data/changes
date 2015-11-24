@@ -11,3 +11,7 @@ ALTER TABLE `alarm` ADD FOREIGN KEY ( `from_id` ) REFERENCES `user` (
 
 ---------- 15.11.2015 ----------------------------------------------------------
 ALTER TABLE `logs` CHANGE `value` `value` VARCHAR( 64 ) NOT NULL;
+
+---------- 23.11.2015 ----------------------------------------------------------
+ALTER TABLE `alarm` ADD `is_sos` BOOLEAN NOT NULL DEFAULT '0' AFTER `time` 
+ALTER TABLE `alarm` CHANGE `patient_id` `for_id` INT( 10 ) UNSIGNED NOT NULL 

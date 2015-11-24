@@ -18,7 +18,7 @@ class AlarmSearch extends Alarm
     public function rules()
     {
         return [
-            [['id', 'patient_id'], 'integer'],
+            [['id', 'for_id', 'from_id'], 'integer'],
             [['title', 'time', 'created_at', 'updated_at'], 'safe'],
         ];
     }
@@ -59,8 +59,9 @@ class AlarmSearch extends Alarm
             'id' => $this->id,
             'created_at' => $this->created_at,
             'updated_at' => $this->updated_at,
-            'patient_id' => $this->patient_id,
-            'time' => $this->time,
+            'for_id' => $this->for_id,
+            'from_id' => $this->from_id,
+            'time' => $this->time
         ]);
 
         $query->andFilterWhere(['like', 'title', $this->title]);

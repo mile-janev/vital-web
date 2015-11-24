@@ -1,6 +1,8 @@
 $(document).ready(function(){
     tile();
     
+    checkForSOS();
+    
     if ($("#controller-view").html() != "connection/call") {
         checkForCall();
     }
@@ -55,6 +57,7 @@ $(document).ready(function(){
     setInterval(function () {
         checkForCall();
     }, 5000);
+    //Check for call end
     
     $("#callDismiss").click(function(e){
         e.preventDefault();
@@ -71,7 +74,6 @@ $(document).ready(function(){
             }
         }, 'json')
     })
-    //Check for call end
     
     //SOS click start
     $("#sos").click(function(e){
@@ -90,6 +92,31 @@ $(document).ready(function(){
         }, 'json')
     })
     //SOS click end
+    
+    //Check for SOS start
+    setInterval(function () {
+        checkForSOS();
+    }, 2000);
+    //Check for SOS end
+    
+    //SOS Close doctor start
+    $("#remove-sos").click(function(e){
+        e.preventDefault();
+        var url = $(this).attr("rel");
+        var from_id = $("#from-sos").html();
+        $.post(url, 
+        {
+            from_id: from_id
+        },
+        function(response){
+            if (response.status == 'yes') {
+                $('#modalSos').modal('hide');
+            } else {
+                $('#modalSos').modal('hide');
+            }
+        }, 'json')
+    })
+    //SOS Close doctor end
     
 })
 

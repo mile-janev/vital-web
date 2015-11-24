@@ -160,7 +160,7 @@ class UserController extends Controller
                 ->all();
         
         $alarms = \app\models\Alarm::find()
-                ->where(["patient_id" => $id])
+                ->where(["for_id" => $id])
                 ->andWhere("time > NOW()")
                 ->orderBy("time ASC")
                 ->all();
@@ -480,9 +480,9 @@ class UserController extends Controller
     
     public function actionSos()
     {
-//        $this->layout=false;
-//        header('Content-type: application/json');
-//        $output = [];
+        $this->layout=false;
+        header('Content-type: application/json');
+        $output = [];
         
         $user = User::find()->where(["id" => Yii::$app->user->id])->one();
         $output["status"] = "yes";
@@ -491,9 +491,10 @@ class UserController extends Controller
             if ($usrConn->user->role->name == Role::DOCTOR || $usrConn->user->role->name == Role::NURSE) {
                 $alarm = new \app\models\Alarm();
                 $alarm->title = "SOS from " . $user->name;
+                $alarm->is_sos = 1;
                 $alarm->time = date("Y-m-d H:i:s", time());
                 $alarm->from_id = Yii::$app->user->id;
-                $alarm->patient_id = $usrConn->user->id;
+                $alarm->for_id = $usrConn->user->id;
                 $alarm->save();
             }
         }

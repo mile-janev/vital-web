@@ -11,10 +11,13 @@ use yii\db\Expression;
  *
  * @property string $id
  * @property string $title
+ * @property string $time
+ * @property string $is_sos
  * @property string $created_at
  * @property string $updated_at
- * @property string $patient_id
- * @property string $time
+ * @property string $for_id
+ * @property string $from_id
+ * @property string $seen
  *
  * @property User $patient
  */
@@ -34,9 +37,9 @@ class Alarm extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['title', 'patient_id', 'time'], 'required'],
-            [['created_at', 'updated_at'], 'safe'],
-            [['patient_id'], 'integer'],
+            [['title', 'for_id', 'time'], 'required'],
+            [['created_at', 'updated_at', 'is_sos'], 'safe'],
+            [['for_id', 'from_id'], 'integer'],
             [['title'], 'string', 'max' => 255]
         ];
     }
@@ -49,10 +52,13 @@ class Alarm extends \yii\db\ActiveRecord
         return [
             'id' => 'ID',
             'title' => 'Reminder',
+            'time' => 'Time',
+            'is_sos' => 'SOS',
             'created_at' => 'Created At',
             'updated_at' => 'Updated At',
-            'patient_id' => 'Patient',
-            'time' => 'Time'
+            'for_id' => 'Alarm For',
+            'from_id' => 'Alarm From',
+            'seen' => 'Seen'
         ];
     }
     
@@ -79,7 +85,7 @@ class Alarm extends \yii\db\ActiveRecord
      */
     public function getPatient()
     {
-        return $this->hasOne(User::className(), ['id' => 'patient_id']);
+        return $this->hasOne(User::className(), ['id' => 'for_id']);
     }
     
     /**
@@ -111,7 +117,7 @@ class Alarm extends \yii\db\ActiveRecord
     public static function findUserAlarm() 
     {
         $alarm = \app\models\Alarm::find()
-            ->where(["patient_id" => Yii::$app->user->id, "seen" => 0])
+            ->where(["for_id" => Yii::$app->user->id, "seen" => 0])
             ->andWhere("time <= NOW()")
             ->orderBy("time ASC")
             ->one();

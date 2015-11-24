@@ -25,7 +25,7 @@ use yii\widgets\ActiveForm;
 
     <?= $form->field($model, 'updated_at') ?>
 
-    <?= $form->field($model, 'patient_id') ?>
+    <?= $form->field($model, 'for_id') ?>
 
     <div class="form-group">
         <?= Html::submitButton('Search', ['class' => 'btn btn-primary']) ?>

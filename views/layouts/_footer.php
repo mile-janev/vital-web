@@ -1,8 +1,4 @@
-<?php
-    use yii\helpers\Url;
-//    var_dump($alarm->from->name);
-//    exit();
-?>
+<?php use yii\helpers\Url; ?>
 
 <?php 
     if ($alarm) {
@@ -32,7 +28,7 @@
             <div class="col-lg-8 col-md-8 col-sm-6 col-xs-12 bar-cell">
                 <?php if ($alarm) { ?>
                     <a href="#" id="message-box" data-target="#modalInfo" data-toggle="modal">
-                        <?php if ($alarm->patient_id == $alarm->from_id) { ?>
+                        <?php if ($alarm->for_id == $alarm->for_id) { ?>
                             New reminder
                         <?php } else { ?>
                             New message from <?= $alarm->from->role->description . " " . $alarm->from->name ?>

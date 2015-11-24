@@ -14,7 +14,7 @@ $users = User::find()->all();
 
     <?= $form->field($model, 'title')->textInput(['maxlength' => true]) ?>
     
-    <?= $form->field($model, 'patient_id')->dropDownList(ArrayHelper::map($users, 'id', 'name')) ?>
+    <?= $form->field($model, 'for_id')->dropDownList(ArrayHelper::map($users, 'id', 'name')) ?>
     
     <?= $form->field($model, 'time')->widget(DateTimePicker::classname(), [
                 'options' => ['placeholder' => 'Enter event time ...'],
