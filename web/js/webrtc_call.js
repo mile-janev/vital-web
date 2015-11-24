@@ -142,7 +142,7 @@ webrtc.on('videoAdded', function(video, peer) {
     //Added new code start
     $("#done").attr("href", $("#call-end").html());
     $("#done .text").html("Hang up");
-    $("#done img").attr("src", $("#done").attr("rel")).css("height", "36px");
+    $("#done img").attr("src", $("#done").attr("data-img")).css("height", "36px");
     
     var counter = 0;
     setInterval(function () {

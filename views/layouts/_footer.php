@@ -39,7 +39,7 @@
                 <?php } ?>
             </div>
             <div class="col-lg-2 col-md-2 col-sm-3 col-xs-12 bar-cell">
-                <a id="done" class="reminder-done" href="#" rel='<?= ($alarm) ? $alarm->id : "#"; ?>'>
+                <a id="done" class="reminder-done" href="#" rel='<?= ($alarm) ? $alarm->id : "#"; ?>' data-img="<?= Url::base(); ?>/images/end_call.png">
                     <img src="<?php echo Url::base(); ?>/images/done.png" />
                     <span class="text">Done</span>
                 </a>

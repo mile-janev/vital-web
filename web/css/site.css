@@ -719,6 +719,7 @@ a.alarm-link {
     padding: 17px 0;
     float: left;
     width: 100%;
+    outline: none;
 }
 #sos {
     background-color: #c0504e;
