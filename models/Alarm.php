@@ -83,7 +83,7 @@ class Alarm extends \yii\db\ActiveRecord
     /**
      * @return \yii\db\ActiveQuery
      */
-    public function getPatient()
+    public function getFor()
     {
         return $this->hasOne(User::className(), ['id' => 'for_id']);
     }
