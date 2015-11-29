@@ -35,23 +35,23 @@
 
     <div class="row">
         <div class="col-xs-6 col-sm-4 block-sign block-sign-splitted brb bbb">
-            <h2>Heart rate</h2>
+            <h2><a href="<?= Url::toRoute(["logs/patient-view-data-text", "sign" => "heart_rate", "id" => $user->id]) ?>">Heart rate</a></h2>
             <div id="dp-chart-heart" class="doctor-patient-chart"></div>
         </div>
         <div class="col-xs-6 col-sm-4 block-sign block-sign-splitted brb bbb">
-            <h2>Blood pressure</h2>
+            <h2><a href="<?= Url::toRoute(["logs/patient-view-data-text", "sign" => "blood_pressure", "id" => $user->id]) ?>">Blood pressure</a></h2>
             <div id="dp-chart-pressure" class="doctor-patient-chart"></div>
         </div>
         <div class="col-xs-6 col-sm-4 block-sign block-sign-splitted bbb">
-            <h2>Temperature</h2>
+            <h2><a href="<?= Url::toRoute(["logs/patient-view-data-text", "sign" => "temperature", "id" => $user->id]) ?>">Temperature</a></h2>
             <div id="dp-chart-temp" class="doctor-patient-chart"></div>
         </div>
         <div class="col-xs-6 col-sm-4 block-sign block-sign-splitted brb">
-            <h2>Respiratory rate</h2>
+            <h2><a href="<?= Url::toRoute(["logs/patient-view-data-text", "sign" => "respiratory_rate", "id" => $user->id]) ?>">Respiratory rate</a></h2>
             <div id="dp-chart-respiratory" class="doctor-patient-chart"></div>
         </div>
         <div class="col-xs-6 col-sm-4 block-sign block-sign-splitted brb">
-            <h2>Weight</h2>
+            <h2><a href="<?= Url::toRoute(["logs/patient-view-data-text", "sign" => "weight", "id" => $user->id]) ?>">Weight</a></h2>
             <div id="dp-chart-weight" class="doctor-patient-chart"></div>
         </div>
         <div class="col-xs-6 col-sm-4 block-sign hidden-xs">

@@ -27,7 +27,10 @@ class LogsController extends Controller
                 'ruleConfig' => [
                     'class' => AccessRule::className(),
                 ],
-                'only' => ['create', 'update', 'index', 'delete', 'view', 'add-data', 'overview', 'log', 'view-data-text', 'view-data-chart', 'edit', 'delete-own'],
+                'only' => ['create', 'update', 'index', 'delete', 'view', 'add-data', 
+                        'overview', 'log', 'view-data-text', 'view-data-chart', 'edit', 
+                        'delete-own', 'patient-add-data', 'patient-view-data-text'.
+                        'delete-doctor', 'edit-doctor'],
                 'rules' => [
                     [
                         'actions' => [''],
@@ -40,7 +43,7 @@ class LogsController extends Controller
                         'roles' => ['@'],
                     ],
                     [
-                        'actions' => [''],
+                        'actions' => ['patient-add-data', 'patient-view-data-text', 'delete-doctor', 'edit-doctor'],
                         'allow' => true,
                         'roles' => [
                             Role::find()->where(['name' => Role::DOCTOR])->one(),
@@ -167,14 +170,30 @@ class LogsController extends Controller
         return $this->render('add_data');
     }
     
+    /*
+     * New action
+     * Add patient Data links
+     */
+    public function actionPatientAddData($id)
+    {
+        $user = \app\models\User::find()->where(["id" => $id])->one();
+        return $this->render('patient_add_data', [
+            'user' => $user
+        ]);
+    }
+    
     /**
      * New action
      * Log own data.
      */
-    public function actionLog($sign)
+    public function actionLog($sign, $patient_id=FALSE)
     {
         $model = new Logs();
-        $user_id = Yii::$app->user->id;
+        if ($patient_id === FALSE) {
+            $user_id = Yii::$app->user->id;
+        } else {
+            $user_id = $patient_id;
+        }
         
         $signModel = Sign::find()->where(["alias" => $sign])->one();
         
@@ -182,7 +201,11 @@ class LogsController extends Controller
         $model->user_id = $user_id;
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
-            return $this->redirect(['view-data-text', 'sign' => $sign]);
+            if ($patient_id) {
+                return $this->redirect(['patient-view-data-text', 'sign' => $sign, 'id' => $patient_id]);
+            } else {
+                return $this->redirect(['view-data-text', 'sign' => $sign]);
+            }
         } else {
             return $this->renderAjax('log', [
                 'model' => $model,
@@ -206,9 +229,13 @@ class LogsController extends Controller
      * New action
      * View own log for some sign in text format
      */
-    public function actionViewDataText($sign)
+    public function actionViewDataText($sign, $patient_id=FALSE)
     {
-        $user_id = Yii::$app->user->id;
+        if ($patient_id === FALSE) {
+            $user_id = Yii::$app->user->id;
+        } else {
+            $user_id = $patient_id;
+        }
         
         $user = \app\models\User::find()->where(["id" => $user_id])->one();
         
@@ -305,6 +332,41 @@ class LogsController extends Controller
     
     /**
      * New action
+     * View own log for some sign in text format
+     */
+    public function actionPatientViewDataText($sign, $id=FALSE)
+    {
+        if ($id === FALSE) {
+            $user_id = Yii::$app->user->id;
+        } else {
+            $user_id = $id;
+        }
+        
+        $user = \app\models\User::find()->where(["id" => $user_id])->one();
+        
+        $signModel = Sign::find()->where(["alias" => $sign])->one();
+        
+        $query = Logs::find()->where(['sign' => $sign, 'user_id' => $user_id]);
+        
+        $dataProvider = new ActiveDataProvider([
+            'query' => $query,
+            'sort' => ['defaultOrder' => ['created_at' => SORT_DESC]],
+            'pagination' => [
+                'pageSize' => 8,
+            ],
+        ]);
+        
+        //Only for detail view for vital sign
+        return $this->render('patient_view_data_text', [
+            'sign' => $sign,
+            'dataProvider' => $dataProvider,
+            'signModel' => $signModel,
+            'user' => $user
+        ]);
+    }
+    
+    /**
+     * New action
      * Edit own measurement
      */
     public function actionEdit($id)
@@ -341,6 +403,39 @@ class LogsController extends Controller
             return $this->redirect(["logs/view-data-text", "sign" => $sign]);
         } else {
             return $this->goBack();
+        }
+    }
+    
+    public function actionEditDoctor($id)
+    {
+        $model = Logs::find()->where(["id" => $id])->one();
+        
+        $user = \app\models\User::find()->where(["id" => $model->user_id])->one();
+        
+        $signModel = Sign::find()->where(["alias" => $model->sign])->one();
+
+        if ($model->load(Yii::$app->request->post()) && $model->save()) {
+            return $this->redirect(['patient-view-data-text', 'id' => $model->user_id, 'sign' => $model->sign]);
+        } else {
+            return $this->renderAjax('edit', [
+                'model' => $model,
+                'signModel' => $signModel,
+                'user' => $user
+            ]);
+        }
+    }
+    
+    public function actionDeleteDoctor($id)
+    {
+        $model = Logs::find()->where(["id" => $id])->one();
+        
+        if ($model) {
+            $patient_id = $model->user_id;
+            $sign = $model->sign;
+            $model->delete();
+            return $this->redirect(['logs/patient-view-data-text', 'sign' => $sign, 'id' => $patient_id]);
+        } else {
+            $this->goBack();
         }
     }
     

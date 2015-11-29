@@ -23,7 +23,10 @@ $showPatientMenuArray = [
     "medication/patient-history",
     "user/patient-dashboard",
     "alarm/patient-reminders",
-    "connection/patient-communication"
+    "connection/patient-communication",
+    "logs/patient-add-data",
+    "user/patient-mews",
+    "logs/patient-view-data-text"
 ];
 ?>
 
@@ -63,7 +66,9 @@ NavBar::end();
 <?php if (in_array($controllerAction, $showPatientMenuArray)) : ?>
     <ul id="doctor-patient-menu">
         <li><a class="<?= ($controllerAction == "medication/patient-history") ? "active" : "" ?>" href="<?= Url::toRoute(["medication/patient-history", "id" => $user_id]) ?>">Medical history</a></li>
-        <li><a class="<?= ($controllerAction == "user/patient-dashboard") ? "active" : "" ?>" href="<?= Url::toRoute(["user/patient-dashboard", "id" => $user_id]) ?>">Dashboard</a></li>
+        <li><a class="<?= ($controllerAction == "user/patient-dashboard" || $controllerAction == "logs/patient-view-data-text") ? "active" : "" ?>" href="<?= Url::toRoute(["user/patient-dashboard", "id" => $user_id]) ?>">Dashboard</a></li>
+        <li><a class="<?= ($controllerAction == "logs/patient-add-data") ? "active" : "" ?>" href="<?= Url::toRoute(["logs/patient-add-data", "id" => $user_id]) ?>">Add Data</a></li>
+        <li><a class="<?= ($controllerAction == "user/patient-mews") ? "active" : "" ?>" href="<?= Url::toRoute(["user/patient-mews", "id" => $user_id]) ?>">MEWS</a></li>        
         <li><a class="<?= ($controllerAction == "alarm/patient-reminders") ? "active" : "" ?>" href="<?= Url::toRoute(["alarm/patient-reminders", "id" => $user_id]) ?>">Reminders</a></li>
         <li><a class="<?= ($controllerAction == "connection/patient-communication") ? "active" : "" ?>" href="<?= Url::toRoute(["connection/patient-communication", "id" => $user_id]) ?>">Communication</a></li>
     </ul>

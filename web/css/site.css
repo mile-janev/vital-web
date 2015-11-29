@@ -368,7 +368,7 @@ a.alarm-link {
 #doctor-patient-menu li {
     float: left;
     list-style-type: none;
-    width: 25%;
+    width: 16.666666667%;
     text-align: center;
 }
 
@@ -403,6 +403,15 @@ a.alarm-link {
     text-decoration: underline;
     padding: 10px 10px 0px 10px;
     margin: 0;
+}
+.doctor-patient-dashboard h2 a {
+    float: none;
+    padding: 0;
+    
+}
+.doctor-patient-dashboard h2 a:hover {
+    background: none;
+    color: #ea0649;
 }
 .doctor-patient-sign-chart {
     /*padding: 15px;*/

@@ -29,7 +29,7 @@ class UserController extends Controller
                 'ruleConfig' => [
                     'class' => AccessRule::className(),
                 ],
-                'only' => ['create', 'update', 'index', 'delete', 'edit', 'resetpassword', 'patients', 'view', 'view-own', 'patient-dashboard', 'sos'],
+                'only' => ['create', 'update', 'index', 'delete', 'edit', 'resetpassword', 'patients', 'view', 'view-own', 'patient-dashboard', 'sos', 'patient-mews'],
                 'rules' => [
                     [
                         'actions' => ['resetpassword'],
@@ -49,7 +49,7 @@ class UserController extends Controller
                         ],
                     ],
                     [
-                        'actions' => ['patients', 'patient-dashboard'],
+                        'actions' => ['patients', 'patient-dashboard', 'patient-mews'],
                         'allow' => true,
                         'roles' => [
                             Role::find()->where(['name' => Role::DOCTOR])->one(),
@@ -455,6 +455,15 @@ class UserController extends Controller
         
         echo \yii\helpers\Json::encode($output);
         exit();
+    }
+    
+    public function actionPatientMews($id)
+    {
+        $user = \app\models\User::find()->where(["id" => $id])->one();
+        
+        return $this->render('patient_mews', [
+            'user' => $user
+        ]);
     }
     
 }

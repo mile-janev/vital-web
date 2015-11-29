@@ -6,14 +6,14 @@
     
     $mews = User::mews($user->id);
 
-    if(Functions::isRole(Role::DOCTOR) || Functions::isRole(Role::NURSE)) {
+    if(Yii::$app->controller->action->id == "patient-communication") {
         $this->title = $user->name;
+        $this->params['breadcrumbs'][] = ['label' => 'My patients', 'url' => ['site/index']];
+        $this->params['breadcrumbs'][] = $this->title . " (" . $mews . ")";
     } else {
         $this->title = 'Communication';
+        $this->params['breadcrumbs'][] = $this->title;
     }
-    
-    $this->params['breadcrumbs'][] = ['label' => 'My patients', 'url' => ['site/index']];
-    $this->params['breadcrumbs'][] = $this->title . " (" . $mews . ")";
 ?>
 
 <?php if (count($user->patientConnection) > 0) { ?>
