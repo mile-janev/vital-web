@@ -44,12 +44,12 @@
 
             <div class="modal-header">
                 <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-                <h4 id="infoModalTitle" class="modal-title">SOS alert</h4>
+                <h4 id="sosModalTitle" class="modal-title">SOS alert</h4>
             </div>
 
             <div class="modal-body">
 
-                <div id="infoModalContent" class="popupContent">SOS alert is sended. Please wait.</div>
+                <div id="sosModalContent" class="popupContent">SOS alert is sended. Please wait.</div>
 
             </div>
 

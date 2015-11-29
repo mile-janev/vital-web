@@ -316,4 +316,17 @@ class ConnectionController extends Controller
         exit();
     }
     
+    /**
+     * New action
+     * Overview own connections
+     */
+    public function actionPatientCommunication($id)
+    {
+        $user = \app\models\User::find()->where(["id" => $id])->one();
+        
+        return $this->render('communication', [
+            'user' => $user
+        ]);
+    }
+    
 }

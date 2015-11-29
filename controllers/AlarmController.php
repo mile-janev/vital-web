@@ -28,7 +28,7 @@ class AlarmController extends Controller
                 'ruleConfig' => [
                     'class' => AccessRule::className(),
                 ],
-                'only' => ['create', 'update', 'index', 'delete', 'view', 'overview', 'add-own', 'done'],
+                'only' => ['create', 'update', 'index', 'delete', 'view', 'overview', 'add-own', 'edit-own', 'add-doctor', 'edit-doctor', 'delete-doctor', 'done', 'patient-reminders'],
                 'rules' => [
                     [
                         'actions' => [''],
@@ -36,12 +36,12 @@ class AlarmController extends Controller
                         'roles' => ['?'],
                     ],
                     [
-                        'actions' => ['overview', 'add-own', 'done'],
+                        'actions' => ['overview', 'add-own', 'edit-own', 'done'],
                         'allow' => true,
                         'roles' => ['@'],
                     ],
                     [
-                        'actions' => ['check-sos', 'remove-sos'],
+                        'actions' => ['check-sos', 'remove-sos', 'patient-reminders', 'add-doctor', 'edit-doctor', 'delete-doctor'],
                         'allow' => true,
                         'roles' => [
                             Role::find()->where(['name' => Role::DOCTOR])->one(),
@@ -165,6 +165,8 @@ class AlarmController extends Controller
      */
     public function actionOverview()
     {
+        $user = \app\models\User::find()->where(["id" => Yii::$app->user->id])->one();
+        
         $query = Alarm::find()->where(["for_id" => Yii::$app->user->id]);
         
         $dataProvider = new ActiveDataProvider([
@@ -176,7 +178,8 @@ class AlarmController extends Controller
         ]);
         
         return $this->render('overview', [
-            'dataProvider' => $dataProvider
+            'dataProvider' => $dataProvider,
+            'user' => $user
         ]);
     }
     
@@ -214,6 +217,63 @@ class AlarmController extends Controller
             return $this->renderAjax('add_own', [
                 'model' => $model
             ]);
+        }
+    }
+    
+    /**
+     * New action
+     * Doctor create alarm for patient
+     * @return mixed
+     */
+    public function actionAddDoctor($for_id)
+    {
+        $model = new Alarm();
+        
+        $model->for_id = $for_id;
+        $model->from_id = Yii::$app->user->id;
+        if ($model->load(Yii::$app->request->post()) && $model->save()) {
+            return $this->redirect(['alarm/patient-reminders', 'id' => $for_id]);
+        } else {
+            return $this->renderAjax('add_doctor', [
+                'model' => $model
+            ]);
+        }
+    }
+    
+    /**
+     * New action
+     * Doctor edit alarm for patient
+     * @return mixed
+     */
+    public function actionEditDoctor($id)
+    {
+        $model = Alarm::find()->where(["id" => $id])->one();
+        
+        if ($model->load(Yii::$app->request->post()) && $model->save()) {
+            return $this->redirect(['alarm/patient-reminders', 'id' => $model->for_id]);
+        } else {
+            return $this->renderAjax('add_doctor', [
+                'model' => $model
+            ]);
+        }
+    }
+    
+    /**
+     * Deletes an existing Alarm model.
+     * If deletion is successful, the browser will be redirected to the 'index' page.
+     * @param string $id
+     * @return mixed
+     */
+    public function actionDeleteDoctor($id)
+    {
+        $model = Alarm::find()->where(["id" => $id])->one();
+        
+        if ($model) {
+            $for_id = $model->for_id;
+            $model->delete();
+            return $this->redirect(['alarm/patient-reminders', 'id' => $for_id]);
+        } else {
+            $this->goBack();
         }
     }
     
@@ -309,6 +369,45 @@ class AlarmController extends Controller
         
         echo \yii\helpers\Json::encode($output);
         exit();
+    }
+    
+    /**
+     * New action
+     * Overview patient alarms
+     */
+    public function actionPatientReminders($id)
+    {
+        $user = \app\models\User::find()->where(["id" => $id])->one();
+        
+        $query = Alarm::find()->where(["for_id" => $id]);
+        
+        $dataProvider = new ActiveDataProvider([
+            'query' => $query,
+            'sort' => ['defaultOrder' => ['created_at' => SORT_DESC]],
+            'pagination' => [
+                'pageSize' => 8,
+            ],
+        ]);
+        
+        return $this->render('patient_reminders', [
+            'dataProvider' => $dataProvider,
+            'user' => $user
+        ]);
+    }
+    
+    /**
+     * New action
+     * Delete own measurement
+     */
+    public function actionDeleteOwn($id)
+    {
+        $model = Alarm::find()->where(["id" => $id, "from_id" => Yii::$app->user->id])->one();
+        if ($model) {
+            $model->delete();
+            return $this->redirect(["alarm/overview"]);
+        } else {
+            return $this->goBack();
+        }
     }
     
 }

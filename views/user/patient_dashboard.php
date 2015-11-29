@@ -31,14 +31,6 @@
     );
 ?>
 
-<?php
-    if ($model->image) {
-        $avatar = Url::base(TRUE) . "/pics/".$model->image;
-    } else {
-        $avatar = Url::base(TRUE) . "/images/user.png";
-    }
-?>
-
 <div class="doctor-patient-dashboard container-fluid">
 
     <div class="row">

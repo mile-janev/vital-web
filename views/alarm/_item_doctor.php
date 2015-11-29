@@ -4,10 +4,9 @@
         <?= date("m/d/Y H:i", strtotime($model->time)) . " - "
             . $model->title ?>
     </div>
-<?php if ($model->from_id == Yii::$app->user->id) { ?>
     <div class="col-lg-3 col-md-4 col-sm-6 col-xs-12">
-        <a href="#" class="btn btn-success btn-edit modalLog" rel="<?= \yii\helpers\Url::toRoute(["alarm/edit-own", "id" => $model->id]) ?>" title="<?= $title ?>">Edit</a>
-        <?= \yii\helpers\Html::a('Delete', \yii\helpers\Url::toRoute(["alarm/delete-own", "id" => $model->id]), [
+        <a href="#" class="btn btn-success btn-edit modalLog" rel="<?= \yii\helpers\Url::toRoute(["alarm/edit-doctor", "id" => $model->id]) ?>" title="<?= $title ?>">Edit</a>
+        <?= \yii\helpers\Html::a('Delete', \yii\helpers\Url::toRoute(["alarm/delete-doctor", "id" => $model->id]), [
             'class' => 'btn btn-success',
             'data' => [
                 'confirm' => 'Are you sure you want to delete this record?',
@@ -15,5 +14,4 @@
             ],
         ]) ?>
     </div>
-<?php } ?>
 </div>

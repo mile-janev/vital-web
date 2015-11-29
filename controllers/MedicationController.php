@@ -27,7 +27,7 @@ class MedicationController extends Controller
                 'ruleConfig' => [
                     'class' => AccessRule::className(),
                 ],
-                'only' => ['create', 'update', 'index', 'delete', 'add', 'change', 'view', 'overview'],
+                'only' => ['create', 'update', 'index', 'delete', 'delete-doctor', 'add', 'edit', 'view', 'overview'],
                 'rules' => [
                     [
                         'actions' => [''],
@@ -40,7 +40,7 @@ class MedicationController extends Controller
                         'roles' => ['@'],
                     ],
                     [
-                        'actions' => ['add', 'change'],
+                        'actions' => ['add', 'edit', 'delete-doctor'],
                         'allow' => true,
                         'roles' => [
                             Role::find()->where(['name' => Role::DOCTOR])->one(),
@@ -48,7 +48,7 @@ class MedicationController extends Controller
                         ],
                     ],
                     [
-                        'actions' => ['create', 'update', 'index', 'delete', 'add', 'change', 'view'],
+                        'actions' => ['create', 'update', 'index', 'delete', 'add', 'edit', 'view'],
                         'allow' => true,
                         'roles' => [
                             Role::find()->where(['name' => Role::ADMINISTRATOR])->one()
@@ -162,22 +162,18 @@ class MedicationController extends Controller
      * Creates a new Medication model.
      * @return mixed
      */
-    public function actionAdd()
+    public function actionAdd($id)
     {
         $model = new Medication();
-        
-        $params = Yii::$app->request->get();
-        
-        $patient = User::find()->where(["id" => $params["patient_id"]])->one();
-        $doctorNurse = User::find()->where(["id" => $params["dn_id"]])->one();
 
-        if ($model->load(Yii::$app->request->post()) && $model->save()) {
-            return $this->redirect(['user/patient', 'id' => $params["patient_id"]]);
+        if ($model->load(Yii::$app->request->post())) {
+            $model->patient_id = $id;
+            $model->prescribed_by_id = \Yii::$app->user->id;
+            $modelSaved = $model->save();
+            return $this->redirect(['medication/patient-history', 'id' => $id]);
         } else {
-            return $this->render('dn_medication', [
-                'model' => $model,
-                'patient' => $patient,
-                'doctorNurse' => $doctorNurse
+            return $this->renderAjax('add', [
+                'model' => $model
             ]);
         }
     }
@@ -186,20 +182,15 @@ class MedicationController extends Controller
      * Updates a new Medication model.
      * @return mixed
      */
-    public function actionChange($id)
+    public function actionEdit($id)
     {
         $model = $this->findModel($id);
         
-        $patient = User::find()->where(["id" => $model->patient_id])->one();
-        $doctorNurse = User::find()->where(["id" => $model->prescribed_by_id])->one();
-
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
-            return $this->redirect(['user/patient', 'id' => $model->patient_id]);
+            return $this->redirect(['medication/patient-history', 'id' => $model->patient_id]);
         } else {
-            return $this->render('dn_medication', [
-                'model' => $model,
-                'patient' => $patient,
-                'doctorNurse' => $doctorNurse
+            return $this->renderAjax('add', [
+                'model' => $model
             ]);
         }
     }
@@ -226,6 +217,45 @@ class MedicationController extends Controller
             'dataProvider' => $dataProvider,
             'user' => $user
         ]);
+    }
+    
+    public function actionPatientHistory($id)
+    {
+        $user = User::find()->where(["id" => $id])->one();
+        
+        $query = Medication::find()->where(["patient_id" => $id]);
+        
+        $dataProvider = new ActiveDataProvider([
+            'query' => $query,
+            'sort' => ['defaultOrder' => ['created_at' => SORT_DESC]],
+            'pagination' => [
+                'pageSize' => 8,
+            ],
+        ]);
+        
+        return $this->render('patient_history', [
+            'dataProvider' => $dataProvider,
+            'user' => $user
+        ]);
+    }
+    
+    /**
+     * Deletes an existing Medication model.
+     * If deletion is successful, the browser will be redirected to the 'patient-dashboard' page.
+     * @param string $id
+     * @return mixed
+     */
+    public function actionDeleteDoctor($id)
+    {
+        $model = Medication::find()->where(["prescribed_by_id" => Yii::$app->user->id, "id" => $id])->one();
+
+        if ($model) {
+            $patient_id = $model->patient_id;
+            $model->delete();
+            return $this->redirect(["medication/patient-history", "id" => $patient_id]);
+        } else {
+            return $this->goBack();
+        }
     }
     
 }

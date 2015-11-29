@@ -44,7 +44,7 @@ function checkForCall() {
         },
         function(response){
             if (response.call == 'yes') {
-                $("#modalCall #infoModalContent").html("New call from " + response.caller);
+                $("#modalCall #callModalContent").html("New call from " + response.caller);
                 $('#modalCall').modal('show');
             }
         }, 'json')
@@ -62,8 +62,8 @@ function checkForSOS() {
         function(response){
             if (response.status == 'yes') {
                 $("#modalSos #from-sos").html(response.from_id);
-                $("#modalSos #infoModalTitle").html("SOS from " + response.patient);
-                $("#modalSos #infoModalContent").html(response.sos + " at " + response.time);
+                $("#modalSos #sosModalTitle").html("SOS from " + response.patient);
+                $("#modalSos #sosModalContent").html(response.sos + " at " + response.time);
                 $('#modalSos').modal('show');
             }
         }, 'json')

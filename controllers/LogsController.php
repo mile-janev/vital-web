@@ -383,8 +383,9 @@ class LogsController extends Controller
     {
         $model = Logs::find()->where(["id" => $id, "user_id" => Yii::$app->user->id])->one();
         if ($model) {
-            $this->findModel($id)->delete();
-            return $this->redirect(["logs/view-data-text", "sign" => $model->sign]);
+            $sign = $model->sign;
+            $model->delete();
+            return $this->redirect(["logs/view-data-text", "sign" => $sign]);
         } else {
             return $this->goBack();
         }

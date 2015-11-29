@@ -1,9 +1,19 @@
 <?php
     use yii\helpers\Url;
     use app\models\User;
+    use app\components\Functions;
+    use app\models\Role;
+    
+    $mews = User::mews($user->id);
 
-    $this->title = 'Communication';
-    $this->params['breadcrumbs'][] = $this->title;
+    if(Functions::isRole(Role::DOCTOR) || Functions::isRole(Role::NURSE)) {
+        $this->title = $user->name;
+    } else {
+        $this->title = 'Communication';
+    }
+    
+    $this->params['breadcrumbs'][] = ['label' => 'My patients', 'url' => ['site/index']];
+    $this->params['breadcrumbs'][] = $this->title . " (" . $mews . ")";
 ?>
 
 <?php if (count($user->patientConnection) > 0) { ?>

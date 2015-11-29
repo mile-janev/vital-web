@@ -6,12 +6,17 @@
 ?>
 
 <?php
+if (isset($_GET["id"])) {
+    $user_id = $_GET["id"];
+} else {
+    $user_id = FALSE;
+}
+
 if (count($alarm) > 0) {
     $alText = " (" . count($alarm) . ")";
 } else {
     $alText = "";
 }
-
 $controllerAction = Yii::$app->controller->id . "/" . Yii::$app->controller->action->id;
 
 $showPatientMenuArray = [
@@ -57,10 +62,10 @@ NavBar::end();
 
 <?php if (in_array($controllerAction, $showPatientMenuArray)) : ?>
     <ul id="doctor-patient-menu">
-        <li><a class="<?= ($controllerAction == "medication/patient-history") ? "active" : "" ?>" href="<?= Url::toRoute(["medication/patient-history"]) ?>">Medical history</a></li>
-        <li><a class="<?= ($controllerAction == "user/patient-dashboard") ? "active" : "" ?>" href="<?= Url::toRoute(["user/patient-dashboard"]) ?>">Dashboard</a></li>
-        <li><a class="<?= ($controllerAction == "alarm/patient-reminders") ? "active" : "" ?>" href="<?= Url::toRoute(["alarm/patient-reminders"]) ?>">Reminders</a></li>
-        <li><a class="<?= ($controllerAction == "connection/patient-communication") ? "active" : "" ?>" href="<?= Url::toRoute(["connection/patient-communication"]) ?>">Communication</a></li>
+        <li><a class="<?= ($controllerAction == "medication/patient-history") ? "active" : "" ?>" href="<?= Url::toRoute(["medication/patient-history", "id" => $user_id]) ?>">Medical history</a></li>
+        <li><a class="<?= ($controllerAction == "user/patient-dashboard") ? "active" : "" ?>" href="<?= Url::toRoute(["user/patient-dashboard", "id" => $user_id]) ?>">Dashboard</a></li>
+        <li><a class="<?= ($controllerAction == "alarm/patient-reminders") ? "active" : "" ?>" href="<?= Url::toRoute(["alarm/patient-reminders", "id" => $user_id]) ?>">Reminders</a></li>
+        <li><a class="<?= ($controllerAction == "connection/patient-communication") ? "active" : "" ?>" href="<?= Url::toRoute(["connection/patient-communication", "id" => $user_id]) ?>">Communication</a></li>
     </ul>
 <?php endif; ?>
 
@@ -70,11 +75,11 @@ NavBar::end();
 
             <div class="modal-header">
                 <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-                <h4 id="infoModalTitle" class="modal-title">SOS alert</h4>
+                <h4 id="sosModalTitle" class="modal-title">SOS alert</h4>
             </div>
 
             <div class="modal-body">
-                <div id="infoModalContent" class="popupContent">SOS alert is sended. Please wait.</div>
+                <div id="sosModalContent" class="popupContent">You have new SOS alert.</div>
             </div>
 
             <div class="modal-footer">
