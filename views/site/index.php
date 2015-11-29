@@ -12,12 +12,12 @@
         <?= $this->render('_index-admin') ?>
     <?php elseif(Functions::isRole(Role::DOCTOR) || Functions::isRole(Role::NURSE)) : ?>
         <?= $this->render('_index-doctor', ['searchModel' => $searchModel, 'dataProvider' => $dataProvider]) ?>
-    <?php elseif(Functions::isRole(Role::VISITOR) || Functions::isRole(Role::FAMILY)) : ?>
+    <?php elseif(Functions::isRole(Role::FAMILY)) : ?>
         <?= $this->render('_index-default') ?>
-    <?php elseif(Functions::isRole(Role::PATIENT)) : ?>
+    <?php elseif(Functions::isRole(Role::PATIENT) || Functions::isRole(Role::VISITOR)) : ?>
         <?= $this->render('_index-patient') ?>
     <?php else : ?>
-        <?= $this->render('_index-landing', ['model' => $model]) ?>
+        <?= $this->render('_index-default', ['model' => $model]) ?>
     <?php endif; ?>
     
 </div>

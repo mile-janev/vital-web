@@ -28,7 +28,9 @@ class AlarmController extends Controller
                 'ruleConfig' => [
                     'class' => AccessRule::className(),
                 ],
-                'only' => ['create', 'update', 'index', 'delete', 'view', 'overview', 'add-own', 'edit-own', 'add-doctor', 'edit-doctor', 'delete-doctor', 'done', 'patient-reminders'],
+                'only' => ['create', 'update', 'index', 'delete', 'view', 'overview',
+                        'add-own', 'edit-own', 'delete-own', 'add-doctor', 'edit-doctor', 
+                        'delete-doctor', 'done', 'patient-reminders', 'check-sos', 'remove-sos'],
                 'rules' => [
                     [
                         'actions' => [''],
@@ -36,7 +38,7 @@ class AlarmController extends Controller
                         'roles' => ['?'],
                     ],
                     [
-                        'actions' => ['overview', 'add-own', 'edit-own', 'done'],
+                        'actions' => ['overview', 'add-own', 'edit-own', 'delete-own', 'done'],
                         'allow' => true,
                         'roles' => ['@'],
                     ],
@@ -385,7 +387,7 @@ class AlarmController extends Controller
             'query' => $query,
             'sort' => ['defaultOrder' => ['created_at' => SORT_DESC]],
             'pagination' => [
-                'pageSize' => 8,
+                'pageSize' => 3,
             ],
         ]);
         

@@ -27,7 +27,8 @@ class MedicationController extends Controller
                 'ruleConfig' => [
                     'class' => AccessRule::className(),
                 ],
-                'only' => ['create', 'update', 'index', 'delete', 'delete-doctor', 'add', 'edit', 'view', 'overview'],
+                'only' => ['create', 'update', 'index', 'delete', 'delete-doctor', 
+                        'add', 'edit', 'view', 'overview', 'patient-history'],
                 'rules' => [
                     [
                         'actions' => [''],
@@ -35,12 +36,12 @@ class MedicationController extends Controller
                         'roles' => ['?'],
                     ],
                     [
-                        'actions' => ['add', 'overview'],
+                        'actions' => ['overview'],
                         'allow' => true,
                         'roles' => ['@'],
                     ],
                     [
-                        'actions' => ['add', 'edit', 'delete-doctor'],
+                        'actions' => ['add', 'edit', 'delete-doctor', 'patient-history'],
                         'allow' => true,
                         'roles' => [
                             Role::find()->where(['name' => Role::DOCTOR])->one(),
@@ -48,7 +49,7 @@ class MedicationController extends Controller
                         ],
                     ],
                     [
-                        'actions' => ['create', 'update', 'index', 'delete', 'add', 'edit', 'view'],
+                        'actions' => ['create', 'update', 'index', 'delete', 'view'],
                         'allow' => true,
                         'roles' => [
                             Role::find()->where(['name' => Role::ADMINISTRATOR])->one()

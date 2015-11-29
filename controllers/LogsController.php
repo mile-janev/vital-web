@@ -27,7 +27,7 @@ class LogsController extends Controller
                 'ruleConfig' => [
                     'class' => AccessRule::className(),
                 ],
-                'only' => ['create', 'update', 'index', 'delete', 'add', 'detail', 'view', 'add-data', 'overview', 'log', 'view-data-text', 'view-data-chart', 'edit', 'delete-own'],
+                'only' => ['create', 'update', 'index', 'delete', 'view', 'add-data', 'overview', 'log', 'view-data-text', 'view-data-chart', 'edit', 'delete-own'],
                 'rules' => [
                     [
                         'actions' => [''],
@@ -35,12 +35,12 @@ class LogsController extends Controller
                         'roles' => ['?'],
                     ],
                     [
-                        'actions' => ['add', 'detail', 'add-data', 'overview', 'log', 'view-data-text', 'view-data-chart', 'edit', 'delete-own'],
+                        'actions' => ['add-data', 'overview', 'log', 'view-data-text', 'view-data-chart', 'edit', 'delete-own'],
                         'allow' => true,
                         'roles' => ['@'],
                     ],
                     [
-                        'actions' => ['add'],
+                        'actions' => [''],
                         'allow' => true,
                         'roles' => [
                             Role::find()->where(['name' => Role::DOCTOR])->one(),
@@ -48,7 +48,7 @@ class LogsController extends Controller
                         ],
                     ],
                     [
-                        'actions' => ['create', 'update', 'index', 'delete', 'add', 'detail', 'view'],
+                        'actions' => ['create', 'update', 'index', 'delete', 'view'],
                         'allow' => true,
                         'roles' => [
                             Role::find()->where(['name' => Role::ADMINISTRATOR])->one()
@@ -155,53 +155,6 @@ class LogsController extends Controller
             return $model;
         } else {
             throw new NotFoundHttpException('The requested page does not exist.');
-        }
-    }
-    
-    /**
-     * Displays a single Sign model.
-     * @param string $id
-     * @return mixed
-     */
-    public function actionDetail($sign, $user_id)
-    {
-        $logs = Logs::find()
-                ->where(['sign' => $sign, 'user_id' => $user_id])
-                ->orderBy("created_at DESC")
-                ->all();
-        
-        $signModel = Sign::find()->where(["alias" => $sign])->one();
-        
-        $user = \app\models\User::find()->where(["id" => $user_id])->one();
-        
-        //Only for detail view for vital sign
-        return $this->render('detail', [
-            'sign' => $sign,
-            'user_id' => $user_id,
-            'logs' => $logs,
-            'signModel' => $signModel,
-            'user' => $user
-        ]);
-    }
-    
-    public function actionAdd($sign, $user_id)
-    {
-        $model = new Logs();
-        
-        $signModel = Sign::find()->where(["alias" => $sign])->one();
-        
-        $user = \app\models\User::find()->where(["id" => $user_id])->one();
-
-        if ($model->load(Yii::$app->request->post()) && $model->save()) {
-            return $this->redirect(['detail', 'sign' => $sign, 'user_id' => $user_id]);
-        } else {
-            return $this->render('add', [
-                'model' => $model,
-                'sign' => $sign,
-                'user_id' => $user_id,
-                'signModel' => $signModel,
-                'user' => $user
-            ]);
         }
     }
     

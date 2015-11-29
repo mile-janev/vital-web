@@ -46,11 +46,11 @@ app\assets\AppAsset::register($this);
                 'user' => $user,
                 'alarm' => $alarm
             ]) ?>
-        <?php elseif(Functions::isRole(Role::VISITOR) || Functions::isRole(Role::FAMILY)) : ?>
+        <?php elseif(Functions::isRole(Role::FAMILY)) : ?>
             <?= $this->render('_other-header', [
                 'user' => $user
             ]) ?>
-        <?php elseif(Functions::isRole(Role::PATIENT)) : ?>
+        <?php elseif(Functions::isRole(Role::PATIENT) || Functions::isRole(Role::VISITOR)) : ?>
             <?= $this->render('_bar-patient', [
                 'user' => $user
             ]) ?>
