@@ -17,7 +17,7 @@
     <?php elseif(Functions::isRole(Role::PATIENT) || Functions::isRole(Role::VISITOR)) : ?>
         <?= $this->render('_index-patient') ?>
     <?php else : ?>
-        <?= $this->render('_index-default', ['model' => $model]) ?>
+        <?= $this->render('_index-landing', ['model' => $model]) ?>
     <?php endif; ?>
     
 </div>
