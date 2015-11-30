@@ -60,11 +60,17 @@ app\assets\AppAsset::register($this);
             ]) ?>
         <?php endif; ?>
             
-        <div id="content" class="container-fluid <?= (Functions::isRole(Role::DOCTOR) || Functions::isRole(Role::NURSE)) ? "" : "add-margin" ?>">
-            <?= $content ?>
-        </div>
+        <?php if (Functions::isRole(Role::ADMINISTRATOR)) : ?>
+            <div id="content" class="container">
+                <?= $content ?>
+            </div>
+        <?php else : ?>
+            <div id="content" class="container-fluid <?= (Functions::isRole(Role::DOCTOR) || Functions::isRole(Role::NURSE)) ? "" : "add-margin" ?>">
+                <?= $content ?>
+            </div>
+        <?php endif; ?>
         
-        <?php if (!Yii::$app->user->isGuest) { ?>
+        <?php if (!Yii::$app->user->isGuest && !Functions::isRole(Role::ADMINISTRATOR)) { ?>
         <footer class="footer">
             <?= $this->render('_footer', [
                 'user' => $user,

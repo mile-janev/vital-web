@@ -44,11 +44,19 @@ $this->params['breadcrumbs'][] = $this->title;
             'created_at',
             'updated_at',
             [
-                'label' => Yii::t( 'app', 'Patient' ),
+                'label' => Yii::t( 'app', 'From' ),
+                'format' => 'raw',
+                'attribute' => 'from_id',
+                'value' => function ( $data ) {
+                    return "<a href='".yii\helpers\Url::toRoute(['user/view', 'id'=>$data->from_id])."'>"."(".$data->from_id.") ".$data->from->name."</a>";
+                },
+            ],
+            [
+                'label' => Yii::t( 'app', 'For' ),
                 'format' => 'raw',
                 'attribute' => 'for_id',
                 'value' => function ( $data ) {
-                    return "<a href='".yii\helpers\Url::toRoute(['user/view', 'id'=>$data->for_id])."'>"."(".$data->for_id.") ".$data->patient->name."</a>";
+                    return "<a href='".yii\helpers\Url::toRoute(['user/view', 'id'=>$data->for_id])."'>"."(".$data->for_id.") ".$data->for->name."</a>";
                 },
             ],
 

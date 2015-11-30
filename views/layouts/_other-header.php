@@ -33,4 +33,3 @@ echo Nav::widget([
 
 NavBar::end();
 ?>
-<div id="admin-separator">&nbsp;</div>

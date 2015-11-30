@@ -11,7 +11,7 @@ NavBar::begin([
     'brandLabel' => 'Healthcare Record System',
     'brandUrl' => Yii::$app->homeUrl,
     'options' => [
-        'class' => 'navbar-inverse navbar-fixed-top main-menu-nav',
+        'class' => 'navbar-inverse navbar-top main-menu-nav',
     ],
 ]);
 
@@ -35,6 +35,7 @@ echo Nav::widget([
             ],
         ],
         ['label' => 'Alarms', 'url' => ['/alarm/index']],
+        ['label' => 'Calls', 'url' => ['/call/index']],
         [
             'label' => 'Profile',
             'items' => [
@@ -49,4 +50,3 @@ echo Nav::widget([
 
 NavBar::end();
 ?>
-<div id="admin-separator">&nbsp;</div>

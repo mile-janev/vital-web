@@ -34,9 +34,14 @@ $this->params['breadcrumbs'][] = $this->title;
             'created_at',
             'updated_at',
             [
-                'label' => Yii::t( 'app', 'Patient' ),
+                'label' => Yii::t( 'app', 'From' ),
                 'format'  => 'raw', 
-                'value' => $model->patient->name,
+                'value' => $model->from->name,
+            ],
+            [
+                'label' => Yii::t( 'app', 'For' ),
+                'format'  => 'raw', 
+                'value' => $model->for->name,
             ],
         ],
     ]) ?>
