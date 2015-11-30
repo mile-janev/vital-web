@@ -8,7 +8,7 @@ use yii\helpers\Url;
 
 <?php
 NavBar::begin([
-    'brandLabel' => 'Healthcare Record System',
+    'brandLabel' => "<img src='".Url::base()."/images/uncap.png' alt='UNCAP' />",
     'brandUrl' => Yii::$app->homeUrl,
     'options' => [
         'class' => 'navbar-inverse navbar-top main-menu-nav',
@@ -36,12 +36,6 @@ echo Nav::widget([
         ],
         ['label' => 'Alarms', 'url' => ['/alarm/index']],
         ['label' => 'Calls', 'url' => ['/call/index']],
-        [
-            'label' => 'Profile',
-            'items' => [
-                ['label' => 'Edit', 'url' => Url::toRoute("user/edit")],
-            ],
-        ],
         ['label' => 'Logout (' . Yii::$app->user->identity->email . ')',
             'url' => ['/site/logout'],
             'linkOptions' => ['data-method' => 'post']],

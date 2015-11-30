@@ -10,7 +10,7 @@ $this->title = 'Create Alarm';
 $this->params['breadcrumbs'][] = ['label' => 'Alarms', 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 ?>
-<div class="alarm-create">
+<div class="alarm-create container">
 
     <?= $this->render('_form', [
         'model' => $model,

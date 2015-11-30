@@ -10,7 +10,7 @@ $this->title = 'Create Call';
 $this->params['breadcrumbs'][] = ['label' => 'Calls', 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 ?>
-<div class="call-create">
+<div class="call-create container">
 
     <h1><?= Html::encode($this->title) ?></h1>
 

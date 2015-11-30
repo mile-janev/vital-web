@@ -10,7 +10,7 @@ $this->title = 'Create Sign';
 $this->params['breadcrumbs'][] = ['label' => 'Signs', 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 ?>
-<div class="sign-create">
+<div class="sign-create container">
 
     <h1><?= Html::encode($this->title) ?></h1>
 

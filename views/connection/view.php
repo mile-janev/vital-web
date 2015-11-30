@@ -10,7 +10,7 @@ $this->title = $model->user->name . " <-> " . $this->title = $model->patient->na
 $this->params['breadcrumbs'][] = ['label' => 'Connections', 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 ?>
-<div class="connection-view">
+<div class="connection-view container">
 
     <h1><?= Html::encode($this->title) ?></h1>
 

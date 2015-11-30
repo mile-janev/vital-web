@@ -10,7 +10,7 @@ use yii\grid\GridView;
 $this->title = 'Signs';
 $this->params['breadcrumbs'][] = $this->title;
 ?>
-<div class="sign-index">
+<div class="sign-index container">
 
     <h1><?= Html::encode($this->title) ?></h1>
     <?php // echo $this->render('_search', ['model' => $searchModel]); ?>

@@ -59,16 +59,10 @@ app\assets\AppAsset::register($this);
                 'user' => $user
             ]) ?>
         <?php endif; ?>
-            
-        <?php if (Functions::isRole(Role::ADMINISTRATOR)) : ?>
-            <div id="content" class="container">
-                <?= $content ?>
-            </div>
-        <?php else : ?>
-            <div id="content" class="container-fluid <?= (Functions::isRole(Role::DOCTOR) || Functions::isRole(Role::NURSE)) ? "" : "add-margin" ?>">
-                <?= $content ?>
-            </div>
-        <?php endif; ?>
+        
+        <div id="content" class="container-fluid <?= (Functions::isRole(Role::DOCTOR) || Functions::isRole(Role::NURSE) || Functions::isRole(Role::ADMINISTRATOR)) ? "" : "add-margin" ?>">
+            <?= $content ?>
+        </div>
         
         <?php if (!Yii::$app->user->isGuest && !Functions::isRole(Role::ADMINISTRATOR)) { ?>
         <footer class="footer">

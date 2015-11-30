@@ -78,7 +78,7 @@ class SiteController extends Controller
             
         } else {
         
-            if(Functions::isRole(Role::DOCTOR) || Functions::isRole(Role::NURSE)) {
+            if(Functions::isRole(Role::ADMINISTRATOR) || Functions::isRole(Role::DOCTOR) || Functions::isRole(Role::NURSE)) {
                 $searchModel = new UserSearch();
                 $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
                 $user = User::find()->where(['id' => \Yii::$app->user->id])->one();

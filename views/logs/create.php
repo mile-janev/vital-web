@@ -6,7 +6,7 @@ $this->title = 'Log Measurement';
 $this->params['breadcrumbs'][] = ['label' => 'Measurements', 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 ?>
-<div class="logs-create">
+<div class="logs-create container">
 
     <?= $this->render('_form', [
         'model' => $model,

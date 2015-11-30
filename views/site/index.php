@@ -9,7 +9,7 @@
 <div class="site-index container-fluid">
     
     <?php if (Functions::isRole(Role::ADMINISTRATOR)) : ?>
-        <?= $this->render('_index-admin') ?>
+        <?= $this->render('_index-admin', ['searchModel' => $searchModel, 'dataProvider' => $dataProvider]) ?>
     <?php elseif(Functions::isRole(Role::DOCTOR) || Functions::isRole(Role::NURSE)) : ?>
         <?= $this->render('_index-doctor', ['searchModel' => $searchModel, 'dataProvider' => $dataProvider]) ?>
     <?php elseif(Functions::isRole(Role::FAMILY)) : ?>

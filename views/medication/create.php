@@ -10,7 +10,7 @@ $this->title = 'Add Medication';
 $this->params['breadcrumbs'][] = ['label' => 'Medications', 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 ?>
-<div class="medication-create">
+<div class="medication-create container">
 
     <h1><?= Html::encode($this->title) ?></h1>
 

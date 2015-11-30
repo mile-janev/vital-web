@@ -10,7 +10,7 @@ $this->title = $model->name;
 $this->params['breadcrumbs'][] = ['label' => 'Users', 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 ?>
-<div class="user-view container-fluid">
+<div class="user-view container">
 
     <div class="row">
         <div class="col-xs-12 text-center">

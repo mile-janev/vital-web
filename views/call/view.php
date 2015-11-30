@@ -10,7 +10,7 @@ $this->title = $model->id;
 $this->params['breadcrumbs'][] = ['label' => 'Calls', 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 ?>
-<div class="call-view">
+<div class="call-view container">
 
     <h1><?= Html::encode($this->title) ?></h1>
 

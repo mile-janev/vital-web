@@ -290,12 +290,19 @@ a.alarm-link {
 /*Main menu start*/
 .main-menu-nav {
     background: #053449;
+    border-radius: 0;
+    -moz-border-radius: 0;
+    -webkit-border-radius: 0;
 }
 .main-menu {
     
 }
 .main-menu-nav .navbar-brand {
     color: #ffffff;
+    padding: 5px;
+}
+.main-menu-nav .navbar-brand img {
+    height: 100%;
 }
 .main-menu-nav .main-menu li a {
     color: #ffffff;

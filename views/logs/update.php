@@ -8,7 +8,7 @@ $this->params['breadcrumbs'][] = ['label' => 'Measurements', 'url' => ['index']]
 $this->params['breadcrumbs'][] = ['label' => $model->id, 'url' => ['view', 'id' => $model->id]];
 $this->params['breadcrumbs'][] = 'Update';
 ?>
-<div class="logs-update">
+<div class="logs-update container">
 
     <h1><?= Html::encode($this->title) ?></h1>
 

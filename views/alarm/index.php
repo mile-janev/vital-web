@@ -12,7 +12,7 @@ use yii\helpers\Url;
 $this->title = 'Alarms';
 $this->params['breadcrumbs'][] = $this->title;
 ?>
-<div class="alarm-index">
+<div class="alarm-index container">
 
     <h1><?= Html::encode($this->title) ?></h1>
     <?php // echo $this->render('_search', ['model' => $searchModel]); ?>
