@@ -69,3 +69,35 @@ function checkForSOS() {
         }, 'json')
     }
 }
+
+function mews_calculate(systolic, heart, respiratory, temperature, avpu) {
+    var mews = parseInt(avpu);
+    
+    if (systolic <= 70) {
+        mews += 3;
+    } else if ( (systolic >= 71 && systolic <= 100) || systolic >= 200) {
+        mews += 2;
+    }
+    
+    if (heart >= 130) {
+        mews += 3;
+    } else if ( heart <= 40 || (heart >= 111 && heart <= 129) ) {
+        mews += 2;
+    } else if ( (heart >= 41 && heart <= 50) || (heart >= 101 && heart <= 110) ) {
+        mews += 1;
+    }
+    
+    if (respiratory >= 30) {
+        mews += 3;
+    } else if ( respiratory < 9 || (respiratory >= 21 && respiratory <= 29) ) {
+        mews += 2;
+    } else if (respiratory >= 15 && respiratory <= 20) {
+        mews += 1;
+    }
+    
+    if (temperature < 35 || temperature >= 38.5) {
+        mews += 2;
+    }
+    
+    return mews;
+}

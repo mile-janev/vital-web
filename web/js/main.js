@@ -118,6 +118,97 @@ $(document).ready(function(){
     })
     //SOS Close doctor end
     
+    //Calculate MEWS start
+    $("#mews-button").click(function(e){
+        e.preventDefault();
+        
+        var url = $("#mews-form").attr("action");
+        var user_id = $("#mewsform-patient").val();
+        
+        var systolic = $("#mewsform-systolic").val();
+        var heart = $("#mewsform-heart").val();
+        var respiratory = $("#mewsform-respiratory").val();
+        var temperature = $("#mewsform-temperature").val();
+        var avpu = $("#mewsform-avpu").val();
+        
+        //"IF" for all OK, "ELSE" for errors
+        if (
+            $.trim(systolic) != "" && $.isNumeric(systolic) &&
+            $.trim(heart) != "" && $.isNumeric(heart) &&
+            $.trim(respiratory) != "" && $.isNumeric(respiratory) &&
+            $.trim(temperature) != "" && $.isNumeric(temperature)
+        ) {
+            $("#mews-form .form-group").removeClass("has-error");
+            $("#mews-form .form-group .help-block").html("");
+            
+            var mews = mews_calculate(systolic, heart, respiratory, temperature, avpu);
+            $("#mews-value").html(mews);
+        } else {
+            
+            //Systolic blood pressure errors
+            if ($.trim(systolic) == "" || !$.isNumeric(systolic)) {
+                $(".field-mewsform-systolic").removeClass("has-success").addClass("has-error");
+
+                if ($.trim(systolic) == "") {
+                    $(".field-mewsform-systolic .help-block").html("Systolic Blood Pressure cannot be blank.");
+                } else if (!$.isNumeric(systolic)) {
+                    $(".field-mewsform-systolic .help-block").html("Systolic Blood Pressure must be an integer.");
+                }
+            } else {
+                $(".field-mewsform-systolic").removeClass("has-error").addClass("has-success");
+                $(".field-mewsform-systolic .help-block").removeClass("help-block-error");
+                $(".field-mewsform-systolic .help-block").html("");
+            }
+            
+            //Heart rate errors
+            if ($.trim(heart) == "" || !$.isNumeric(heart)) {
+                $(".field-mewsform-heart").removeClass("has-success").addClass("has-error");
+
+                if ($.trim(heart) == "") {
+                    $(".field-mewsform-heart .help-block").html("Heart Rate cannot be blank.");
+                } else if (!$.isNumeric(heart)) {
+                    $(".field-mewsform-heart .help-block").html("Heart Rate must be an integer.");
+                }
+            } else {
+                $(".field-mewsform-heart").removeClass("has-error").addClass("has-success");
+                $(".field-mewsform-heart .help-block").removeClass("help-block-error");
+                $(".field-mewsform-heart .help-block").html("");
+            }
+            
+            //Respiratory rate errors
+            if ($.trim(respiratory) == "" || !$.isNumeric(respiratory)) {
+                $(".field-mewsform-respiratory").removeClass("has-success").addClass("has-error");
+
+                if ($.trim(respiratory) == "") {
+                    $(".field-mewsform-respiratory .help-block").html("Respiratory Rate cannot be blank.");
+                } else if (!$.isNumeric(respiratory)) {
+                    $(".field-mewsform-respiratory .help-block").html("Respiratory Rate must be an integer.");
+                }
+            } else {
+                $(".field-mewsform-respiratory").removeClass("has-error").addClass("has-success");
+                $(".field-mewsform-respiratory .help-block").removeClass("help-block-error");
+                $(".field-mewsform-respiratory .help-block").html("");
+            }
+            
+            //Temperature errors
+            if ($.trim(temperature) == "" || !$.isNumeric(temperature)) {
+                $(".field-mewsform-temperature").removeClass("has-success").addClass("has-error");
+
+                if ($.trim(temperature) == "") {
+                    $(".field-mewsform-temperature .help-block").html("Temperature cannot be blank.");
+                } else if (!$.isNumeric(temperature)) {
+                    $(".field-mewsform-temperature .help-block").html("Temperature Rate must be an integer.");
+                }
+            } else {
+                $(".field-mewsform-temperature").removeClass("has-error").addClass("has-success");
+                $(".field-mewsform-temperature .help-block").removeClass("help-block-error");
+                $(".field-mewsform-temperature .help-block").html("");
+            }
+            
+        }
+    })
+    //Calculate MEWS start
+    
 })
 
 $(window).resize(function(){

@@ -423,6 +423,46 @@ a.alarm-link {
 .doctor-patient-sign-chart {
     /*padding: 15px;*/
 }
+#mews-form {
+    float: left;
+    width: 100%;
+    margin-bottom: 30px;
+}
+#mews-title {
+    margin: 30px 0;
+}
+#mews-form .form-group {
+    
+}
+#mews-form input[type="text"] {
+    text-align: right;
+}
+#mews-form label {
+    padding-top: 0;
+}
+#mews-button {
+    width: 100%;
+    margin-top: 27px;
+}
+#mews-form .help-block {
+    font-size: 14px;
+}
+#mews-value {
+    color: #c0504e;
+    font-size: 84px;
+    font-weight: bold;
+    text-align: center;
+}
+#mews-save-wrapper {
+    text-align: center;
+    padding-top: 5px;
+}
+#mews-save {
+    /*display: none;*/
+}
+#mews-saved {
+    display: none;
+}
 /*Doctor patient dashboard end*/
 
 /*Footer start*/
@@ -1073,6 +1113,9 @@ a.alarm-link {
     .mobile-full {
         width: 100%;
     }
+    #mews-value {
+        margin-top: 20px;
+    }
 }
 /*Only For Small sm*/
 @media (min-width: 768px) and (max-width: 991px) {
@@ -1087,6 +1130,9 @@ a.alarm-link {
     }
     #content.add-margin {
         padding: 0 !important;
+    }
+    #mews-form .help-block {
+        font-size: 11px;
     }
 }
 
