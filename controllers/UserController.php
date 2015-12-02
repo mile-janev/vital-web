@@ -15,6 +15,7 @@ use app\models\UserEditForm;
 use yii\helpers\Url;
 use app\models\Logs;
 use app\models\Sign;
+use app\models\MewsForm;
 
 /**
  * UserController implements the CRUD actions for User model.
@@ -461,9 +462,38 @@ class UserController extends Controller
     {
         $user = \app\models\User::find()->where(["id" => $id])->one();
         
+        $model = new MewsForm();
+        
         return $this->render('patient_mews', [
-            'user' => $user
+            'user' => $user,
+            'model' => $model,
         ]);
+    }
+    
+    public function actionMewsValidate()
+    {
+        $this->layout=false;
+        header('Content-type: application/json');
+        
+        $params = Yii::$app->request->post();
+        
+        $mews = new MewsForm();
+        $mews->systolic = $params['systolic'];
+        $mews->heart = $params['heart'];
+        $mews->respiratory = $params['respiratory'];
+        $mews->temperature = $params['temperature'];
+        $mews->avpu = $params['avpu'];
+        
+        $mews->validate();
+        
+        if ($mews->hasErrors()) {
+            $output["errors"] = "yes";
+        } else {
+            $output["errors"] = "no";
+        }
+        
+        echo \yii\helpers\Json::encode($output);
+        exit();
     }
     
 }
