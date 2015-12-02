@@ -25,4 +25,16 @@ class Functions {
         return $sign;
     }
     
+    public static function avpu()
+    {
+        $avpu = [
+            0 => "Alert",
+            1 => "React to Voice",
+            2 => "React to Pain",
+            4 => "Unresponsive"
+        ];
+        
+        return $avpu;
+    }
+    
 }
