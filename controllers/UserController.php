@@ -30,7 +30,7 @@ class UserController extends Controller
                 'ruleConfig' => [
                     'class' => AccessRule::className(),
                 ],
-                'only' => ['create', 'update', 'index', 'delete', 'edit', 'resetpassword', 'patients', 'view', 'view-own', 'patient-dashboard', 'sos', 'patient-mews'],
+                'only' => ['create', 'update', 'index', 'delete', 'edit', 'resetpassword', 'patients', 'view', 'view-own', 'patient-dashboard', 'sos', 'patient-mews', 'mews-save'],
                 'rules' => [
                     [
                         'actions' => ['resetpassword'],
@@ -50,7 +50,7 @@ class UserController extends Controller
                         ],
                     ],
                     [
-                        'actions' => ['patients', 'patient-dashboard', 'patient-mews'],
+                        'actions' => ['patients', 'patient-dashboard', 'patient-mews', 'mews-save'],
                         'allow' => true,
                         'roles' => [
                             Role::find()->where(['name' => Role::DOCTOR])->one(),
@@ -470,26 +470,57 @@ class UserController extends Controller
         ]);
     }
     
-    public function actionMewsValidate()
-    {
+    public function actionMewsSave() {
         $this->layout=false;
         header('Content-type: application/json');
         
         $params = Yii::$app->request->post();
         
-        $mews = new MewsForm();
-        $mews->systolic = $params['systolic'];
-        $mews->heart = $params['heart'];
-        $mews->respiratory = $params['respiratory'];
-        $mews->temperature = $params['temperature'];
-        $mews->avpu = $params['avpu'];
+        $systolic = $params['systolic'];
+        $heart = $params['heart'];
+        $respiratory = $params['respiratory'];
+        $temperature = $params['temperature'];
+        $avpu = $params['avpu'];
         
-        $mews->validate();
+        $pressure = new Logs();
+        $pressure->sign = "blood_pressure";
+        $pressure->description = "";
+        $pressure->value = $params["systolic"] . "/" . "0";
+        $pressure->user_id = $params["user_id"];
+        $pressureSaved = $pressure->save();
         
-        if ($mews->hasErrors()) {
-            $output["errors"] = "yes";
+        $heart = new Logs();
+        $heart->sign = "heart_rate";
+        $heart->description = "";
+        $heart->value = $params["heart"];
+        $heart->user_id = $params["user_id"];
+        $heartSaved = $heart->save();
+        
+        $respiratory = new Logs();
+        $respiratory->sign = "respiratory_rate";
+        $respiratory->description = "";
+        $respiratory->value = $params["respiratory"];
+        $respiratory->user_id = $params["user_id"];
+        $respiratorySaved = $respiratory->save();
+        
+        $temperature = new Logs();
+        $temperature->sign = "temperature";
+        $temperature->description = "";
+        $temperature->value = $params["temperature"];
+        $temperature->user_id = $params["user_id"];
+        $temperatureSaved = $temperature->save();
+        
+        $avpu = new Logs();
+        $avpu->sign = "avpu";
+        $avpu->description = "";
+        $avpu->value = $params["avpu"];
+        $avpu->user_id = $params["user_id"];
+        $avpuSaved = $avpu->save();
+        
+        if ($pressureSaved && $heartSaved && $respiratorySaved && $temperatureSaved && $avpuSaved) {
+            $output["status"] = "yes";
         } else {
-            $output["errors"] = "no";
+            $output["status"] = "no";
         }
         
         echo \yii\helpers\Json::encode($output);

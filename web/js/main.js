@@ -122,9 +122,6 @@ $(document).ready(function(){
     $("#mews-button").click(function(e){
         e.preventDefault();
         
-        var url = $("#mews-form").attr("action");
-        var user_id = $("#mewsform-patient").val();
-        
         var systolic = $("#mewsform-systolic").val();
         var heart = $("#mewsform-heart").val();
         var respiratory = $("#mewsform-respiratory").val();
@@ -143,7 +140,13 @@ $(document).ready(function(){
             
             var mews = mews_calculate(systolic, heart, respiratory, temperature, avpu);
             $("#mews-value").html(mews);
+            
+            $("#mews-saved").css("display", "none");
+            $("#mews-save").css("display", "block");
         } else {
+            
+            $("#mews-save").css("display", "none");
+            $("#mews-saved").css("display", "none");
             
             //Systolic blood pressure errors
             if ($.trim(systolic) == "" || !$.isNumeric(systolic)) {
@@ -207,7 +210,41 @@ $(document).ready(function(){
             
         }
     })
-    //Calculate MEWS start
+    //Calculate MEWS end
+    
+    
+    // Save MEWS into DB start
+     $("#mews-save").click(function(e){
+        e.preventDefault();
+        var url = $(this).attr("href");
+        var user_id = $("#mewsform-patient").val();
+        
+        var systolic = $("#mewsform-systolic").val();
+        var heart = $("#mewsform-heart").val();
+        var respiratory = $("#mewsform-respiratory").val();
+        var temperature = $("#mewsform-temperature").val();
+        var avpu = $("#mewsform-avpu").val();
+        
+        $.post(url, 
+        {
+            user_id: user_id,
+            systolic: systolic,
+            heart: heart,
+            respiratory: respiratory,
+            temperature: temperature,
+            avpu: avpu
+        },
+        function(response){
+            $('#mews-save').css('display', 'none');
+            if (response.status == 'yes') {
+                $('#mews-saved').css('display', 'block');
+            } else {
+                $('#mews-saved').html('Error. Unable to save parameters.');
+                $('#mews-saved').css('display', 'block');
+            }
+        }, 'json')
+     })
+    //Save MEWS into DB end
     
 })
 

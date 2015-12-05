@@ -458,7 +458,7 @@ a.alarm-link {
     padding-top: 5px;
 }
 #mews-save {
-    /*display: none;*/
+    display: none;
 }
 #mews-saved {
     display: none;
