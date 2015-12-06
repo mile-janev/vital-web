@@ -25,6 +25,7 @@ $this->params['breadcrumbs'][] = $this->title . " (" . $mews . ")";
     
     <div class="measurements-wrapper">
         <div class="row row-measure">
+            <br /><br />
             <?= Html::button('Add Reminder', ['value'=>Url::to(['alarm/add-doctor', 'for_id' => $user->id]), 'class' => 'btn btn-success', 'id'=>'modalButton']) ?>
         </div>
         
