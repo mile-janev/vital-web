@@ -13,6 +13,10 @@ $this->registerJsFile(Url::base() . '/js/webrtc_call.js', [
         'position' => View::POS_END
     ]
 );
+
+$this->params['breadcrumbs'][] = ['label' => 'Communication', 'url' => ['connection/communication']];
+$this->params['breadcrumbs'][] = $this->title;
+        
 ?>
 
 <div class="site-call container-fluid">

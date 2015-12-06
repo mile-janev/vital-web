@@ -3,6 +3,8 @@
     <div class="col-lg-4 col-lg-4 col-sm-6 col-xs-12 data">
         <?= date("m/d/Y H:i", strtotime($model->created_at)) . " - " . $model->value . " " . $signModel->measure ?>
     </div>
+
+<?php if(!app\components\Functions::isRole(app\models\Role::FAMILY)) : ?>
     <div class="col-lg-1 col-md-1 col-sm-2 col-xs-4">
         <a href="#" class="btn btn-success btn-edit modalLog" rel="<?= \yii\helpers\Url::toRoute(["logs/edit-doctor", "id" => $model->id]) ?>" title="<?= $title ?>">Edit</a>
     </div>
@@ -15,4 +17,6 @@
             ],
         ]) ?>
     </div>
+<?php endif; ?>
+    
 </div>

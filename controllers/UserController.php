@@ -50,6 +50,13 @@ class UserController extends Controller
                         ],
                     ],
                     [
+                        'actions' => ['patient-dashboard'],
+                        'allow' => true,
+                        'roles' => [
+                            Role::find()->where(['name' => Role::FAMILY])->one()
+                        ],
+                    ],
+                    [
                         'actions' => ['patients', 'patient-dashboard', 'patient-mews', 'mews-save'],
                         'allow' => true,
                         'roles' => [

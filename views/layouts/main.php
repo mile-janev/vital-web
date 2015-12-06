@@ -47,8 +47,9 @@ app\assets\AppAsset::register($this);
                 'alarm' => $alarm
             ]) ?>
         <?php elseif(Functions::isRole(Role::FAMILY)) : ?>
-            <?= $this->render('_other-header', [
-                'user' => $user
+            <?= $this->render('_bar-family', [
+                'user' => $user,
+                'alarm' => $alarm
             ]) ?>
         <?php elseif(Functions::isRole(Role::PATIENT) || Functions::isRole(Role::VISITOR)) : ?>
             <?= $this->render('_bar-patient', [
@@ -60,7 +61,7 @@ app\assets\AppAsset::register($this);
             ]) ?>
         <?php endif; ?>
         
-        <div id="content" class="container-fluid <?= (Functions::isRole(Role::DOCTOR) || Functions::isRole(Role::NURSE) || Functions::isRole(Role::ADMINISTRATOR)) ? "" : "add-margin" ?>">
+        <div id="content" class="container-fluid <?= (Functions::isRole(Role::DOCTOR) || Functions::isRole(Role::NURSE) || Functions::isRole(Role::ADMINISTRATOR) || Functions::isRole(Role::FAMILY)) ? "" : "add-margin" ?>">
             <?= $content ?>
         </div>
         
