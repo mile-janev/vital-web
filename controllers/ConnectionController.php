@@ -226,9 +226,41 @@ class ConnectionController extends Controller
     
     public function actionCall($id) {
         $user_called = \app\models\User::find()->where(["id" => $id])->one();
-        $user_caller = \app\models\User::find()->where(["id" => Yii::$app->user->id])->one();
-                
+        $call = \app\models\Call::find()->where(["called" => $id])->orderBy("id DESC")->one();
+        
+        if ($call !== null) {
+            $user_caller = \app\models\User::find()->where(["id" => $call->caller])->one();
+        } else {
+            $user_caller = \app\models\User::find()->where(["id" => \Yii::$app->user->id])->one();
+        }
+        
         return $this->render('call', [
+            'user_called' => $user_called,
+            'user_caller' => $user_caller
+        ]);
+    }
+    
+    public function actionCallEnded($id) {
+        //Make all calls missed from this caller
+        $callsFinish = \app\models\Call::find()
+                ->where(["called" => $id, "caller" => \Yii::$app->user->id, "status" => 0])
+                ->all();
+        foreach ($callsFinish as $cf) {
+            $cf->status = 3;
+            $cf->save();
+        }
+        
+        $user_called = \app\models\User::find()->where(["id" => $id])->one();
+        
+        $call = \app\models\Call::find()->where(["called" => $id])->orderBy("id DESC")->one();
+        
+        if ($call !== null) {
+            $user_caller = \app\models\User::find()->where(["id" => $call->caller])->one();
+        } else {
+            $user_caller = \app\models\User::find()->where(["id" => \Yii::$app->user->id])->one();
+        }
+                
+        return $this->render('call_ended', [
             'user_called' => $user_called,
             'user_caller' => $user_caller
         ]);

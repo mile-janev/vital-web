@@ -31,7 +31,9 @@ webrtc.on('readyToCall', function() {
         },
         function(response){
             if (response.status == 'yes') {
-                console.log("ok")
+                $("#done").attr("href", $("#call-end").html());
+                $("#done .text").html("Hang up");
+                $("#done img").attr("src", $("#done").attr("data-img")).css("height", "36px");
             } else {
                 console.log("error");
             }
@@ -78,6 +80,7 @@ webrtc.on('localScreenRemoved', function(video) {
 
 // a peer video has been added
 webrtc.on('videoAdded', function(video, peer) {
+    console.log("Call started");
     console.log('video added', peer);
     var remotes = document.getElementById('remotes');
     if (remotes) {
@@ -139,11 +142,6 @@ webrtc.on('videoAdded', function(video, peer) {
         remotes.appendChild(container);
     }
     
-    //Added new code start
-    $("#done").attr("href", $("#call-end").html());
-    $("#done .text").html("Hang up");
-    $("#done img").attr("src", $("#done").attr("data-img")).css("height", "36px");
-    
     var counter = 0;
     setInterval(function () {
         ++counter;
@@ -160,7 +158,7 @@ webrtc.on('videoAdded', function(video, peer) {
     },
     function(response){
         if (response.status == 'yes') {
-            console.log("ok")
+            console.log("ok1");
         } else {
             console.log("error");
         }
@@ -170,6 +168,10 @@ webrtc.on('videoAdded', function(video, peer) {
 });
 // a peer was removed
 webrtc.on('videoRemoved', function(video, peer) {
+    var callFinished = $("#call-end").html();
+    
+    window.location.href = callFinished;
+    
     console.log('video removed ', peer);
     var remotes = document.getElementById('remotes');
     var el = document.getElementById(peer ? 'container_' + webrtc.getDomId(peer) : 'localScreenContainer');

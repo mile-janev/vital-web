@@ -46,6 +46,9 @@ function checkForCall() {
             if (response.call == 'yes') {
                 $("#modalCall #callModalContent").html("New call from " + response.caller);
                 $('#modalCall').modal('show');
+            } else {
+                $("#modalCall #callModalContent").html("Missed call from " + response.caller);
+                $('#modalCall').modal('hide');
             }
         }, 'json')
     }

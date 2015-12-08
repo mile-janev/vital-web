@@ -16,7 +16,8 @@ $this->registerJsFile(Url::base() . '/js/webrtc_call.js', [
 
 $this->params['breadcrumbs'][] = ['label' => 'Communication', 'url' => ['connection/communication']];
 $this->params['breadcrumbs'][] = $this->title;
-        
+
+$endCallUrl = Url::toRoute(["connection/call-ended", "id" => $user_called->id], TRUE);
 ?>
 
 <div class="site-call container-fluid">
@@ -38,7 +39,7 @@ $this->params['breadcrumbs'][] = $this->title;
         </div>
     </div>
 </div>
-<div id="call-end" class="hidden"><?= Url::toRoute(["connection/communication"]) ?></div>
+<div id="call-end" class="hidden"><?= $endCallUrl ?></div>
 <div id="caller" class="hidden"><?= Yii::$app->user->id ?></div>
 <div id="called" class="hidden"><?= $user_called->id ?></div>
 <div id="ajaxCall" class="hidden"><?= Url::toRoute(["connection/ajax-call"]) ?></div>
