@@ -18,6 +18,7 @@ $this->params['breadcrumbs'][] = ['label' => 'Communication', 'url' => ['connect
 $this->params['breadcrumbs'][] = $this->title;
 
 $endCallUrl = Url::toRoute(["connection/call-ended", "id" => $user_called->id], TRUE);
+$callDismissedUrl = Url::toRoute(["connection/call-ended", "id" => $user_called->id, "dismissed" => 1], TRUE);
 ?>
 
 <div class="site-call container-fluid">
@@ -40,7 +41,9 @@ $endCallUrl = Url::toRoute(["connection/call-ended", "id" => $user_called->id], 
     </div>
 </div>
 <div id="call-end" class="hidden"><?= $endCallUrl ?></div>
+<a id="call-dismissed" class="hidden" href="<?= $callDismissedUrl ?>"></a>
 <div id="caller" class="hidden"><?= Yii::$app->user->id ?></div>
 <div id="called" class="hidden"><?= $user_called->id ?></div>
 <div id="ajaxCall" class="hidden"><?= Url::toRoute(["connection/ajax-call"]) ?></div>
 <div id="ajaxCallAnswer" class="hidden"><?= Url::toRoute(["connection/ajax-call-answer"]) ?></div>
+<div id="ajaxCheckCallStatus" class="hidden"><?= Url::toRoute(["connection/ajax-call-status"]) ?></div>

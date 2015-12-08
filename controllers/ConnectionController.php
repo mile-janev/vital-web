@@ -240,7 +240,7 @@ class ConnectionController extends Controller
         ]);
     }
     
-    public function actionCallEnded($id) {
+    public function actionCallEnded($id, $dismissed=0) {
         //Make all calls missed from this caller
         $callsFinish = \app\models\Call::find()
                 ->where(["called" => $id, "caller" => \Yii::$app->user->id, "status" => 0])
@@ -262,7 +262,8 @@ class ConnectionController extends Controller
                 
         return $this->render('call_ended', [
             'user_called' => $user_called,
-            'user_caller' => $user_caller
+            'user_caller' => $user_caller,
+            'dismissed' => $dismissed
         ]);
     }
     
@@ -297,6 +298,32 @@ class ConnectionController extends Controller
                 $output["status"] = "yes";
             }
         }
+        
+        echo \yii\helpers\Json::encode($output);
+        exit();
+    }
+    
+    public function actionAjaxCallStatus()
+    {
+        $this->layout=false;
+        header('Content-type: application/json');
+        $output = [];
+        
+        $params = Yii::$app->request->post();
+        
+        $call = \app\models\Call::find()->where([
+                "called" => $params["called"],
+                "caller" => \Yii::$app->user->id,
+                "status" => 2
+            ])
+            ->andWhere('start > DATE_SUB(NOW(), INTERVAL 10 SECOND)')
+            ->orderBy(["start" => SORT_DESC])
+            ->one();
+            if ($call !== null) {
+                $output["status"] = "dismissed";
+            } else {
+                $output["status"] = "ok";
+            }
         
         echo \yii\helpers\Json::encode($output);
         exit();

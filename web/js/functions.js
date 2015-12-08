@@ -54,6 +54,21 @@ function checkForCall() {
     }
 }
 
+function checkCallStatus() {
+    var url = $("#ajaxCheckCallStatus").html();
+    var called = $("#called").html();
+    jQuery.post(url, 
+    { 
+        called: called
+    },
+    function(response){
+        if (response.status == 'dismissed') {
+            var callFinished = $("#call-dismissed").attr("href");
+            window.location.href = callFinished;
+        }
+    }, 'json')
+}
+
 function checkForSOS() {
     var sosNoteShow = $("#sosNote").html();
     var urlSos = $("#sosNote").attr("rel");

@@ -1,5 +1,11 @@
 $(document).ready(function(){
     $("#call-time").html("Waiting...");
+    
+    //Check for call status, for those who call. Start
+    setInterval(function () {
+        checkCallStatus();
+    }, 5000);
+    //Check for call status, for those who call. Start
 })
 
 // create our webrtc connection

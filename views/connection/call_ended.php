@@ -20,7 +20,7 @@ $callUrl = Url::toRoute(["connection/call", "id" => $id]);
         <div class="row">
             <div class="col-lg-4 col-md-4 col-sm-4 col-xs-12 call-with">
                 <h1><?= $user_called->name ?></h1>
-                <div class="call-info">Call finished</div>
+                <div class="call-info">Call <?= ($dismissed==1) ? "rejected" : "finished" ?></div>
             </div>
             <div class="col-lg-8 col-md-8 col-sm-8 col-xs-12">
                 <a id="call-back" href="<?= $callUrl ?>">Call back</a>
