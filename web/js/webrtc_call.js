@@ -41,7 +41,7 @@ webrtc.on('readyToCall', function() {
                 $("#done .text").html("Hang up");
                 $("#done img").attr("src", $("#done").attr("data-img")).css("height", "36px");
             } else {
-                console.log("error");
+//                console.log("error");
             }
         }, 'json')
         //Added new code end
@@ -86,8 +86,8 @@ webrtc.on('localScreenRemoved', function(video) {
 
 // a peer video has been added
 webrtc.on('videoAdded', function(video, peer) {
-    console.log("Call started");
-    console.log('video added', peer);
+//    console.log("Call started");
+//    console.log('video added', peer);
     var remotes = document.getElementById('remotes');
     if (remotes) {
         $("#local").css("position", "absolute");
@@ -164,9 +164,9 @@ webrtc.on('videoAdded', function(video, peer) {
     },
     function(response){
         if (response.status == 'yes') {
-            console.log("ok1");
+//            console.log("ok1");
         } else {
-            console.log("error");
+//            console.log("error");
         }
     }, 'json')
     //Added new code end
@@ -178,7 +178,7 @@ webrtc.on('videoRemoved', function(video, peer) {
     
     window.location.href = callFinished;
     
-    console.log('video removed ', peer);
+//    console.log('video removed ', peer);
     var remotes = document.getElementById('remotes');
     var el = document.getElementById(peer ? 'container_' + webrtc.getDomId(peer) : 'localScreenContainer');
     if (remotes && el) {
@@ -189,7 +189,7 @@ webrtc.on('videoRemoved', function(video, peer) {
 // local p2p/ice failure
 webrtc.on('iceFailed', function(peer) {
     var connstate = document.querySelector('#container_' + webrtc.getDomId(peer) + ' .connectionstate');
-    console.log('local fail', connstate);
+//    console.log('local fail', connstate);
     if (connstate) {
         connstate.innerText = 'Connection failed.';
         fileinput.disabled = 'disabled';
@@ -199,7 +199,7 @@ webrtc.on('iceFailed', function(peer) {
 // remote p2p/ice failure
 webrtc.on('connectivityError', function(peer) {
     var connstate = document.querySelector('#container_' + webrtc.getDomId(peer) + ' .connectionstate');
-    console.log('remote fail', connstate);
+//    console.log('remote fail', connstate);
     if (connstate) {
         connstate.innerText = 'Connection failed.';
         fileinput.disabled = 'disabled';
