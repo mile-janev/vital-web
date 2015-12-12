@@ -61,6 +61,9 @@ class UserSearch extends User
             foreach ($user->connection as $con) {
                 $con_ids[] = $con->patient_id;
             }
+            if (empty($con_ids)) {
+                $con_ids[0] = 0;
+            }
             $query->andFilterWhere(['IN', 'id', $con_ids]);
         }
 
